@@ -926,6 +926,110 @@ var commands = exports.commands = {
 		}
 	},
 
+	lenora: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Trainer: Lenora<br \>' +
+		'Ace: Lenora<br \>' + 
+		'Catchphrase: Sass me and see what happens.<br \>' +
+		'<img src="http://hydra-images.cursecdn.com/pokemon.gamepedia.com/3/3e/LenoraBWsprite.gif">')
+	},
+
+    brittlewind: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: BrittleWind<br \>' +
+					'Ace: ?<br \>' +
+					'Catchphrase: Ho, ho, ho bitch.<br \>' +
+                    '<img src="http://www.pokecharms.com/trainercards/images/trainers/Other/vSpecial-Santa.png">')
+            },
+
+	glisteringaeon: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Glistering Aeon<br \>' +
+					'Ace: Really? Duh.<br \>' +
+					'Catchphrase: Grab your sombreros and glow sticks and lets rave!<br \>' +
+                    '<img src="http://www.animeyume.com/ludicolo.jpg">')
+            },
+
+	champwickedweavile: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: ChampWickedWeavile<br \>' +
+					'Ace: Scyther<br \>' +
+					'Catchphrase: I suck at this game.<br \>' +
+                    '<img src="http://play.pokemonshowdown.com/sprites/trainers/80.png">')
+            },
+
+	championdarkrai: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: ChampWickedWeavile<br \>' +
+					'Ace: Darkrai<br \>' +
+					'Catchphrase: Darkrai byach heard of it?<br \>' +
+                    '<img src="http://www.pokecharms.com/trainercards/images/trainers/Cosplayers/p491-1.png">')
+            },	
+
+	priest: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Priest<br \>' +
+					'Ace: Shedinja<br \>' +
+					'Catchphrase: Nigga try touching me! Try it!<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/292.gif">')
+            },
+
+	trainerbofish: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Trainer Bofish<br \>' +
+					'Ace: Electivire<br \>' +
+					'Catchphrase: I love to shock you.<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/466.gif">')
+            },	
+
+	snooki: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Snooki<br \>' +
+					'Ace: Jynx<br \>' +
+					'Catchphrase: Snooki want smoosh smoosh.<br \>' +
+                    '<img src="http://www.pokecharms.com/trainercards/images/trainers/Other/Female-077.png">')
+            },		
+
+	championbrave: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Champion Brave<br \>' +
+					'Ace: Vaporeon<br \>' +
+					'Catchphrase: :I<br \>' +
+                    '<img src="http://www.clipular.com/c?12387261=ZIkxKRLvilzvix0USgnMX0YSGjA&f=.png">')
+            },
+
+	elite4synth: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Elite4^Synth<br \>' +
+					'Ace: Crobat<br \>' +
+					'Catchphrase: Only pussies get poisoned.<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/169.gif">')
+            },	
+
+	elite4quality: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Elite4^Quality<br \>' +
+					'Ace: Dragonite<br \>' +
+					'Catchphrase: You wanna fly, you got to give up the shit that weighs you down.<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/149.gif">')
+            },	
+
+	elitefoursalty: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Elite Four Salty<br \>' +
+					'Ace: Keldeo<br \>' +
+					'Catchphrase: I will wash away your sin.<br \>' +
+                    '<img src="http://images3.wikia.nocookie.net/__cb20120629095010/pokemon/images/9/98/BrycenBWsprite.gif">')
+            },	
+
+	jiraqua: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Jiraqua<br \>' +
+					'Ace: Jirachi<br \>' +
+					'Catchphrase: Go Jirachi!<br \>' +
+                    '<img src="http://cdn.bulbagarden.net/upload/4/48/Spr_B2W2_Rich_Boy.png">')
+            },
+	
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
@@ -1233,6 +1337,6 @@ var commands = exports.commands = {
 		} else if (!matched) {
 			this.sendReply('The command "/'+target+'" was not found. Try /help for general help');
 		}
-	},
+	}, 
 
 };
