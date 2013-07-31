@@ -220,6 +220,45 @@ var commands = exports.commands = {
 		if (!atLeastOne) this.sendReply("No results found.");
 	},
 
+	gdeclarered: 'gdeclare',
+	gdeclaregreen: 'gdeclare',
+	gdeclare: function(target, room, user, connection, cmd) {
+		if (!target) return this.parse('/help gdeclare');
+		if (!this.can('lockdown')) return false;
+
+		if (cmd === 'gdeclare'){
+			for (var id in Rooms.rooms) {
+				if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-blue"><b>'+target+'</b></div>');
+			}
+		}
+		if (cmd === 'gdeclarered'){
+			for (var id in Rooms.rooms) {
+				if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-red"><b>'+target+'</b></div>');
+			}
+		}
+		else if (cmd === 'gdeclaregreen'){
+			for (var id in Rooms.rooms) {
+				if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-green"><b>'+target+'</b></div>');
+			}
+		}
+		this.logEntry(user.name + ' used /gdeclare');
+	},
+
+	declaregreen: 'declarered',
+	declarered: function(target, room, user, connection, cmd) {
+		if (!target) return this.parse('/help declare');
+		if (!this.can('declare', null, room)) return false;
+
+		if (!this.canTalk()) return;
+
+		if (cmd === 'declarered'){
+			this.add('|raw|<div class="broadcast-red"><b>'+target+'</b></div>');
+		}
+		else if (cmd === 'declaregreen'){
+			this.add('|raw|<div class="broadcast-green"><b>'+target+'</b></div>');
+		}
+		this.logModCommand(user.name+' declared '+target);
+	},
 	/*********************************************************
 	 * Shortcuts
 	 *********************************************************/
@@ -1290,6 +1329,10 @@ var commands = exports.commands = {
 		if (target === '&' || target === 'declare' ) {
 			matched = true;
 			this.sendReply('/declare [message] - Anonymously announces a message. Requires: & ~');
+		}
+		if (target === '~' || target === 'gdeclare' ) {
+			matched = true;
+			this.sendReply('/gdeclare [message] - Anonymously announces a message to all rooms. Requires: ~');
 		}
 		if (target === '&' || target === 'potd' ) {
 			matched = true;
