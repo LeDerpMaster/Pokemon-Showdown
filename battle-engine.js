@@ -488,7 +488,7 @@ var BattlePokemon = (function() {
 				}
 				continue;
 			}
-			if (this.disabledMoves[move.id] || !move.pp) {
+			if (this.disabledMoves[move.id] || !move.pp && (this.battle.gen !== 1 || !this.volatiles['partialtrappinglock'])) {
 				move.disabled = true;
 			} else if (!move.disabled) {
 				hasValidMove = true;
@@ -1625,9 +1625,6 @@ var Battle = (function() {
 			hasRelayVar = false;
 		}
 
-		if (target.fainted) {
-			return false;
-		}
 		if (effect.effectType === 'Status' && target.status !== effect.id) {
 			// it's changed; call it off
 			return relayVar;
@@ -2450,6 +2447,9 @@ var Battle = (function() {
 		case 'strugglerecoil':
 			this.add('-damage', target, target.getHealth, '[from] recoil');
 			break;
+		case 'confusion':
+			this.add('-damage', target, target.getHealth, '[from] confusion');
+			break;
 		default:
 			this.add('-damage', target, target.getHealth);
 			break;
@@ -3034,8 +3034,10 @@ var Battle = (function() {
 			break;
 		case 'runSwitch':
 			decision.pokemon.isStarted = true;
-			this.singleEvent('Start', decision.pokemon.getAbility(), decision.pokemon.abilityData, decision.pokemon);
-			this.singleEvent('Start', decision.pokemon.getItem(), decision.pokemon.itemData, decision.pokemon);
+			if (!decision.pokemon.fainted) {
+				this.singleEvent('Start', decision.pokemon.getAbility(), decision.pokemon.abilityData, decision.pokemon);
+				this.singleEvent('Start', decision.pokemon.getItem(), decision.pokemon.itemData, decision.pokemon);
+			}
 			break;
 		case 'beforeTurn':
 			this.eachEvent('BeforeTurn');
