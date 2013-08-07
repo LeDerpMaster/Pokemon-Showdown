@@ -219,7 +219,7 @@ exports.customavatars = {
 	'elite4smith' : 'test1.png', 
 	'elitefourtyphoz' : 'elitefourtyphoz.png',
 	'aeroblaze' : 'claw.png',
-	'taiyoinferno' : 'charizard_zps0bf6645c.png.png',
+	'taiyoinferno' : 'charizard_zps0bf6645c.png',
 	'gymleaderliquid' : '009.png',
 	'amakute' : 'Male-072.png',
 	'elite4hammer' : '3.png',
