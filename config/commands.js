@@ -1068,6 +1068,16 @@ var commands = exports.commands = {
 					'Catchphrase: Go Jirachi!<br \>' +
                     '<img src="http://cdn.bulbagarden.net/upload/4/48/Spr_B2W2_Rich_Boy.png">')
             },
+            
+            	tourcommands: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Start a tour :/tour tier, size<br \>' +
+					'End a tour: /endtour<br \>' +
+					'Force join: /fj username<br \>' +
+					'Force leave: /fl username<br \>' +
+					'Change tour size: /toursize number<br \>' +)
+                    
+            },
 	
 	/*********************************************************
 	 * Miscellaneous commands
