@@ -171,7 +171,7 @@ exports.customavatars = {
 	'leaderheynow9' : 'kirby.png',
 	'simplenidorino' : 'nid.png',
 	'grumpigthepiggy' : 'grump.png',
-	'auraburst' : 'muf6h.png',
+	'auraburst' : 'muF6H.png',
 	'killertiger' : 'blaziken.png',
 	'gymladerriot' : 'fire.png',
 	'hotsuinyamato' : 'bitch.png',
