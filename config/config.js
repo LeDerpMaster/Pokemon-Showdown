@@ -145,7 +145,7 @@ exports.customavatars = {
 	'grymldraltitude' : 'giant.png',
 	'marcospaccaculo' : 'moo.png',
 	'jadedrag' : 'groudon.png',
-	'sinatraswing' : 'ZY4FTZH.png',
+	'sinatraswing' : 'P0jePu4.png',
 	'darke4blue' : '373.png',
 	'gymldrjinouga' : '637.png',
 	'gltanner' : 'dark.png',
