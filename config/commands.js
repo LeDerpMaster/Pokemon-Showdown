@@ -1001,7 +1001,7 @@ var commands = exports.commands = {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('Trainer: ChampWickedWeavile<br \>' +
 					'Ace: Darkrai<br \>' +
-					'Catchphrase: Darkrai byach heard of it?<br \>' +
+					'Catchphrase: Thats a nice dream you have there, it would be a shame if someone.....ATE IT.<br \>' +
                     '<img src="http://www.pokecharms.com/trainercards/images/trainers/Cosplayers/p491-1.png">')
             },	
 
@@ -1086,6 +1086,16 @@ var commands = exports.commands = {
 					'Catchphrase: Prepare to discover the true power of the thunder!<br \>' +
                     '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/642-therian.gif">')
             },
+            
+        murana: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Murana<br \>' +
+					'Ace: Espeon<br \>' +
+					'Catchphrase: Clutching victory from the jaws of defeat.<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/196.gif">')
+            },
+            
+  
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
