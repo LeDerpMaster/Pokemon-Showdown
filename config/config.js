@@ -167,6 +167,7 @@ exports.customavatars = {
 	'splleaderbogey' : 'xTm4MmQ.png',
 	'championcorper' : '571.png',
 	'gymldrace' : 'volca.png',
+	'e4inferix' : '59.png',
 	'e4photon' : 'jigg.png',
 	'ejdrago' : 'ditto.png',
 	'elitefourfrnk' : '615.png',
