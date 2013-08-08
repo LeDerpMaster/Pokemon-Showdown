@@ -147,6 +147,7 @@ exports.customavatars = {
 	'jadedrag' : 'groudon.png',
 	'sinatraswing' : 'ZY4FTZH.png',
 	'darke4blue' : '373.png',
+	'gymldrjinouga' : '637.png',
 	'gltanner' : 'dark.png',
 	'gluhenvolk' : 'cool.png',
 	'gymldrprinney' : 'nars.png',
