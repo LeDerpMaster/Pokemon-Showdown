@@ -1079,6 +1079,13 @@ var commands = exports.commands = {
                     
             },
 	
+	gymldrrhichguy: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Gym Ldr RhichGuy<br \>' +
+					'Ace: Thundurus-T<br \>' +
+					'Catchphrase: Prepare to discover the true power of the thunder!<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/642-therian.gif">')
+            },
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
