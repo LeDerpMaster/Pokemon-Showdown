@@ -167,6 +167,7 @@ exports.customavatars = {
 	'titalos' : 'boom.png',
 	'e4shido' : 'uchiha_sasuke_trainer_sprite_by_flamejow-d5tvl73.png',
 	'elite4heynow' : 'crib.png',
+	'e4pikachulovesyou' : '483.png',
 	'glisteringaeon' : 'ludi.png',
 	'elite4piled' : 'gars.png',
 	'angryarcanine' : 'TeamMagma.png',
