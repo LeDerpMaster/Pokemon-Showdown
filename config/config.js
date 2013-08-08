@@ -66,7 +66,7 @@ exports.loginserverpublickey = "-----BEGIN RSA PUBLIC KEY-----\n" +
 //   be more than one line of messages.
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 80 or so users.
-exports.reportjoins = true;
+exports.reportjoins = false;
 
 // report battles - shows messages like "OU battle started" in the lobby
 //   This feature can lag larger servers - turn this off if your server is
@@ -167,7 +167,6 @@ exports.customavatars = {
 	'splleaderbogey' : 'xTm4MmQ.png',
 	'championcorper' : '571.png',
 	'gymldrace' : 'volca.png',
-	'e4inferix' : '59.png',
 	'e4photon' : 'jigg.png',
 	'ejdrago' : 'ditto.png',
 	'elitefourfrnk' : '615.png',
@@ -264,7 +263,7 @@ exports.customavatars = {
 	'iamcatlawyer' : 'bulk.png',
 	'reklesszombie' : 'muds.png',
 	'elite4guetta' : 'yel.png',
-	'e4inferix' : 'tiny.png',
+	'e4inferix' : '59.png',
 	'rashbash' : 'ali.png',
 	'exzlu' : 'drunk.png',
 	'saira' : 'gothita.png',
