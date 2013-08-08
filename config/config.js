@@ -164,7 +164,7 @@ exports.customavatars = {
 	'elite4synth' : 'psy.png',
 	'darknovastudios' : 'dns2.png',
 	'splleaderbogey' : 'xTm4MmQ.png',
-	'championcorper' : '571.png'',
+	'championcorper' : '571.png',
 	'gymldrace' : 'volca.png',
 	'e4photon' : 'jigg.png',
 	'ejdrago' : 'ditto.png',
