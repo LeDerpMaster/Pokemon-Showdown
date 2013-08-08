@@ -182,6 +182,7 @@ exports.customavatars = {
 	'dlkings' : '09bepgb.png',
 	'leaderheynow9' : 'kirby.png',
 	'simplenidorino' : 'nid.png',
+	'frontierbrinn' : 'Black_2_White_2_N-1.png',
 	'grumpigthepiggy' : 'grump.png',
 	'auraburst' : 'muF6H.png',
 	'killertiger' : 'blaziken.png',
