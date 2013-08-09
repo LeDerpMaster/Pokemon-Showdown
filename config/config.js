@@ -142,7 +142,7 @@ exports.customavatars = {
 	'lmtgamezz' : 'noi.png',
 	'priest' : 'shed.png',
 	'trainerbofish' : 'ret.png',
-	'eliteforhallie' : '319.png',
+	'elteforhallie' : '319.png',
 	'championakitaka' : 'deranged_darkrai_sprite_by_weegeedude-d4eub2r.png',
 	'championfrancis' : 'uchiha_itachi_trainer_sprite_by_flamejow-d52v3bw.png',
 	'grymldraltitude' : 'giant.png',
