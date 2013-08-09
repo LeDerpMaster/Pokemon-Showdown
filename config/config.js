@@ -178,6 +178,7 @@ exports.customavatars = {
 	'elite4heynow' : 'crib.png',
 	'e4pikachulovesyou' : '483.png',
 	'glisteringaeon' : 'ludi.png',
+	'frntierbplox' : 'thumb_149_N0_Dragonite.png',
 	'elite4piled' : 'gars.png',
 	'angryarcanine' : 'TeamMagma.png',
 	'gymledernido' : 'CustomTrainer_210.png',
