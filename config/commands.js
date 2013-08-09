@@ -1101,6 +1101,13 @@ var commands = exports.commands = {
 					'How do I get one?-PM BrittleWind your ace and catchphrase. Then go to http://pldh.net/dex/sprites/index and find your ace. Scroll down to the moving picture, right click it, view image, and PM that link to BrittleWind<br \>')
         	},			
   	
+  	 ifazeoptical: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: ♫iFaZeOpTiCal♫<br \>' +
+					'Ace: Latios<br \>' +
+					'Catchphrase: Its All Shits And Giggles Until Someone Giggles And Shits.<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/381.gif">')
+            },
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
