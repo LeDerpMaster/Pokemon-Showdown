@@ -1108,6 +1108,16 @@ var commands = exports.commands = {
 					'Catchphrase: Its All Shits And Giggles Until Someone Giggles And Shits.<br \>' +
                     '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/381.gif">')
             },
+            
+            
+	superjeenius: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: SuperJeenius<br \>' +
+					'Ace: Alakazam<br \>' +
+					'Catchphrase: Dont quote me on that though. Just dont quote me in general though: its generally a bad idea.<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/065.gif">')
+            },
+            
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
