@@ -181,7 +181,7 @@ exports.customavatars = {
 	'championjoltz' : 'Jolteon_zps285a58f0.png',
 	'dlkings' : '09bepgb.png',
 	'leaderheynow9' : 'kirby.png',
-	'chmpionchemical' : 'scizor.png',
+	'chmpionchemical' : 'Scizor.png',
 	'simplenidorino' : 'nid.png',
 	'frontierbrinn' : 'Black_2_White_2_N-1.png',
 	'grumpigthepiggy' : 'grump.png',
