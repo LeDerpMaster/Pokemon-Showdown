@@ -1126,6 +1126,29 @@ var commands = exports.commands = {
                     '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/241.gif">')
             },
             
+        electricapples: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: ElectricApples<br \>' +
+					'Ace: Jolteon<br \>' +
+					'Catchphrase: You are not you when your zappy.<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite/135.png">')
+            },
+         
+        gymldrmonocle: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: GymLdr^Monocle<br \>' +
+					'Ace: Shuckle<br \>' +
+					'Catchphrase: It isnt rape, it is a shuckle suckle, and I want a shuckle there for the pick<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/213.gif">')
+            },
+       
+        championfrancis: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: ₪Champion Francis₪<br \>' +
+					'Ace: Politoed<br \>' +
+					'Catchphrase: Its troll time >:D<br \>' +
+                    '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/186.gif">')
+            },
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
