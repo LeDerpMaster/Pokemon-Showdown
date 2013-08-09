@@ -1099,7 +1099,8 @@ var commands = exports.commands = {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('What is a trainer card?-A ! command that brings up some of your info.<br \>' +
 					'How do I get one?-PM BrittleWind your ace and catchphrase. Then go to http://pldh.net/dex/sprites/index and find your ace. Scroll down to the moving picture, right click it, view image, and PM that link to BrittleWind<br \>')
-  
+        	},			
+  	
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
