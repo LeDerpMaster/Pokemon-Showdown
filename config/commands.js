@@ -1118,6 +1118,14 @@ var commands = exports.commands = {
                     '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/065.gif">')
             },
             
+        nochansey: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: NoChansey<br \>' +
+					'Ace: Miltank<br \>' +
+					'Catchphrase: Moo, moo muthafuckas.<br \>' +
+                    '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/241.gif">')
+            },
+            
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
