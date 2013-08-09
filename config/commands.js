@@ -1149,6 +1149,42 @@ var commands = exports.commands = {
 					'Catchphrase: Its troll time >:D<br \>' +
                     '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/186.gif">')
             },
+            
+       gymleaderreck: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: ❂GymLeaderReck❂<br \>' +
+					'Ace: Gallade<br \>' +
+					'Catchphrase: Dont mess with the blade.<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/475.gif">')
+            },    
+            
+       frontierbplox: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: Fr?ntierB. Plox<br \>' +
+					'Ace: Dragonite<br \>' +
+					'Catchphrase: Hey is your league opened.<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/149.gif">')
+       	}, 
+       	
+        shirotagachi: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: ShiroTagachi<br \>' +
+					'Ace: Sceptile<br \>' +
+					'Catchphrase: Kumbaya<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/254.gif">')
+            },
+            
+            candyzombieninja: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: candyzombininja<br \>' +
+					'Ace: Swampert<br \>' +
+					'Catchphrase: (V) (;,,;) (V) why not zoidberg?<br \>' +
+                    '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/260.gif">')
+            },
+            
+      
+     
+
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
