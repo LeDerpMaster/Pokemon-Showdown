@@ -162,6 +162,7 @@ exports.customavatars = {
 	'thefuckinbest' : 'sly.png',
 	'gymleaderkittycat' : 'bass.png',
 	'lassabyhoe' : 'alice.png',
+	'gymleaderstrycal' : 'Sir_Aaron_trainer_sprite_by_nissemann123456789.png',
 	'pokemon147' : 'hou.png',
 	'gymtrainerpk' : 'puss.png',
 	'championrichardg' : 'gass.png',
