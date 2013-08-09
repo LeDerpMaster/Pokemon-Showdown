@@ -1141,7 +1141,7 @@ var commands = exports.commands = {
 					'Catchphrase: It isnt rape, it is a shuckle suckle, and I want a shuckle there for the pick<br \>' +
                     '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/213.gif">')
             },
-       
+        
         championfrancis: function(target, room, user) {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('Trainer: ₪Champion Francis₪<br \>' +
@@ -1150,7 +1150,7 @@ var commands = exports.commands = {
                     '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/186.gif">')
             },
             
-       gymleaderreck: function(target, room, user) {
+        gymleaderreck: function(target, room, user) {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('Trainer: ❂GymLeaderReck❂<br \>' +
 					'Ace: Gallade<br \>' +
@@ -1158,7 +1158,7 @@ var commands = exports.commands = {
                     '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/475.gif">')
             },    
             
-       frontierbplox: function(target, room, user) {
+        frontierbplox: function(target, room, user) {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('Trainer: Fr?ntierB. Plox<br \>' +
 					'Ace: Dragonite<br \>' +
@@ -1174,7 +1174,7 @@ var commands = exports.commands = {
                     '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/254.gif">')
             },
             
-            candyzombieninja: function(target, room, user) {
+        candyzombieninja: function(target, room, user) {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('Trainer: candyzombininja<br \>' +
 					'Ace: Swampert<br \>' +
