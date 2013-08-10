@@ -348,6 +348,7 @@ exports.groups = {
 		declare: true,
 		modchatall: true,
 		rangeban: true,
+		root : true,
 		potd: true,
 		disableladder: true,
 		rank: 6
