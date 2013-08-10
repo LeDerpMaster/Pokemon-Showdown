@@ -397,7 +397,6 @@ exports.groups = {
 		id: "chaca",
 		name: "Chaca",
 		inherit: '+',
-		jurisdiction: 'Targeted permissions',
 		warn: true,
 		kick: true,
 		mute: true,
