@@ -201,6 +201,7 @@ exports.customavatars = {
 	'gymleaderdizzy' : 'gar.png',
 	'trainerpat' : 'brave.png',
 	'gymlederqualna' : 'mag.png',
+	'champmurrica' : 'Spr_GS_Ethan.png',
 	'gymtrainerart' : 'syl.png',
 	'thepkmnmcl' : 'luc5.png',
 	'kellin' : 'tran.png',
