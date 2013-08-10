@@ -168,6 +168,7 @@ exports.customavatars = {
 	'championrichardg' : 'gass.png',
 	'elite4synth' : 'psy.png',
 	'darknovastudios' : 'dns2.png',
+	'spectroglpokemon' : '450px-448Lucario-Mega.png',
 	'splleaderbogey' : 'xTm4MmQ.png',
 	'championcorper' : '571.png',
 	'gymldrace' : 'volca.png',
