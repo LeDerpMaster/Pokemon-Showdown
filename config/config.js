@@ -230,6 +230,8 @@ exports.customavatars = {
 	'tracey5ketchit' : 'buckle.png',
 	'vlegend' : 'basic.png',
 	'dragoonx6' : 'purp.png',
+	'gymleadrjyimm' : '5j0PGE.png',
+	'gymleadecambo' : 'Luxray_Cosplay_Pokemon_Trainer_by_Malachyte_Eye.png',
 	'gymleaderjolt' : 'cat.png',
 	'darkoath' : 'yes.png',
 	'lassaby' : 'alice.png',
