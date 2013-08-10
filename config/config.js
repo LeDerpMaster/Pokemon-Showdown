@@ -348,7 +348,6 @@ exports.groups = {
 		declare: true,
 		modchatall: true,
 		rangeban: true,
-		root : true,
 		potd: true,
 		disableladder: true,
 		rank: 6
@@ -395,8 +394,8 @@ exports.groups = {
 		rank: 3
 	},
 	'$': {
-		id: "chaca",
-		name: "Chaca",
+		id: "commander",
+		name: "Commander",
 		inherit: '+',
 		warn: true,
 		kick: true,
@@ -404,6 +403,7 @@ exports.groups = {
 		lock: true,
 		broadcast: true,
 		rank: 2
+	},	
 	'+': {
 		id: "voice",
 		name: "Voice",
