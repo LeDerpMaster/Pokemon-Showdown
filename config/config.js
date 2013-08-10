@@ -330,7 +330,7 @@ exports.appealurl = '';
 //     - potd: Set PotD.
 //     - forcewin: /forcewin command.
 //     - battlemessage: /a command.
-exports.groupsranking = ['*', '+', '%', '@', '#', '&', '~'];
+exports.groupsranking = [' ', '+', '%', '@', '#', '&', '~'];
 exports.groups = {
 	'~': {
 		id: "admin",
@@ -400,7 +400,7 @@ exports.groups = {
 		broadcast: true,
 		rank: 1
 	},
-	'*': {
+	' ': {
 		ip: 's',
 		alts: 's',
 		rank: 0
