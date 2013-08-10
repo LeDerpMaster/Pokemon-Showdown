@@ -397,6 +397,7 @@ exports.groups = {
 		id: "chaca",
 		name: "Chaca",
 		inherit: '+',
+		jurisdiction: 'u',
 		warn: true,
 		kick: true,
 		mute: true,
