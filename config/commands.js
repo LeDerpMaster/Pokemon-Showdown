@@ -1180,16 +1180,15 @@ var commands = exports.commands = {
 					'Catchphrase: (V) (;,,;) (V) why not zoidberg?<br \>' +
                     '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/260.gif">')
             },
-            
-        frontierbrainn: function(target, room, user) {
+           
+        n: function(target, room, user) {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('Trainer: N<br \>' +
 					'Ace: Dragonite<br \>' +
 					'Catchphrase: Never give up until you win!<br \>' +
                     '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/149.gif">')
             },
-     
-
+           
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
