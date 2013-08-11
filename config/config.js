@@ -186,6 +186,7 @@ exports.customavatars = {
 	'angryarcanine' : 'TeamMagma.png',
 	'gymledernido' : 'CustomTrainer_210.png',
 	'championjoltz' : 'Jolteon_zps285a58f0.png',
+	'elitefourblack' : 'BDqHHrj.png',
 	'dlkings' : '09bepgb.png',
 	'leaderheynow9' : 'kirby.png',
 	'chmpionchemical' : 'Scizor.png',
