@@ -1203,7 +1203,7 @@ var commands = exports.commands = {
 		config.potd = target;
 		Simulator.SimulatorProcess.eval('config.potd = \''+toId(target)+'\'');
 		if (target) {
-			if (Rooms.lobby) Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day is now '+target+'!</b><br />Hehe your screwed.</div>');
+			if (Rooms.lobby) Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day is now '+target+'!</b><br />This Pokemon will be guaranteed to show up in random battles.</div>');
 			this.logModCommand('The Pokemon of the Day was changed to '+target+' by '+user.name+'.');
 		} else {
 			if (Rooms.lobby) Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day was removed!</b><br />No pokemon will be guaranteed in random battles.</div>');
