@@ -1181,7 +1181,7 @@ var commands = exports.commands = {
                     '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/260.gif">')
             },
             
-        n: function(target, room, user) {
+        frontierbrainn: function(target, room, user) {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('Trainer: N<br \>' +
 					'Ace: Dragonite<br \>' +
