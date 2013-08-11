@@ -205,6 +205,7 @@ exports.customavatars = {
 	'champmurrica' : 'Spr_GS_Ethan.png',
 	'gymtrainerart' : 'syl.png',
 	'thepkmnmcl' : 'luc5.png',
+	'skyleaderfable' : 'th19c.png',
 	'kellin' : 'tran.png',
 	'absolutelyemily' : 'abs.png',
 	'gymleaderreck' : 'gal.png',
