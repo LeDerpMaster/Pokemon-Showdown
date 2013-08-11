@@ -1181,7 +1181,13 @@ var commands = exports.commands = {
                     '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/260.gif">')
             },
             
-      
+      n: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('Trainer: N<br \>' +
+					'Ace: Dragonite<br \>' +
+					'Catchphrase: Never give up until you win!<br \>' +
+                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/149.gif">')
+            },
      
 
 	/*********************************************************
@@ -1198,7 +1204,7 @@ var commands = exports.commands = {
 		config.potd = target;
 		Simulator.SimulatorProcess.eval('config.potd = \''+toId(target)+'\'');
 		if (target) {
-			if (Rooms.lobby) Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day is now '+target+'!</b><br />This Pokemon will be guaranteed to show up in random battles.</div>');
+			if (Rooms.lobby) Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day is now '+target+'!</b><br />Hehe your screwed.</div>');
 			this.logModCommand('The Pokemon of the Day was changed to '+target+' by '+user.name+'.');
 		} else {
 			if (Rooms.lobby) Rooms.lobby.addRaw('<div class="broadcast-blue"><b>The Pokemon of the Day was removed!</b><br />No pokemon will be guaranteed in random battles.</div>');
