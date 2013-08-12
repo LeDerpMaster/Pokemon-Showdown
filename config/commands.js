@@ -973,7 +973,7 @@ var commands = exports.commands = {
 		'<img src="http://hydra-images.cursecdn.com/pokemon.gamepedia.com/3/3e/LenoraBWsprite.gif">')
 	},
 
-    brittlewind: function(target, room, user) {
+        brittlewind: function(target, room, user) {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('Trainer: BrittleWind<br \>' +
 					'Ace: ?<br \>' +
