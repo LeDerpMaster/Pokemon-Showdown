@@ -1131,7 +1131,7 @@ var commands = exports.commands = {
 					'Ace: Miltank<br \>' +
 					'Catchphrase: Moo, moo muthafuckas.<br \>' +
                     '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/241.gif">')
-            }
+            },
          
     
 	/*********************************************************
