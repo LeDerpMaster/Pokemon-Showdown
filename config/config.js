@@ -241,6 +241,8 @@ exports.customavatars = {
 	'gymleadecambo' : 'Luxray_Cosplay_Pokemon_Trainer_by_Malachyte_Eye.png',
 	'gymleaderjolt' : 'cat.png',
 	'darkoath' : 'yes.png',
+	'pikajoey' : 'Link.png',
+	'allioze' : 'rAloJYX.png',
 	'lassaby' : 'alice.png',
 	'desokoro' : 'sceptile.png',
 	'snooki' : 'wh.png',
