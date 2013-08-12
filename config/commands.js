@@ -1185,7 +1185,7 @@ var commands = exports.commands = {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('Trainer: Frontier Br$in N<br \>' +
 					'Ace: Dragonite<br \>' +
-					'Catchphrase: Never give up until you win!<br \>' +
+					'Catchphrase: Never give up until you win<br \>' +
                     '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/149.gif">')
             },
 	/*********************************************************
