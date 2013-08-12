@@ -244,6 +244,8 @@ exports.customavatars = {
 	'lassaby' : 'alice.png',
 	'desokoro' : 'sceptile.png',
 	'snooki' : 'wh.png',
+	'theumbreonlover' : 'PnnPwUz.png',
+	'googer771' : 'Spr_2g_094.png',
 	'gymldrfox' : 'zorak.png',
 	'gymleaderinferna' : 'naruto.png',
 	'derangedlime' : 'ew.png',
