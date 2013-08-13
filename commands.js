@@ -495,8 +495,8 @@ var commands = exports.commands = {
 		}
 	},
 
-	w: 'ban',
-	whip: function(target, room, user) {
+	b: 'ban',
+	ban: function(target, room, user) {
 		if (!target) return this.parse('/help ban');
 
 		target = this.splitTarget(target);
@@ -507,16 +507,16 @@ var commands = exports.commands = {
 		if (!this.can('ban', targetUser)) return false;
 
 		if (Users.checkBanned(targetUser.latestIp) && !target && !targetUser.connected) {
-			var problem = ' but was already whipped';
-			return this.privateModCommand('('+targetUser.name+' would be whipped by '+user.name+problem+'.)');
+			var problem = ' but was already banned';
+			return this.privateModCommand('('+targetUser.name+' would be banned by '+user.name+problem+'.)');
 		}
 
-		targetUser.popup(user.name+" has whipped you." + (config.appealurl ? ("  If you feel that your whipping was unjustified you can appeal the whip:\n" + config.appealurl) : "") + "\n\n"+target);
+		targetUser.popup(user.name+" has banned you." + (config.appealurl ? ("  If you feel that your banning was unjustified you can appeal the ban:\n" + config.appealurl) : "") + "\n\n"+target);
 
-		this.addModCommand(""+targetUser.name+" was whipped by "+user.name+"." + (target ? " (" + target + ")" : ""));
+		this.addModCommand(""+targetUser.name+" was banned by "+user.name+"." + (target ? " (" + target + ")" : ""));
 		var alts = targetUser.getAlts();
 		if (alts.length) {
-			this.addModCommand(""+targetUser.name+"'s alts were also whipped: "+alts.join(", "));
+			this.addModCommand(""+targetUser.name+"'s alts were also banned: "+alts.join(", "));
 			for (var i = 0; i < alts.length; ++i) {
 				this.add('|unlink|' + toId(alts[i]));
 			}
@@ -526,22 +526,22 @@ var commands = exports.commands = {
 		targetUser.ban();
 	},
 
-	unwhip: function(target, room, user) {
-		if (!target) return this.parse('/help unqhip');
+	unban: function(target, room, user) {
+		if (!target) return this.parse('/help unban');
 		if (!user.can('ban')) {
-			return this.sendReply('/unwhip - Access denied.');
+			return this.sendReply('/unban - Access denied.');
 		}
 
 		var name = Users.unban(target);
 
 		if (name) {
-			this.addModCommand(''+name+' was unwhipped by '+user.name+'.');
+			this.addModCommand(''+name+' was unbanned by '+user.name+'.');
 		} else {
-			this.sendReply('User '+target+' is not whipped.');
+			this.sendReply('User '+target+' is not banned.');
 		}
 	},
 
-	unwhipall: function(target, room, user) {
+	unbanall: function(target, room, user) {
 		if (!user.can('ban')) {
 			return this.sendReply('/unwhipall - Access denied.');
 		}
@@ -555,7 +555,7 @@ var commands = exports.commands = {
 		this.addModCommand('All whipss and locks have been lifted by '+user.name+'.');
 	},
 
-	whipip: function(target, room, user) {
+	banip: function(target, room, user) {
 		target = target.trim();
 		if (!target) {
 			return this.parse('/help banip');
@@ -563,20 +563,20 @@ var commands = exports.commands = {
 		if (!this.can('rangeban')) return false;
 
 		Users.bannedIps[target] = '#ipban';
-		this.addModCommand(user.name+' temporarily whipped the '+(target.charAt(target.length-1)==='*'?'IP range':'IP')+': '+target);
+		this.addModCommand(user.name+' temporarily banned the '+(target.charAt(target.length-1)==='*'?'IP range':'IP')+': '+target);
 	},
 
-	unwhipip: function(target, room, user) {
+	unbanip: function(target, room, user) {
 		target = target.trim();
 		if (!target) {
-			return this.parse('/help unwhipip');
+			return this.parse('/help unbanip');
 		}
 		if (!this.can('rangeban')) return false;
 		if (!Users.bannedIps[target]) {
-			return this.sendReply(''+target+' is not a whipped IP or IP range.');
+			return this.sendReply(''+target+' is not a banned IP or IP range.');
 		}
 		delete Users.bannedIps[target];
-		this.addModCommand(user.name+' unwhipped the '+(target.charAt(target.length-1)==='*'?'IP range':'IP')+': '+target);
+		this.addModCommand(user.name+' unbanned the '+(target.charAt(target.length-1)==='*'?'IP range':'IP')+': '+target);
 	},
 
 	/*********************************************************
