@@ -495,8 +495,8 @@ var commands = exports.commands = {
 		}
 	},
 
-	b: 'ban',
-	ban: function(target, room, user) {
+	w: 'ban',
+	whip: function(target, room, user) {
 		if (!target) return this.parse('/help ban');
 
 		target = this.splitTarget(target);
@@ -526,7 +526,7 @@ var commands = exports.commands = {
 		targetUser.ban();
 	},
 
-	unban: function(target, room, user) {
+	unwhip: function(target, room, user) {
 		if (!target) return this.parse('/help unban');
 		if (!user.can('ban')) {
 			return this.sendReply('/unban - Access denied.');
@@ -541,7 +541,7 @@ var commands = exports.commands = {
 		}
 	},
 
-	unbanall: function(target, room, user) {
+	unwhipall: function(target, room, user) {
 		if (!user.can('ban')) {
 			return this.sendReply('/unbanall - Access denied.');
 		}
@@ -555,7 +555,7 @@ var commands = exports.commands = {
 		this.addModCommand('All bans and locks have been lifted by '+user.name+'.');
 	},
 
-	banip: function(target, room, user) {
+	whipip: function(target, room, user) {
 		target = target.trim();
 		if (!target) {
 			return this.parse('/help banip');
@@ -566,7 +566,7 @@ var commands = exports.commands = {
 		this.addModCommand(user.name+' temporarily banned the '+(target.charAt(target.length-1)==='*'?'IP range':'IP')+': '+target);
 	},
 
-	unbanip: function(target, room, user) {
+	unwhipip: function(target, room, user) {
 		target = target.trim();
 		if (!target) {
 			return this.parse('/help unbanip');
