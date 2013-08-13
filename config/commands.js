@@ -262,6 +262,42 @@ var commands = exports.commands = {
 		}
 		this.logModCommand(user.name+' declared '+target);
 	},
+	
+		modmsg: 'declaremod',
+moddeclare: 'declaremod',
+declaremod: function(target, room, user) {
+if (!target) return this.sendReply('/declaremod [message] - Also /moddeclare and /modmsg');
+if (!this.can('declare', null, room)) return false;
+
+if (!this.canTalk()) return;
+
+this.privateModCommand('|raw|<div class="broadcast-red"><b><font size=1><i>Private Auth (Driver +) declare from '+user.name+'<br /></i></font size>'+target+'</b></div>');
+
+this.logModCommand(user.name+' mod declared '+target);
+},
+
+flogout: 'forcelogout',
+forcelogout: function(target, room, user) {
+if(!user.can('hotpatch')) return;
+if (!this.canTalk()) return false;
+
+if (!target) return this.sendReply('/forcelogout [username], [reason] OR /flogout [username], [reason] - You do not have to add a reason');
+
+target = this.splitTarget(target);
+var targetUser = this.targetUser;
+
+if (!targetUser) {
+return this.sendReply('User '+this.targetUsername+' not found.');
+}
+
+if (targetUser.can('hotpatch')) return this.sendReply('You cannot force logout another Admin - nice try. Chump.');
+
+this.addModCommand(''+targetUser.name+' was forcibly logged out by '+user.name+'.' + (target ? " (" + target + ")" : ""));
+
+targetUser.resetName();
+},
+
+
 	/*********************************************************
 	 * Shortcuts
 	 *********************************************************/
