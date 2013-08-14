@@ -1183,7 +1183,7 @@ targetUser.resetName();
                     
             },
             
-             makechatroom: function(target, room, user) {
+             makingachatroom: function(target, room, user) {
                     if (!this.canBroadcast()) return;
                     this.sendReplyBox('<b>What is?</b>-A chatroom in which you are the roomowner just for your league.<br \>' +
 					'<b>How do I get one?</b>-PM BrittleWind your leagues name.DO NOT SPAM BRITTLE.<br \>' +
