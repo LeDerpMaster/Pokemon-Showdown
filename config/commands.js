@@ -1182,6 +1182,16 @@ targetUser.resetName();
 					'<b>Note:</b>It may take a while to get your picture uploaded so please do not spam BrittleWind. Tell Brittle if you already have a custom avatar and are just changing it. YOUR ACCOUNT MUST BE REGISTERED FOR IT TO WORK.<br \>')
                     
             },
+            
+             makechatroom: function(target, room, user) {
+                    if (!this.canBroadcast()) return;
+                    this.sendReplyBox('<b>What is?</b>-A chatroom in which you are the roomowner just for your league.<br \>' +
+					'<b>How do I get one?</b>-PM BrittleWind your leagues name.DO NOT SPAM BRITTLE.<br \>' +
+					'<b>What do I need?</b>-You need to have 10 or more people in your league<br \>' +
+					'<b>Note:</b>Chatrooms get cleared out every Wednesday at 5:00 Pacific Time. If no one is in your room at that time, it will get deleted. You may only remake a chatroom once.<br \>')
+                    
+            },
+         
          
     
 	/*********************************************************
