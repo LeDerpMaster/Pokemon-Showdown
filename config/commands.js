@@ -1175,11 +1175,11 @@ targetUser.resetName();
             
              customavatars: function(target, room, user) {
                     if (!this.canBroadcast()) return;
-                    this.sendReplyBox('What is?-A special avatar you find online to replace your current one.<br \>' +
-					'How do I get one?-PM BrittleWind the link to your avatar. If its on your computer upload it to imgur.com . DO NOT SPAM BRITTLE.<br \>' +
-					'What do I need?-You need to have your picture in .png form and it cannot be on photobucket.<br \>' +
-					'Whats the ideal picuture?-The ideal picture is 80x80 and has a gray background. If it is too big then it will appear werid in battles. Ex-<a href=""http://www.pokecharms.com/trainercards/images/trainers/O_BW/g2.png</a> <br \>' +
-					'It may take a while to get your picture uploaded so please do not spam BrittleWind. Tell Brittle if you already have a custom avatar and are just changing it. YOUR ACCOUNT MUST BE REGISTERED FOR IT TO WORK.<br \>')
+                    this.sendReplyBox('<b>What is?</b>-A special avatar you find online to replace your current one.<br \>' +
+					'<b>How do I get one?</b>-PM BrittleWind the link to your avatar. If its on your computer upload it to imgur.com . DO NOT SPAM BRITTLE.<br \>' +
+					'<b>What do I need?</b>-You need to have your picture in .png form and it cannot be on photobucket.<br \>' +
+					'<b>Whats the ideal picuture?</b>-The ideal picture is 80x80 and has a gray background. If it is too big then it will appear werid in battles. <a href="http://www.pokecharms.com/trainercards/images/trainers/O_BW/g2.png">Example of a perfect one.</a>  <br \>' +
+					'<b>Note:</b>It may take a while to get your picture uploaded so please do not spam BrittleWind. Tell Brittle if you already have a custom avatar and are just changing it. YOUR ACCOUNT MUST BE REGISTERED FOR IT TO WORK.<br \>')
                     
             },
          
