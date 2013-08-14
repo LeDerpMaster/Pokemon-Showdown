@@ -61,6 +61,7 @@ function runNpm(command) {
 
 try {
 	require('sugar');
+	require('http-get');
 } catch (e) {
 	return runNpm('install');
 }

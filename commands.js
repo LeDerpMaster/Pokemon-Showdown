@@ -867,6 +867,43 @@ var commands = exports.commands = {
 		this.sendReply('Your hot-patch command was unrecognized.');
 	},
 
+	hide: function(target, room, user) {
+		if (this.can('hide')) {
+			user.getIdentity = function(){
+				if(this.muted)	return '!' + this.name;
+				if(this.locked) return '‽' + this.name;
+				return ' ' + this.name;
+			};
+			user.updateIdentity();
+			this.sendReply('You have hidden your staff symbol');
+			return false;
+		}
+
+	},
+
+	show: function(target, room, user) {
+		if (this.can('hide')) {
+			delete user.getIdentity
+			user.updateIdentity();
+			this.sendReply('You have revealed your staff symbol');
+			return false;
+		}
+	},
+
+	customavatar: function(target, room, user, connection) {
+		if (!this.can('customavatars')) return false;
+		if (!target) return connection.sendTo(room, 'Usage: /customavatar URL, filename');
+		var http = require('http-get');
+		target = target.split(", ");
+		http.get(target[0], 'config/avatars/' + target[1], function (error, result) {
+		    if (error) {
+    		    connection.sendTo(room, '/customavatar - You supplied an invalid URL or file name!');
+    		} else {
+	    	    connection.sendTo(room, 'File saved to: ' + result.file);
+	    	}
+		});
+	},
+
 	savelearnsets: function(target, room, user) {
 		if (this.can('hotpatch')) return false;
 		fs.writeFile('data/learnsets.js', 'exports.BattleLearnsets = '+JSON.stringify(BattleLearnsets)+";\n");
