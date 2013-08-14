@@ -12,6 +12,9 @@ exports.proxyip = false;
 //   The PotD will always be in the #2 slot (not #1 so it won't be a lead)
 //   in every Random Battle team.
 exports.potd = '';
+Commit summary: Extended description: (optional)
+BrittleWind aaronthomsen21@gmail.com
+
 
 // crash guard - write errors to log file instead of crashing
 //   This is normally not recommended - if Node wants to crash, the
@@ -196,7 +199,7 @@ exports.customavatars = {
 	'gymldrkrow17' : 'Honchkrow 2-3.png',
 	'unlawfultyranitar' : '248.png',
 	'elitefourblack' : 'BDqHHrj.png',
-	'e4jdedrg' : '`BGg4tAt.png',
+	'e4jdedrg' : 'BGg4tAt.png',
 	'azoroshua' : 'c?13950011=MZH2sKdU9MQHe6jxL9sfFaQTbbM',
 	'e4richguy' : '68ef99e1d196cbcd9f624810ad8ab338.png',
 	'metallica' : 'Ridley_2_(Metroid_Prime).png',
