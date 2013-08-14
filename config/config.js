@@ -182,6 +182,7 @@ exports.customavatars = {
 	'e4photon' : 'jigg.png',
 	'ejdrago' : 'ditto.png',
 	'championheynow' : 'kirby.png',
+	'electricapples' : '135.png',
 	'elitefourfrnk' : '615.png',
 	'titalos' : 'boom.png',
 	'e4shido' : 'uchiha_sasuke_trainer_sprite_by_flamejow-d5tvl73.png',
