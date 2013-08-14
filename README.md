@@ -1,3 +1,12 @@
+I would just like to thank these people for helping me set up my server:
+-BrittleWind
+-BrittleWind
+-Britt-Just kidding
+-Cosy: Coding Help
+-JD:Technical Help
+-BrittleWind: Being Alive Help
+
+
 Pokémon Showdown
 ========================================================================
 
