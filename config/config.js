@@ -240,7 +240,6 @@ exports.customavatars = {
 	'gymldrblue' : 'eel.png',
 	'elite4cfrios' : 'ninj.png',
 	'frontierbnoland' : 'fat.png',
-	'championjoltz' : 'jotz2.png',
 	'coolasian' : 'electric.png',
 	'luke1705' : 'dewott.png',
 	'mightyemboar' : 'hand.png',
