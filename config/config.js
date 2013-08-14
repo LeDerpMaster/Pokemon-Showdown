@@ -169,6 +169,7 @@ exports.customavatars = {
 	'elite4synth' : 'psy.png',
 	'darknovastudios' : 'dns2.png',
 	'spectroglpokemon' : '450px-448Lucario-Mega.png',
+	'gymldrjumper' : 'oie_transparent.png',
 	'splleaderbogey' : 'xTm4MmQ.png',
 	'jadetornado' : 'BGg4tAt.png',
 	'skycoownerjoey' : 'link_sprite_recolored_by_cae79119-d3aou86.png',
