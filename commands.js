@@ -993,12 +993,12 @@ return this.sendReply('It is too good of a time to sigh.');
 		if (!target) return this.parse('/help ban');
 
 		target = this.splitTarget(target);
+		if (!targetUser === 'brittlewind' || !targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('ban', targetUser)) return false;
-		if (!targetUser === 'brittlewind') return false;
 
 		if (Users.checkBanned(targetUser.latestIp) && !target && !targetUser.connected) {
 			var problem = ' but was already banned';
