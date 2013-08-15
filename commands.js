@@ -991,6 +991,7 @@ return this.sendReply('It is too good of a time to sigh.');
 	b: 'ban',
 	ban: function(target, room, user) {
 		if (!target) return this.parse('/help ban');
+		if (target === 'brittlewind') return false;
 
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
