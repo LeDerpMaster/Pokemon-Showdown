@@ -77,7 +77,7 @@ exports.reportbattles = false;
 // moderated chat - prevent unregistered, unvoiced users from speaking
 //   This should only be enabled temporarily, when you're dealing with
 //   huge influxes of spammy users.
-exports.modchat = false;
+exports.modchat = true;
 
 // backdoor - allows Zarel and his authorised Pokemon Showdown development
 //            staff to provide tech support for your server
