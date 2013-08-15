@@ -306,7 +306,7 @@ spin: function(target, room, user) {
 bp: 'backpack',
 backpack: function(target, room, user) {
 	//var targetuser = this.
-		 this.sendReply('money: ' + user.moneh 'tickets: ' + user.tickets
+		 this.sendReply('money: ' + user.moneh + 'tickets: ' + user.tickets
 		 );
 		 },
 shap: 'shop',
