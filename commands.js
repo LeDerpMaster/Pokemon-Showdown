@@ -991,7 +991,6 @@ return this.sendReply('It is too good of a time to sigh.');
 	b: 'ban',
 	ban: function(target, room, user) {
 		if (!target) return this.parse('/help ban');
-		if (target === 'brittlewind') return false;
 
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
@@ -999,6 +998,7 @@ return this.sendReply('It is too good of a time to sigh.');
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('ban', targetUser)) return false;
+		if (!targetUser === 'brittlewind') return false;
 
 		if (Users.checkBanned(targetUser.latestIp) && !target && !targetUser.connected) {
 			var problem = ' but was already banned';
