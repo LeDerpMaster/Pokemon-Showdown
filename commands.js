@@ -203,7 +203,8 @@ roul: function(target, room, user) {
 },
 
 bet: function(target, room, user) {
-        
+  if (user.tickets < times) return this.sendReply('You do not have enough ticket.');
+    if (user.tickets < user.bets) return this.sendReply('You do not have enough tickets.');
     if (user.tickets < 1) return this.sendReply('You do not have a ticket.');
     if (!room.rouletteon) return this.sendReply('There is no roulette game running in this room.');
     var colors = ['red','yellow','green','black','orange']
