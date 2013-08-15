@@ -841,7 +841,7 @@ return this.sendReply('It is too good of a time to sigh.');
 		if (!target) return this.parse('/help warn');
 
 		target = this.splitTarget(target);
-		if (!targetUser === 'brittlewind' || !targetUser === 'cosy') return false;
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser || !targetUser.connected) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
@@ -882,7 +882,7 @@ return this.sendReply('It is too good of a time to sigh.');
 		if (!target) return this.parse('/help mute');
 
 		target = this.splitTarget(target);
-		if (targetUser !== 'brittlewind' || targetUser !== 'cosy') return false;
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
@@ -908,7 +908,7 @@ return this.sendReply('It is too good of a time to sigh.');
 		if (!target) return this.parse('/help hourmute');
 
 		target = this.splitTarget(target);
-		if (targetUser !== 'brittlewind' || targetUser !== 'cosy') return false;
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
@@ -952,7 +952,7 @@ return this.sendReply('It is too good of a time to sigh.');
 		if (!target) return this.parse('/help lock');
 
 		target = this.splitTarget(target);
-		if (targetUser !== 'brittlewind' || targetUser !== 'cosy') return false;
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUser+' not found.');
@@ -997,7 +997,7 @@ return this.sendReply('It is too good of a time to sigh.');
 		if (!target) return this.parse('/help ban');
 
 		target = this.splitTarget(target);
-		if (targetUser !== 'brittlewind' || targetUser !== 'cosy') return false;
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
