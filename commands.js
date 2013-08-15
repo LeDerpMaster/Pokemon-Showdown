@@ -413,25 +413,25 @@ buy: function(target, room, user) {
                 }                  
                 if (target == 'tktreel') {
                         match = true;
-                        if (user.moneh < 1000) {
+                        if (user.moneh < 500) {
                                 return this.sendReply('Big bucks can come your way if you just buy a ticket reel.');
                         }
-                        else if (user.moneh > 1000) {
+                        else if (user.moneh > 500) {
                         this.sendReply('You have purchased a ticket reel. You\'re on your way to get some big bucks.');
-                        user.moneh -= 1000;
-                        user.tickets += 10;
+                        user.moneh -= 500;
+                        user.tickets+= 10;
                                         }
                 }
                 
                 if (target === 'tktbox') {
                         match = true;
-                        if (user.moneh < 5000 ) {
+                        if (user.moneh < 2500 ) {
                                 return this.sendReply('Aww, you don\'t have big bucks yet, but you\'re getting there.');
                         }
  
-                        if (user.moneh > 5000) {
+                        if (user.moneh > 2500) {
                                                 this.sendReply('You have purchased a ticket box! You have received big bucks.');
-                        user.moneh -= 5000;
+                        user.moneh -= 2500;
                         user.tickets += 50;
                         
                         
