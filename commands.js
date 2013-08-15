@@ -305,7 +305,7 @@ spin: function(target, room, user) {
 //money commands thx to nollan i needed him a bit
 bp: 'backpack',
 backpack: function(target, room, user) {
-		 this.sendReply('money: ' + user.moneh
+		 this.sendReply('money: ' + user.moneh 'tickets: ' + user.tickets
 		 );
 		 },
 shap: 'shop',
