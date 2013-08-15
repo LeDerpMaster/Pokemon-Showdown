@@ -203,10 +203,10 @@ roul: function(target, room, user) {
 },
 
 bet: function(target, room, user) {
-  if (user.tickets < times) return this.sendReply('You do not have enough ticket.');
-    if (user.tickets < user.bets) return this.sendReply('You do not have enough tickets.');
-    if (user.tickets < 1) return this.sendReply('You do not have a ticket.');
-    if (!room.rouletteon) return this.sendReply('There is no roulette game running in this room.');
+  if (user.tickets < times){ return this.sendReply('You do not have enough ticket.');}
+    else if (user.tickets < user.bets){ return this.sendReply('You do not have enough tickets.');}
+    else if (user.tickets < 1){ return this.sendReply('You do not have a ticket.');}
+    else if (!room.rouletteon) return this.sendReply('There is no roulette game running in this room.');
     var colors = ['red','yellow','green','black','orange']
     targets = target.split(',')
     target = toId(targets[0]);
@@ -230,7 +230,7 @@ bet: function(target, room, user) {
 
 spin: function(target, room, user) {
     
-    if (!room.rouletteon) return this.sendReply('There is no roulette game currently.')
+    if (!room.rouletteon) return this.sendReply('There is no roulette game currently.');
     if (room.roulusers.length === 0) return this.sendReply('Nobody has made bets in this game');
     var landon = Math.random();
     var color = '';
@@ -307,7 +307,7 @@ spin: function(target, room, user) {
 bp: 'backpack',
 backpack: function(target, room, user) {
 	//var targetuser = this.
-		 this.sendReplybox('money: ' + user.moneh + '<br />' + 'tickets: ' + user.tickets
+		 this.sendReplybox('money: ' + user.moneh + '<br /> + tickets: ' + user.tickets
 		 );
 		 },
 shap: 'shop',
