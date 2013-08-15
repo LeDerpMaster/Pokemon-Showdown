@@ -321,20 +321,20 @@ shop: function(target, room, user) {
 '<th>ID</th>'+
 '</tr>'+
 '<td>Ticket</td>'+
-'<td>100 PokeDollars</td>'+
+'<td>50 PokeDollars</td>'+
 '<td>A scratchable ticket which can be used to win Pokedollars</td>'+
 '<td>1 Ticket</td>'+
 '<td>tkt</td>'+
 '</tr>'+
 '<tr>'+
 '<td>Ticket Reel</td>'+
-'<td>1,000 Pokedollars</td>'+
+'<td>500 Pokedollars</td>'+
 '<td>A reel of Tickets</td>'+
 '<td>10 Tickets</td>'+
 '<td>tktreel<td>'+
 '</tr>'+
 '<td>Ticket Box</td>'+
-'<td>5,000 PokeDollars</td>'+
+'<td>2,500 PokeDollars</td>'+
 '<td>A box of Tickets</td>'+
 '<td>50 Tickets</td>'+
 '<td>tktbox</td>'+
@@ -342,7 +342,7 @@ shop: function(target, room, user) {
 '<tr>'+
 '<td>Custom Avatar</td>'+
 '<td>5,000 Pokedollars and 1 PokeCoin</td>'+
-'<td>An avatar is a custom image sized 80x80</td>'+
+'<td>An avatar is a custom image sized 80x80(not done)</td>'+
 '<td>1 custom Avatar</td>'+
 '<td>cava</td>'+
 '</tr>'+
@@ -355,7 +355,7 @@ shop: function(target, room, user) {
 '</tr>'+
 '<tr>'+
 '<td>VIP</td>'+
-'<td>100,000 and 5 PokeCoins</td>'+
+'<td>100,000 pokeDollars</td>'+
 '<td>A promotion to voice and VIP Membership</td>'+
 '<td>1 Voice 1 Vip Membership 5 free Pokecoins</td>'+
 '<td>vip</td>'+
