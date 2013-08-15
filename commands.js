@@ -12,9 +12,500 @@
  */
 
 var crypto = require('crypto');
-
+var canpet = true;
+var sigh = true;
 var commands = exports.commands = {
+hide: 'hideauth',
+	hideauth: function(target, room, user){
+		if(!user.can('mute'))
+			return this.sendReply( '/hideauth - access denied.');
 
+		var tar = ' ';
+		if(target){
+			target = target.trim();
+			if(config.groupsranking.indexOf(target) > -1){
+				if( config.groupsranking.indexOf(target) <= config.groupsranking.indexOf(user.group)){
+					tar = target;
+				}else{
+					this.sendReply('The group symbol you have tried to use is of a higher authority than you have access to. Defaulting to \' \' instead.');
+				}
+			}else{
+				this.sendReply('You have tried to use an invalid character as your auth symbol. Defaulting to \' \' instead.');
+			}
+		}
+
+		user.getIdentity = function(){
+			if(this.muted)
+				return '!' + this.name;
+			if(this.locked)
+				return '#' + this.name;
+			return tar + this.name;
+		};
+		user.updateIdentity();
+		this.sendReply( 'You are now hiding your auth symbol as \''+tar+ '\'.');
+		return this.logModCommand(user.name + ' is hiding auth symbol as \''+ tar + '\'');
+	},
+
+	showauth: function(target, room, user){
+		if(!user.can('hideauth'))
+			return	this.sendReply( '/showauth - access denied.');
+
+		delete user.getIdentity;
+		user.updateIdentity();
+		this.sendReply('You have now revealed your auth symbol.');
+		return this.logModCommand(user.name + ' has revealed their auth symbol.');
+	},
+	peton: function(target, room, user) {
+								if(!user.can('mute')) {
+										return this.sendReply('but it failed.');
+								}
+								else {
+									if(canpet == true) {
+										return this.sendReply('/pet is already on.');
+									}
+									if(canpet == false) {
+										this.sendReply('You turned on /pet.');
+										canpet = true;
+									}
+								}
+},
+
+petoff: function(target, room, user) {
+								if(!user.can('mute')){
+									return this.sendReply('but it failed.');
+								}
+								else {
+									if(canpet == false) {
+										return this.sendReply('/pet is already off.');
+								}
+									if(canpet == true) {
+										this.sendReply('You turned off /pet.');
+										canpet = false;
+									}
+								}
+},
+
+pet: function(target, room, user) {
+if(canpet == false) {
+return this.sendReply('but it failed.');
+}
+if(canpet == true) {
+         if (!target) {
+                 return this.sendReply('Please specify a user who you\'d like to pet.');
+         }
+         var targetUser = Users.get(target);
+         if (targetUser) {
+                 target = targetUser.userid;
+                 }
+         else {
+                 return this.sendReply('The user \'' + target + '\' doesn\'t exist.');
+         }
+if(!this.canTalk()) {
+return this.sendReply('You cannot use this command because you are muted.');
+}
+         this.add(user.name + ' pet ' + targetUser.name + '.' );
+}
+         },
+		 spon: function(target, room, user) {
+if(!user.can('mute')) {
+return this.sendReply('You do not have the authority to use this command.');
+}
+else {
+if(canpet == true) {
+return this.sendReply('/sp is already on.');
+}
+if(canpet == false) {
+this.sendReply('You turned on /sp.');
+canpet = true;
+}
+}
+},
+
+spoff: function(target, room, user) {
+if(!user.can('mute')){
+return this.sendReply('but it failed.');
+}
+else {
+if(canpet == false) {
+return this.sendReply('but it failed.');
+}
+if(canpet == true) {
+this.sendReply('You turned off /sp.');
+canpet = false;
+}
+}
+},
+
+sp: function(target, room, user) {
+if(canpet == false) {
+return this.sendReply('but it failed.');
+}
+if(canpet == true) {
+         if (!target) {
+                 return this.sendReply('Please specify a user who you\'d like to sucker punch.');
+         }
+         var targetUser = Users.get(target);
+         if (targetUser) {
+                 target = targetUser.userid;
+                 }
+         else {
+                 return this.sendReply('The user \'' + target + '\' doesn\'t exist.');
+         }
+if(!this.canTalk()) {
+return this.sendReply('but it failed.');
+}
+         this.add(user.name + ' sucker punch ' + targetUser.name + '.');
+}
+         },
+         sighon: function(target, room, user) {
+	if (!user.can('mute')) {
+		return this.sendReply('You do not have the authority to use this command.');
+	}
+	else {
+		if (sigh === true) { //here you reference the variable "sigh"
+			return this.sendReply('/sigh is already on.');
+		}
+		if (sigh === false) { // as well as here
+			this.sendReply('You turned on /sigh.');
+	
+			sigh = true; //however, here you use canpet. nowhere is there a way to set the variable sigh to true or false
+		}
+	}
+},
+
+
+sighoff: function(target, room, user) {
+	if (!user.can('mute')){//wow
+		return this.sendReply('sigh is now off.');
+	}
+	else {
+		if (sigh === false) { //same here
+			return this.sendReply('b.');
+		}
+		if (sigh === true) {
+			this.sendReply('sigh is already off.');
+			sigh = false;
+		}
+	}
+},
+
+roulette: 'roul',
+startroulette: 'roul',
+roul: function(target, room, user) {  
+	if (!user.can('mute')) return this.sendReply('Woah I know roulette is fun but you are unauthorized :V');
+	room.rouletteon = true;
+	room.roulusers = [];
+	var part1 = '<h3>A roulette has started</h3><br />';
+	var part2 = 'To bet do /bet then one of the following colors: red, yellow, green , black , orange<br />';
+	var part3 = 'black = 1000$<br />yellow & red = 100$<br /> green & orange = 300$';
+	room.addRaw(part1 + part2 + part3);
+
+},
+
+bet: function(target, room, user) {
+        
+    if (user.tickets < 1) return this.sendReply('You do not have a ticket.');
+    if (!room.rouletteon) return this.sendReply('There is no roulette game running in this room.');
+    var colors = ['red','yellow','green','black','orange']
+    targets = target.split(',')
+    target = toId(targets[0]);
+    if (colors.indexOf(target) === -1) return this.sendReply(target + ' is not a valid color.');
+    user.bet = target;
+    if (targets[1]) {
+    	var times = parseInt(toId(targets[1]));
+    	if (!isNaN(times) && times > 0) {
+    		user.bets += times;
+    		user.tickets -= times;
+    	} else {
+    		return this.sendReply('That is an invalid amount of bets!');
+    	}
+    } else {
+    	user.bets++;
+    }
+    if (room.roulusers.indexOf(user.userid) === -1) room.roulusers.push(user.userid);
+    return this.sendReply('You are currently betting ' + user.bets + ' times to ' + target);
+    
+},
+
+spin: function(target, room, user) {
+    
+    if (!room.rouletteon) return this.sendReply('There is no roulette game currently.')
+    if (room.roulusers.length === 0) return this.sendReply('Nobody has made bets in this game');
+    var landon = Math.random();
+    var color = '';
+    var winners = [];
+    var totalwin = [];
+    
+    if (landon < 0.3) {
+        color = 'red';
+    } else if (landon < 0.6) {
+        color = 'yellow';
+    } else if (landon < 0.75) {
+        color = 'green';
+    } else if (landon < 0.85) {
+        color = 'black';
+    } else {
+        color = 'orange';
+    }
+    
+    for (var i=0; i < room.roulusers.length ; i++) {
+        var loopuser = Users.get(room.roulusers[i]);
+        var loopchoice = '';
+        if (loopuser) {
+            loopchoice = loopuser.bet;
+            if (loopchoice === color) winners.push(loopuser.userid);
+        } else {
+            continue;
+        }
+    }
+
+    if (winners === []) {
+        for (var i=0; i < room.roulusers.length; i++) {
+            var loopuser = Users.get(room.roulusers[i]);
+            if (loopuser) {
+                loopuser.bet = null;
+                loopuser.bets = 0;
+            }
+        }
+        return room.addRaw('Nobody won this time');
+    }
+    
+    var perbetwin = 0;
+
+    switch(color) {
+        case "red": perbetwin = 100; break;
+        case "yellow": perbetwin = 100; break;
+        case "green": perbetwin = 300; break;
+        case "black": perbetwin = 1000; break;
+        default: perbetwin = 300;
+    }
+
+    for (var i=0; i < winners.length ; i++) {
+        totalwin[i] = perbetwin * Users.get(winners[i]).bets;
+        Users.get(winners[i]).moneh += totalwin[i];
+    }
+
+    for (var i=0; i < room.roulusers.length; i++) {
+        var loopuser = Users.get(room.roulusers[i]);
+        if (loopuser) {
+            loopuser.bet = null;
+            loopuser.bets = 0;
+        }
+    }
+    if (winners.length === 1) {
+    	room.addRaw('The roulette landed on ' + color + '. The only winner was ' + winners[0] + ', who won the sum of ' + totalwin[0] + ' pokedollars.');
+    } else if (winners.length) {
+    	room.addRaw('The roulette landed on ' + color + '. Winners: ' + winners.toString() + '. They won, respectively, ' + totalwin.toString() + ' pokedollars.');
+    } else {
+    	room.addRaw('The roulette landed on ' + color + '. Nobody won this time.');
+    }
+    room.rouletteon = false;
+},
+
+//money commands thx to nollan i needed him a bit
+bp: 'backpack',
+backpack: function(target, room, user) {
+		 this.sendReply('money: ' + user.moneh
+		 );
+		 },
+shap: 'shop',
+shop: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('<table border="1">'+
+'<caption>Shop</caption>'+
+'<tr>'+
+'<th>Item</th>'+
+'<th>Price</th>'+
+'<th>Description</th>'+
+'<th>Quantity</th>'+
+'<th>ID</th>'+
+'</tr>'+
+'<td>Ticket</td>'+
+'<td>100 PokeDollars</td>'+
+'<td>A scratchable ticket which can be used to win Pokedollars</td>'+
+'<td>1 Ticket</td>'+
+'<td>tkt</td>'+
+'</tr>'+
+'<tr>'+
+'<td>Ticket Reel</td>'+
+'<td>1,000 Pokedollars</td>'+
+'<td>A reel of Tickets</td>'+
+'<td>10 Tickets</td>'+
+'<td>tktreel<td>'+
+'</tr>'+
+'<td>Ticket Box</td>'+
+'<td>5,000 PokeDollars</td>'+
+'<td>A box of Tickets</td>'+
+'<td>50 Tickets</td>'+
+'<td>tktbox</td>'+
+'</tr>'+
+'<tr>'+
+'<td>Custom Avatar</td>'+
+'<td>5,000 Pokedollars and 1 PokeCoin</td>'+
+'<td>An avatar is a custom image sized 80x80</td>'+
+'<td>1 custom Avatar</td>'+
+'<td>cava</td>'+
+'</tr>'+
+'<tr>'+
+'<td>Voice</td>'+
+'<td>50,000 Pokedollars and 2 Pokecoins</td>'+
+'<td>Promotion to Voice, if you are Voice or higher this will fail </td>'+
+'<td>1 Voice 1 custom avatar</td>'+
+'<td>voice</td>'+
+'</tr>'+
+'<tr>'+
+'<td>VIP</td>'+
+'<td>100,000 and 5 PokeCoins</td>'+
+'<td>A promotion to voice and VIP Membership</td>'+
+'<td>1 Voice 1 Vip Membership 5 free Pokecoins</td>'+
+'<td>vip</td>'+
+'</tr>'+
+'</table>');
+},
+buy: function(target, room, user) {
+                var match = false;
+                
+                if (target === 'voice') {
+                        match = true;
+                        if (user.moneh < 50000) {
+                                return this.sendReply('You can\'t buy Voice. You have to get more money first.');
+                        }
+                        if (user.group === "+" || user.group === "%" || user.group === "@" || user.group === "&" || user.group === "~") {
+                                return this.sendReply('lelz auth these days they just want a demotion.');
+                        }
+                        else if (user.moneh > 50000)
+                        this.sendReply('You are now officially Voice.');
+                        user.group = "+";
+                        user.updateIdentity();
+                        user.moneh -= 50000;
+                }
+                
+                    if (target === 'vip') {
+                        match = true;
+                        if (user.moneh < 100000) {
+                                return this.sendReply('You can\'t be in the VIP untill you get more money.');
+                        }
+                         if (user.group === "+" || user.group === "%" || user.group === "@" ||  user.group === "&" || user.group === "~") {
+                                return this.sendReply('lelz auth these days they just want a demotion.');
+                        } else if (user.moneh >  100000 ) {
+                        this.sendReply('You are now officially a VIP.');
+                        user.group = "+";
+                        user.vip = true
+                        user.updateIdentity();
+                        user.moneh -= 100000;
+                        
+                }
+                                }
+                
+                                if (target === 'tkt') {
+                        match = true;
+                        if (user.moneh < 100) { //here
+                                return this.sendReply('Lol, you can\'t even buy a ticket. Hint: win a tour.');
+                        }
+                         else if (user.moneh > 100)
+                         { 
+                          this.sendReply('You have purchased a ticket. meh, actually not that good.');
+                        user.moneh -= 100;
+                        user.tickets += 1;
+                       
+                        }
+                        
+                }                  
+                if (target == 'tktreel') {
+                        match = true;
+                        if (user.moneh < 1000) {
+                                return this.sendReply('Big bucks can come your way if you just buy a ticket reel.');
+                        }
+                        else if (user.moneh > 1000) {
+                        this.sendReply('You have purchased a ticket reel. You\'re on your way to get some big bucks.');
+                        user.moneh -= 1000;
+                        user.tickets += 10;
+                                        }
+                }
+                
+                if (target === 'tktbox') {
+                        match = true;
+                        if (user.moneh < 5000 ) {
+                                return this.sendReply('Aww, you don\'t have big bucks yet, but you\'re getting there.');
+                        }
+ 
+                        if (user.moneh > 5000) {
+                                                this.sendReply('You have purchased a ticket box! You have received big bucks.');
+                        user.moneh -= 5000;
+                        user.tickets += 50;
+                        
+                        
+                }
+                                }
+                if (target == 'cav') {
+                        match = true;
+                        if (user.moneh < 5000) {
+                                return this.sendReply('Aww, you don\'t have big bucks yet, but you\'re getting there.');
+                                }
+                                    else if (user.moneh > 5000) {
+                      return  this.sendReply('You have purchased a custom avatar! You have received big bucks.');
+                        user.moneh -= 5000;
+                        user.cav = true;
+                    }
+                                }
+                if (match == false) {
+                        return this.sendReply('That isn\'t an item. Type /shop to see the list of items and to use the ID.')
+                }
+},
+
+
+sigh: function(target, room, user) {
+if (!this.canTalk()) {
+return this.sendReply('you cannot sigh because you are muted or locked');
+} else if (sigh === false) {
+return this.sendReply('It is too good of a time to sigh.');
+} else if (sigh === true) {
+ this.add(user.name+ " sighs.");
+}
+         },
+         
+         
+         fleeon: function(target, room, user) {
+if (!user.can('mute')) {
+return this.sendReply('You do not have the authority to use this command.');
+}
+else {
+if (sigh === true) { //here you reference the variable "sigh"
+return this.sendReply('/flee is already on.');
+}
+if (sigh === false) { // as well as here
+this.sendReply('You turned on /flee.');
+
+sigh = true; 
+}
+}
+},
+
+
+fleeoff: function(target, room, user) {
+if (!user.can('mute')){
+return this.sendReply('flee is now off.');
+}
+else {
+if (sigh === false) { 
+return this.sendReply('o3o why u sigh jw.');
+}
+if (sigh === true) {
+this.sendReply('flee is already off.');
+sigh = false;
+}
+}
+},
+
+flee: function(target, room, user) {
+if (!this.canTalk()) {
+return this.sendReply('you cannot sigh because you are muted or locked');
+} else if (sigh === false) {
+return this.sendReply('It is too good of a time to sigh.');
+} else if (sigh === true) {
+ this.add(user.name+ " flees.");
+}
+         },
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Server version: <b>'+CommandParser.package.version+'</b> <small>(<a href="http://pokemonshowdown.com/versions#' + CommandParser.serverVersion + '">' + CommandParser.serverVersion.substr(0,10) + '</a>)</small>');
