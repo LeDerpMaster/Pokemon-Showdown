@@ -202,7 +202,7 @@ exports.customavatars = {
 	'championjoltz' : 'FhEIQtA.png',
 	'gymldroasis' : 'Squirtle.png',
 	'garyoaklegendary' : 'gary_oak_sprite_by_legendkyurem97-d53os6n.png',
-	'gymldrkrow17' : 'Honchkrow 2-3.png',
+	'gymldrkrow17' : 'http://img41.imageshack.us/img41/4849/0l0f.png',
 	'unlawfultyranitar' : '248.png',
 	'elitefourblack' : 'BDqHHrj.png',
 	'e4jdedrg' : 'BGg4tAt.png',
