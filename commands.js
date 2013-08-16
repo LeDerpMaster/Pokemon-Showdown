@@ -870,7 +870,7 @@ var commands = exports.commands = {
 				return ' ' + this.name;
 			};
 			user.updateIdentity();
-			this.sendReply('You have hidden your staff symbol');
+			this.sendReply('You have hidden your staff symbol.');
 			return false;
 		}
 
