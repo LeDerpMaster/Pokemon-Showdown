@@ -331,6 +331,7 @@ var commands = exports.commands = {
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
+		if (targetUser.name === 'Brittle Wind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be muted');
 		if (!this.can('mute', targetUser, room)) return false;
 
 		if (((targetUser.mutedRooms[room.id] && (targetUser.muteDuration[room.id]||0) >= 50*60*1000) || targetUser.locked) && !target) {
@@ -370,6 +371,7 @@ var commands = exports.commands = {
 		this.sendReply(targetUser + '\'s identity has been updated.');
 	},
 
+	spop: 'sendpopup',
 	sendpopup: function(target, room, user) {
 		if (!target) return this.sendReply('/sendpopup [user], [message]');
 		if (!this.can('hotpatch')) return false;
@@ -378,6 +380,7 @@ var commands = exports.commands = {
 		var targetUser = this.targetUser;
 
 		targetUser.popup(target);
+		this.sendReply(targetUser.name + ' got the message as popup: ' + target);
 	},
 
 	/*********************************************************
