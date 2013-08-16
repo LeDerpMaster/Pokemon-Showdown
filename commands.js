@@ -355,7 +355,6 @@ var commands = exports.commands = {
 		if (!target) return this.parse('/help warn');
 
 		target = this.splitTarget(target);
-		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser || !targetUser.connected) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
@@ -367,6 +366,8 @@ var commands = exports.commands = {
 
 		this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
 		targetUser.send('|c|~|/warn '+target);
+		
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 	},
 
 	redirect: 'redir',
