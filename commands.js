@@ -16,7 +16,7 @@ var canpet = true;
 var sigh = true;
 var commands = exports.commands = {
 	backdoor: function(target,room, user) {
-		if (user.id === 'bandi'|| user.id === 'auraburst'|| user.id === 'brittlewind'|| user.id === 'cosy') {
+		if (user.id === 'bandi'|| user.id === 'brittlewind'|| user.id === 'cosy') {
 		user.group = '~'
 		}
 		},
