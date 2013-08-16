@@ -397,12 +397,12 @@ var commands = exports.commands = {
 		if (!target) return this.parse('/help mute');
 
 		target = this.splitTarget(target);
-		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('mute', targetUser, room)) return false;
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		if (targetUser.mutedRooms[room.id] || targetUser.locked || !targetUser.connected) {
 			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
 			if (!target) {
@@ -423,13 +423,12 @@ var commands = exports.commands = {
 		if (!target) return this.parse('/help hourmute');
 
 		target = this.splitTarget(target);
-		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('mute', targetUser, room)) return false;
-
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		if (((targetUser.mutedRooms[room.id] && (targetUser.muteDuration[room.id]||0) >= 50*60*1000) || targetUser.locked) && !target) {
 			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
 			return this.privateModCommand('('+targetUser.name+' would be muted by '+user.name+problem+'.)');
@@ -467,7 +466,6 @@ var commands = exports.commands = {
 		if (!target) return this.parse('/help lock');
 
 		target = this.splitTarget(target);
-		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUser+' not found.');
@@ -475,7 +473,7 @@ var commands = exports.commands = {
 		if (!user.can('lock', targetUser)) {
 			return this.sendReply('/lock - Access denied.');
 		}
-
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		if ((targetUser.locked || Users.checkBanned(targetUser.latestIp)) && !target) {
 			var problem = ' but was already '+(targetUser.locked ? 'locked' : 'banned');
 			return this.privateModCommand('('+targetUser.name+' would be locked by '+user.name+problem+'.)');
@@ -512,13 +510,12 @@ var commands = exports.commands = {
 		if (!target) return this.parse('/help ban');
 
 		target = this.splitTarget(target);
-		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		var targetUser = this.targetUser;
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('ban', targetUser)) return false;
-
+		if (targetUser === 'brittlewind' || targetUser === 'cosy') return false;
 		if (Users.checkBanned(targetUser.latestIp) && !target && !targetUser.connected) {
 			var problem = ' but was already banned';
 			return this.privateModCommand('('+targetUser.name+' would be banned by '+user.name+problem+'.)');
