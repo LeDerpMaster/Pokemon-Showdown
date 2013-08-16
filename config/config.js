@@ -313,7 +313,7 @@ exports.customavatars = {
 	'championdarksun' : 'scep.png',
 	'e4quality' : 'pikachu.png',
 	'e4synthesize' : 'tyran.png',
-	'spectrochampzarif' : 'zarif.png',
+	'spectrochampzarif' : 'T0GPZj1.png',
 	'brittlewind' : 'wes.png'
 };
 
