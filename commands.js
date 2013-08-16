@@ -274,7 +274,7 @@ spin: function(target, room, user) {
 bp: 'backpack',
 backpack: function(target, room, user) {
 	//var targetuser = this.
-		 this.sendReplybox('money: ' + user.moneh + '<br /> + tickets: ' + user.tickets
+		 this.sendReply('money: ' + user.moneh +  ' tickets: ' + user.tickets
 		 );
 		 },
 shap: 'shop',
