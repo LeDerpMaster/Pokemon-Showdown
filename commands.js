@@ -6,7 +6,7 @@
  * to run. A lot of these are sent by the client.
  *
  * If you'd like to modify commands, please go to config/commands.js,
- * which also teaches you how to use commands.
+ * which also teaches you how to use commands.if 
  *
  * @license MIT license
  */
@@ -323,6 +323,7 @@ var commands = exports.commands = {
 
 	join: function(target, room, user, connection) {
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
+		if (target === 'admnrm' && user.group !== '~') return false;
 		if (target && !targetRoom) {
 			if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
 			return connection.sendTo(target, "|noinit|nonexistent|The room '"+target+"' does not exist.");
