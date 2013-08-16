@@ -368,13 +368,13 @@ buy: function(target, room, user) {
                 
                                 if (target === 'tkt') {
                         match = true;
-                        if (user.moneh < 100) { //here
+                        if (user.moneh < 50) { //here
                                 return this.sendReply('Lol, you can\'t even buy a ticket. Hint: win a tour.');
                         }
-                         else if (user.moneh > 100)
+                         else if (user.moneh > 50)
                          { 
                           this.sendReply('You have purchased a ticket. meh, actually not that good.');
-                        user.moneh -= 100;
+                        user.moneh -= 50;
                         user.tickets += 1;
                        
                         }
@@ -382,12 +382,12 @@ buy: function(target, room, user) {
                 }                  
                 if (target == 'tktreel') {
                         match = true;
-                        if (user.moneh < 500) {
+                        if (user.moneh < 250) {
                                 return this.sendReply('Big bucks can come your way if you just buy a ticket reel.');
                         }
-                        else if (user.moneh > 500) {
+                        else if (user.moneh > 250) {
                         this.sendReply('You have purchased a ticket reel. You\'re on your way to get some big bucks.');
-                        user.moneh -= 500;
+                        user.moneh -= 250;
                         user.tickets+= 10;
                                         }
                 }
