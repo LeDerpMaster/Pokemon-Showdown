@@ -15,7 +15,7 @@
 
 .chat-log {
     font-size: 10pt;
-    background: url("i.imgur.com/nrwQzdM.png") no-repeat scroll right bottom;
+    background: url("i.imgur.com/nrwQzdM.png") no-repeat scroll right top;
     color: rgb(0, 0, 0);
     overflow: auto;
 }
