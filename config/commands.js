@@ -371,6 +371,22 @@ var commands = exports.commands = {
 		this.sendReply(targetUser + '\'s identity has been updated.');
 	},
 
+	usersofrank: function(target, room, user) {
+		if (!target) return false;
+		var name = '';
+
+		for (var i in room.users){
+			if (room.users[i].group === target) {
+				name = name + room.users[i].name;
+			}
+			if (i < room.users.length) name = name + ', ';
+		}
+		if (!name) return this.sendReply('There are no users of the rank ' + target + ' in this room.');
+
+		this.sendReply('Users of rank ' + target + ' in this room:');
+		this.sendReply(name);
+	},
+
 	spop: 'sendpopup',
 	sendpopup: function(target, room, user) {
 		if (!target) return this.sendReply('/sendpopup [user], [message]');
