@@ -1338,7 +1338,6 @@ exports.connectUser = connectUser;
 exports.importUsergroups = importUsergroups;
 exports.importUserwealth = importUserwealth;
 exports.exportUserwealth = exportUserwealth;
-exports.importUsertkts = importUsertkts;
 exports.exportUsertkts = exportUsertkts;
 exports.addBannedWord = addBannedWord;
 exports.removeBannedWord = removeBannedWord;
