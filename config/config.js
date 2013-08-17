@@ -180,6 +180,7 @@ exports.customavatars = {
 	'gymleaderstrycal' : 'Sir_Aaron_trainer_sprite_by_nissemann123456789.png',
 	'pokemon147' : 'hou.png',
 	'gymtrainerpk' : 'puss.png',
+	'championdragnite' : 'drag.png',
 	'championrichardg' : 'gass.png',
 	'elite4synth' : 'psy.png',
 	'darknovastudios' : 'dns2.png',
