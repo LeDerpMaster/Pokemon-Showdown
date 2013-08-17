@@ -326,6 +326,7 @@ exports.customavatars = {
 	'e4quality' : 'pikachu.png',
 	'e4synthesize' : 'tyran.png',
 	'spectrochampzarif' : 'bles.png',
+	'cosy' : 'cosysprite.png',
 	'brittlewind' : 'wes.png'
 };
 
