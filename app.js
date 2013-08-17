@@ -602,4 +602,4 @@ fs.readFile('./config/ipbans.txt', function (err, data) {
 		}
 	}
 });
-global.tour = require('./tour.js').tour(); 
+global.tour = require('./tour.js').tour();
