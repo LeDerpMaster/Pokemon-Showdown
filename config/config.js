@@ -161,6 +161,7 @@ exports.customavatars = {
 	'gymldrjinouga' : '637.png',
 	'gltanner' : 'dark.png',
 	'gluhenvolk' : 'cool.png',
+	'razorbrave' : 'brave.png',
 	'gymldrprinney' : 'nars.png',
 	'deathshark82' : 'abs2.png',
 	'rctic' : 'rtic.png',
@@ -171,6 +172,9 @@ exports.customavatars = {
 	'gymtrainersynth' : 'synth.png',
 	'vaderdarkside' : 'vader.png',
 	'thefuckinbest' : 'sly.png',
+	'aefaefaefa' : 'aef.png',
+	'gymldrkillswitch' : 'kil.png',
+	'gymleaderjumper' : 'jumper.png',
 	'gymleaderkittycat' : 'bass.png',
 	'lassabyhoe' : 'alice.png',
 	'gymleaderstrycal' : 'Sir_Aaron_trainer_sprite_by_nissemann123456789.png',
@@ -322,7 +326,6 @@ exports.customavatars = {
 	'e4quality' : 'pikachu.png',
 	'e4synthesize' : 'tyran.png',
 	'spectrochampzarif' : 'bles.png',
-	'cosy' : 'cosysprite.png',
 	'brittlewind' : 'wes.png'
 };
 
