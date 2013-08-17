@@ -173,7 +173,7 @@ exports.customavatars = {
 	'vaderdarkside' : 'vader.png',
 	'thefuckinbest' : 'sly.png',
 	'aefaefaefa' : 'aef.png',
-	'gymldrkillswitch' : 'kil.png',
+	'gymldrkillswitch' : 'kill.png',
 	'gymleaderjumper' : 'jumper.png',
 	'gymleaderkittycat' : 'bass.png',
 	'lassabyhoe' : 'alice.png',
