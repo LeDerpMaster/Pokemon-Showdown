@@ -155,6 +155,60 @@ function removeBannedWord(word) {
 }
 importBannedWords();
 
+
+var userwealth = {};
+function importUserwealth() {
+	// can't just say userwealth = {} because it's exported
+	for (var i in userwealth) delete userwealth[i];
+
+	fs.readFile('config/userwealth.csv', function(err, data) {
+		if (err) return;
+		data = (''+data).split("\n");
+		for (var i = 0; i < data.length; i++) {
+			if (!data[i]) continue;
+			var row = data[i].split(",");
+			//userwealth[toUserid(row[0])] = (row[1]||80)+row[0];
+			userwealth[toUserid(row[0])] = (row[1]||80);
+		}
+	});
+}
+function exportUserwealth() {
+	var buffer = '';
+	for (var i in userwealth) {
+		buffer += i + ',' + userwealth[i] + "\n";
+	}
+	fs.writeFile('config/userwealth.csv', buffer);
+}
+importUserwealth();
+
+var usertkts = {};
+function importUserwealth() {
+	// can't just say usertkts = {} because it's exported
+	for (var i in usertkts) delete userwealth[i];
+
+
+
+
+	fs.readFile('config/usertkts.csv', function(err, data) {
+		if (err) return;
+		data = (''+data).split("\n");
+		for (var i = 0; i < data.length; i++) {
+			if (!data[i]) continue;
+			var row = data[i].split(",");
+			//usertkts[toUserid(row[0])] = (row[1]||80)+row[0];
+			usertkts[toUserid(row[0])] = (row[1]||80);
+		}
+	});
+}
+function exportUsertkts() {
+	var buffer = '';
+	for (var i in usertkts) {
+		buffer += i + ',' + usertkts[i] + "\n";
+	}
+	fs.writeFile('config/usertkts.csv', buffer);
+}
+importUsertkts();
+
 // User
 var User = (function () {
 	function User(connection) {
@@ -167,11 +221,6 @@ var User = (function () {
 		this.authenticated = false;
 		this.userid = toUserid(this.name);
 		this.group = config.groupsranking[0];
-		this.moneh = 50;
-		this.tickets = 0;
-		this.cav = false;
-		this.bet = '';
-		this.bets = 0;
 
 		var trainersprites = [1, 2, 101, 102, 169, 170, 265, 266];
 		this.avatar = trainersprites[Math.floor(Math.random()*trainersprites.length)];
@@ -193,6 +242,10 @@ var User = (function () {
 		this.prevNames = {};
 		this.battles = {};
 		this.roomCount = {};
+		this.moneh = 0;
+		this.bet = '';
+		this.bets = 0;
+		this.tickets = 0;
 
 		// challenges
 		this.challengesFrom = {};
@@ -428,6 +481,8 @@ var User = (function () {
 		this.group = config.groupsranking[0];
 		this.isStaff = false;
 		this.staffAccess = false;
+		this.moneh = 0;
+                this.tickets = 0;
 
 		for (var i=0; i<this.connections.length; i++) {
 			// console.log(''+name+' renaming: connection '+i+' of '+this.connections.length);
@@ -472,6 +527,9 @@ var User = (function () {
 			if (room && room.rated && (this.userid === room.rated.p1 || this.userid === room.rated.p2)) {
 				this.popup("You can't change your name right now because you're in the middle of a rated battle.");
 				return false;
+			}
+			if (room && (room.league || room.tournament) && (this.userid === room.p1.userid || this.userid === room.p2.userid)) {
+				this.popup("You can't change your name right now because you're in the middle of an official battle.");
 			}
 		}
 
@@ -603,7 +661,13 @@ var User = (function () {
 				if (usergroups[userid]) {
 					group = usergroups[userid].substr(0,1);
 				}
-
+				if (Users.userwealth[userid]) {
+					this.moneh = parseInt(Users.userwealth[userid]);
+                                        
+				}
+                                if (Users.usertkts[userid]) {
+                                this.tickets = parseInt(Users.usertkts[userid]);
+                                 }
 				if (body === '3') {
 					staffAccess = true;
 				}
@@ -1153,6 +1217,12 @@ var User = (function () {
 	User.prototype.toString = function() {
 		return this.userid;
 	};
+	User.prototype.prewritemoney = function() {
+		userwealth[this.userid] = this.moneh;
+	};
+User.prototype.prewritetkts = function() {
+		usertkts[this.userid] = this.tickets;
+	};
 	// "static" function
 	User.pruneInactive = function(threshold) {
 		var now = Date.now();
@@ -1266,6 +1336,10 @@ exports.getExact = getExactUser;
 exports.searchUser = searchUser;
 exports.connectUser = connectUser;
 exports.importUsergroups = importUsergroups;
+exports.importUserwealth = importUserwealth;
+exports.exportUserwealth = exportUserwealth;
+exports.importUsertkts = importUsertkts;
+exports.exportUsertkts = exportUsertkts;
 exports.addBannedWord = addBannedWord;
 exports.removeBannedWord = removeBannedWord;
 
@@ -1276,7 +1350,8 @@ exports.bannedIps = bannedIps;
 exports.lockedIps = lockedIps;
 
 exports.usergroups = usergroups;
-
+exports.userwealth = userwealth;
+exports.usertkts = usertkts;
 exports.pruneInactive = User.pruneInactive;
 exports.pruneInactiveTimer = setInterval(
 	User.pruneInactive,
