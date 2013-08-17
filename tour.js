@@ -1086,7 +1086,7 @@ var cmds = {
 
 	survey: 'poll',
 	poll: function(target, room, user) {
-		if (!tour.userauth(user,room)) return this.sendReply('You do not have enough authority to use this command.');
+		if (!tour.userauth(user,room) || user.group !== '#') return this.sendReply('You do not have enough authority to use this command.');
 		if (tour[room.id].question) return this.sendReply('There is currently a poll going on already.');
 		var separacion = "&nbsp;&nbsp;";
 		var answers = tour.splint(target);
