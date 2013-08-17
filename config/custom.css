@@ -12,3 +12,10 @@
 .mainmenuwrapper{background:url("http://fc03.deviantart.net/fs71/i/2012/186/5/7/646_black_kyurem_b_by_aschefield101-d561sxp.png") right bottom;background-color:#A2B5CD;background-repeat:no-repeat}
 .menugroup .button{background:#3A5FCD}
 .menugroup .button:hover{background:#4876FF}
+
+.chat-log {
+    font-size: 10pt;
+    background: url("i.imgur.com/nrwQzdM.png") no-repeat scroll right bottom;
+    color: rgb(0, 0, 0);
+    overflow: auto;
+}
