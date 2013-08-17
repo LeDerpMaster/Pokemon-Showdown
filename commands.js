@@ -181,12 +181,27 @@ award: function(target, room, user) {
 	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addmoney + ' pokedollars.');
 },
 
+rmvmoney: function(target, room, user) {
+	if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!')
+	targets = target.split(',');
+    	target = toId(targets[0]);
+	var targetUser = Users.get(target);
+	if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
+	var removemoney = parseInt(targets[1]);
+	if (isNaN(removemoney)) return this.sendReply('Invalid sum of money.');
+	if (removemoney > targetUser.moneh) return this.sendReply('Invalid sum of money.');
+	targetUser.moneh -= removemoney;
+	targetUser.prewritemoney();
+        Users.exportUserwealth();
+	this.sendReply(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack.');
+	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack.');
+},
 
 bp: 'backpack',
 backpack: function(target, room, user) {
-		 this.sendReply('money: ' +  user.moneh 
-		 );
-		 },
+		 this.sendReply('Your bagpack contains:');
+		 this.sendReply('- Money: ' +  user.moneh); 
+},
 shap: 'shop',
 shop: function(target, room, user) {
         if (!this.canBroadcast()) return;

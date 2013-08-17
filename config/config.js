@@ -192,7 +192,7 @@ exports.customavatars = {
 	'skycoownerjoey' : 'link_sprite_recolored_by_cae79119-d3aou86.png',
 	'frontierbgary' : 'frlg_gary__s_hgss_sprite_by_gosicrystal-d3j6mc4.png',
 	'championcorper' : '571.png',
-	'gymldrace' : 'volca.png',
+	//'gymldrace' : 'volca.png',
 	'e4photon' : 'jigg.png',
 	'ejdrago' : 'ditto.png',
 	'championheynow' : 'santa_kirby_pixel_by_supernintendogirl-d34bovb.png',
