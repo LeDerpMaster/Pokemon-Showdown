@@ -165,6 +165,8 @@ exports.customavatars = {
 	'rctic' : 'rtic.png',
 	'leaderdarkrai147' : 'arch.png',
 	'benjo' : 'prime.png',
+	'musai' : 'musai.png',
+	'gymtrainersynth' : 'synth.png',
 	'thefuckinbest' : 'sly.png',
 	'gymleaderkittycat' : 'bass.png',
 	'lassabyhoe' : 'alice.png',
