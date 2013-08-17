@@ -274,6 +274,7 @@ exports.customavatars = {
 	'aeroblaze' : 'claw.png',
 	'taiyoinferno' : 'charizard_zps0bf6645c.png',
 	'gymleaderliquid' : '009.png',
+	'ghostkirby29' : 'kirbs.png',
 	'amakute' : 'Male-072.png',
 	'elite4hammer' : '3.png',
 	'superjeenius' : 'bidoof.png', 
