@@ -279,6 +279,8 @@ exports.customavatars = {
 	'elite4hammer' : '3.png',
 	'superjeenius' : 'bidoof.png', 
 	'senzaitekina' : 'wes.png',
+	'elite4breeze' : 'breeze.png',
+	'championmugetsu' : 'mugetsu.png',
 	'champhmslaves' : 'bib.png',
 	'darkraiisahaunter' : 'darks.png',
 	'gymladerstar' : 'ninec.png',
