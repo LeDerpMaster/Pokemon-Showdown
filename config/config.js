@@ -169,6 +169,7 @@ exports.customavatars = {
 	'musai' : 'musai.png',
 	'tcchampionexzlu' : 'exzlu.png',
 	'gymtrainersynth' : 'synth.png',
+	'vaderdarkside' : 'vader.png',
 	'thefuckinbest' : 'sly.png',
 	'gymleaderkittycat' : 'bass.png',
 	'lassabyhoe' : 'alice.png',
