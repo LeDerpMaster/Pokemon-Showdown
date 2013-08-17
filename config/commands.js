@@ -1196,11 +1196,13 @@ var commands = exports.commands = {
             
         tourcommands: function(target, room, user) {
                     if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Start a tour :/tour tier, size<br \>' +
-					'End a tour: /endtour<br \>' +
-					'Force join: /fj username<br \>' +
-					'Force leave: /fl username<br \>' +
-					'Change tour size: /toursize number<br \>')
+                    this.sendReplyBox('Tournaments through /tour can be started by Voice (+) users and up<br \>' +
+                    			'/tour [tier], [size] - Starts a tournament<br \>' +
+					'/endtour - Ends a currently running tournament<br \>' +
+					'/fj [username] - Force someone to join a tournament<br \>' +
+					'/fl [username] - Force someone to leave a tournament<br \>' +
+					'/toursize [size] - Changes the size of a currently running tournament<br \>' +
+					'/replace [username], [username] - Replaces user in a tournament with the second user');
                     
             },
 	
