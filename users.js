@@ -200,14 +200,14 @@ function importUserwealth() {
 		}
 	});
 }
-function exportUsertkts() {
+/*function exportUsertkts() {
 	var buffer = '';
 	for (var i in usertkts) {
 		buffer += i + ',' + usertkts[i] + "\n";
 	}
 	fs.writeFile('config/usertkts.csv', buffer);
 }
-importUsertkts();
+importUsertkts();*/
 
 // User
 var User = (function () {
