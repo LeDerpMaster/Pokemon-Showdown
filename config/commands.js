@@ -896,6 +896,10 @@ var commands = exports.commands = {
 		if (!matched) {
 			return this.sendReply('The Other Metas entry "'+target+'" was not found. Try /othermetas or /om for general help.');
 		}
+		if (target === 'all' || target === 'rebalancedmono') {
+			matched = true;
+			buffer += '- <a href="http://pastebin.com/tqqJT4MG">Rebalanced Monotype</a>';
+		}
 		this.sendReplyBox(buffer);
 	},
 
@@ -1116,6 +1120,22 @@ var commands = exports.commands = {
 		if (!atLeastOne) {
 			return this.sendReplyBox('Pokemon, item, move, or ability not found for generation ' + generation.toUpperCase() + '.');
 		}
+	},
+
+	pointscore: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Point Score is a custom rule set which uses points to adjust how you make a team:<br />' +
+			'- <a href="https://github.com/BrittleWind/Pokemon-Showdown/blob/master/data/README%20-%20Point%20Score.md#the-points">README: overview of Point Score</a><br />' +
+			'Example replays:<br />' +
+			'- <a href="http://pokemonshowdown.com/replay/phoenixleague-pointscore-3822">Elite Fou® Cats vs Elite Fou® dvetts</a>');
+	},
+
+	perseverance: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Perseverance is a format which encourages smart play, and loser is first to lose a Pokemon:<br />' +
+			'- <a href="https://github.com/LynnHikaru/Perseverance-/blob/master/README.md">README: overview of Perseverance</a><br />' +
+			'Example replays:<br />' +
+			'- <a href="http://pokemonshowdown.com/replay/phoenixleague-perseverance-3900">Cosy vs Champion® Lynn</a>');
 	},
 
 	lenora: function(target, room, user) {
