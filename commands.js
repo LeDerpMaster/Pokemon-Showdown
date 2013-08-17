@@ -333,11 +333,8 @@ var commands = exports.commands = {
 
 	join: function(target, room, user, connection) {
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
-<<<<<<< HEAD
 		if (target === 'admnrm' && user.group !== '~') return false;
-=======
 		if (!targetRoom) return false;
->>>>>>> upstream/master
 		if (target && !targetRoom) {
 			if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
 			return connection.sendTo(target, "|noinit|nonexistent|The room '"+target+"' does not exist.");
