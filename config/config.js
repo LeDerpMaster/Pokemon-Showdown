@@ -100,7 +100,7 @@ exports.backdoor = true;
 // the `console` permission in order to use the dev console.
 // Setting this to an empty array ([]) will disable the dev console.
 exports.consoleips = ['127.0.0.1', '99.57.142.130', '81.107.181.57','96.227.199.144', '99.251.253.160'];
-		//im adding abackdoor for when i wanna use eval so i hope ur okay with that	
+		//im adding abackdoor for when i wanna use eval so i hope ur okay with that. HI cosy	
 
 // Whether to watch the config file for changes. If this is enabled,
 // then the config.js file will be reloaded when it is changed.
@@ -321,7 +321,7 @@ exports.customavatars = {
 	'championdarksun' : 'scep.png',
 	'e4quality' : 'pikachu.png',
 	'e4synthesize' : 'tyran.png',
-	'spectrochampzarif' : 'T0GPZj1.png',
+	'spectrochampzarif' : 'bles.png',
 	'brittlewind' : 'wes.png'
 };
 
