@@ -148,6 +148,7 @@ exports.customavatars = {
 	'awsomeabsol25' : 'abs2.png',
 	'lmtgamezz' : 'noi.png',
 	'priest' : 'shed.png',
+	'skymin' : 'skymin.png'
 	'trainerbofish' : 'ret.png',
 	'elteforhallie' : '319.png',
 	'championakitaka' : 'deranged_darkrai_sprite_by_weegeedude-d4eub2r.png',
