@@ -246,7 +246,7 @@ var User = (function () {
 		this.bet = '';
 		this.bets = 0;
 		this.tickets = 0;
-
+                this.vip = true;
 		// challenges
 		this.challengesFrom = {};
 		this.challengeTo = null;
