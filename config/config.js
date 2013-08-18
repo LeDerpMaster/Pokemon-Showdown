@@ -176,6 +176,7 @@ exports.customavatars = {
 	'aefaefaefa' : 'aef2.png',
 	'gymldrkillswitch' : 'kill.png',
 	'gymleaderjumper' : 'jumper.png',
+	'profhmslaves' : 'slave.png',
 	'gymleaderkittycat' : 'bass.png',
 	'lassabyhoe' : 'alice.png',
 	'gymleaderstrycal' : 'Sir_Aaron_trainer_sprite_by_nissemann123456789.png',
