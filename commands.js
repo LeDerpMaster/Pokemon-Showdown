@@ -14,7 +14,7 @@
 var crypto = require('crypto');
 
 var commands = exports.commands = {
-var emote1 = '<img src="http://www.cool-smileys.com/images/301.gif"></a>';
+var emote1 = '<a>img src="http://www.cool-smileys.com/images/301.gif"></a>';
 
 emote: function(target, room, user) {
     if (user.group = '&' || user.group = '~') {
