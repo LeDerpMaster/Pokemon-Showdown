@@ -165,7 +165,7 @@ award: function(target, room, user) {
 	targetUser.prewritemoney();
         Users.exportUserwealth();
 	this.sendReply(targetUser.name + ' has received ' + addmoney + ' pokedollars.');
-	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addmoney + ' pokedollars.');
+	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addmoney + ' pokedollars from ' + user.name);
 },
 
 rmvmoney: function(target, room, user) {
@@ -181,7 +181,7 @@ rmvmoney: function(target, room, user) {
 	targetUser.prewritemoney();
         Users.exportUserwealth();
 	this.sendReply(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack.');
-	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack.');
+	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack by ' + user.name);
 },
 
 bp: 'backpack',

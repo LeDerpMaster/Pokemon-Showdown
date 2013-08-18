@@ -244,9 +244,20 @@ exports.tour = function(t) {
 			tour[rid].losers = new Array();
 			tour[rid].winners = new Array();
 			var firstMatch = false;
+			var firstRe = 500;
+			var secondRe = 200;
+
+			if (tour[rid].size < 5) {
+				firstRe = 250;
+				secondRe = 100;
+			}
+
 			if (w.length == 1) {
 				//end tour
-				Rooms.rooms[rid].addRaw('<h2><font color="green">Congratulations <font color="black">' + Users.users[w[0]].name + '</font>!  You have won the ' + Tools.data.Formats[tour[rid].tier].name + ' Tournament!</font></h2>' + '<br><font color="blue"><b>SECOND PLACE:</b></font> ' + Users.users[l[0]].name + '<hr />');
+				Rooms.rooms[rid].addRaw('<h2><font color="green">Congratulations <font color="black">' + Users.users[w[0]].name + '</font>!  You have won the ' + Tools.data.Formats[tour[rid].tier].name + ' Tournament!</font></h2>' + '<br><font color="blue"><b>SECOND PLACE:</b></font> ' + Users.users[l[0]].name + '<hr />' + 'First place: ' + firstRe + ' Pokedollars	-	Second Place: ' + secondRe + ' Pokedollars');
+				Users.users[w[0]].moneh += firstRe;
+				Users.users[l[0]].moneh += secondRe;
+
 				tour[rid].status = 0;
 			} else {
 				var html = '<hr /><h3><font color="green">Round '+ tour[rid].roundNum +'!</font></h3><font color="blue"><b>TIER:</b></font> ' + Tools.data.Formats[tour[rid].tier].name + "<hr /><center>";
