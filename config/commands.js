@@ -450,10 +450,10 @@ var commands = exports.commands = {
 
 		this.sendReply(data);
 	},
-	
+
 	dexsearch: function (target, room, user) {
                 if (!this.canBroadcast()) return;
- 
+
                 if (!target) return this.parse('/help dexsearch');
                 var targets = target.split(',');
                 var target;
@@ -461,7 +461,7 @@ var commands = exports.commands = {
                 var count = 0;
                 var all = false;
                 var output = 10;
- 
+
                 for (var i in targets) {
                         target = Tools.getMove(targets[i]);
                         if (target.exists) {
@@ -476,7 +476,7 @@ var commands = exports.commands = {
                                 moves.count++;
                                 continue;
                         };
- 
+
                         target = Tools.getAbility(targets[i]);
                         if (target.exists) {
                                 if (!ability.count) {
@@ -490,7 +490,7 @@ var commands = exports.commands = {
                                 ability.count++;
                                 continue;
                         };
- 
+
                         target = targets[i].trim().toLowerCase();
                         if (['fire','water','electric','dragon','rock','fighting','ground','ghost','psychic','dark','bug','flying','grass','poison','normal','steel','ice'].indexOf(toId(target.substring(0, target.length - 4))) > -1) {
                                 if (!types.count) {
@@ -537,9 +537,9 @@ var commands = exports.commands = {
                                 return this.sendReply('"' + target + '" could not be found in any of the search categories.');
                         };
                 };
- 
+
  		if (all && count === 0) return this.sendReply('No search parameters other than "all" were found.\nTry "/help dexsearch" for more information on this command.');
- 
+
                 while (count > 0) {
                         --count;
                         var tempResults = [];
@@ -555,7 +555,7 @@ var commands = exports.commands = {
                                 for (var mon in results) tempResults.add(results[mon]);
                         };
                         var results = [];
- 
+
                         if (types.count > 0) {
                                 for (var mon in tempResults) {
                                         if (types.count === 1) {
@@ -567,7 +567,7 @@ var commands = exports.commands = {
                                 types.count = 0;
                                 continue;
                         };
-       
+
                         if (tiers.count > 0) {
                                 for (var mon in tempResults) {
                                         if ('cap' in tiers) {
@@ -578,7 +578,7 @@ var commands = exports.commands = {
                                 tiers.count = 0;
                                 continue;
                         };
- 
+
                         if (ability.count > 0) {
                                 for (var mon in tempResults) {
                                         for (var monAbility in tempResults[mon].abilities) {
@@ -588,7 +588,7 @@ var commands = exports.commands = {
                                 ability.count = 0;
                                 continue;
                         };
- 
+
                         if (colours.count > 0) {
                                 for (var mon in tempResults) {
                                         if (tempResults[mon].color.toLowerCase() in colours) results.add(tempResults[mon]);
@@ -596,7 +596,7 @@ var commands = exports.commands = {
                                 colours.count = 0;
                                 continue;
                         };
- 
+
                         if (moves.count > 0) {
                                 var problem;
                                 var move = {};
@@ -616,7 +616,7 @@ var commands = exports.commands = {
                                 moves.count = 0;
                                 continue;
                         };
- 
+
                         if (gens.count > 0) {
                                 for (var mon in tempResults) {
                                         if (tempResults[mon].gen in gens) results.add(tempResults[mon]);
@@ -625,7 +625,7 @@ var commands = exports.commands = {
                                 continue;
                         };
                 };
- 
+
                 var resultsStr = '';
                 if (results.length > 0) {
                         if (all || results.length <= output) {
@@ -740,7 +740,7 @@ var commands = exports.commands = {
 			this.sendReplyBox(target + " is weak to: " + weaknesses.join(', ') + " (not counting abilities).");
 		}
 	},
-	
+
 	matchup: 'effectiveness',
 	effectiveness: function(target, room, user) {
 		var targets = target.split(/[,/]/);
@@ -1065,7 +1065,7 @@ var commands = exports.commands = {
 				doublesFormat = '/' + doublesFormat;
 			}
 		}
-		
+
 		// Pokemon
 		if (pokemon.exists) {
 			atLeastOne = true;
@@ -1075,7 +1075,7 @@ var commands = exports.commands = {
 			if (pokemon.tier === 'G4CAP' || pokemon.tier === 'G5CAP') {
 				generation = "cap";
 			}
-	
+
 			var poke = pokemon.name.toLowerCase();
 			if (poke === 'nidoranm') poke = 'nidoran-m';
 			if (poke === 'nidoranf') poke = 'nidoran-f';
@@ -1092,31 +1092,31 @@ var commands = exports.commands = {
 			if (poke === 'shaymin-sky') poke = 'shaymin-s';
 			if (poke === 'arceus') poke = 'arceus-normal';
 			if (poke === 'thundurus-therian') poke = 'thundurus-t';
-	
+
 			this.sendReplyBox('<a href="http://www.smogon.com/'+generation+'/pokemon/'+poke+doublesFormat+'">'+generation.toUpperCase()+' '+doublesText+pokemon.name+' analysis</a>, brought to you by <a href="http://www.smogon.com">Smogon University</a>');
 		}
-		
+
 		// Item
 		if (item.exists && genNumber > 1 && item.gen <= genNumber) {
 			atLeastOne = true;
 			var itemName = item.name.toLowerCase().replace(' ', '_');
 			this.sendReplyBox('<a href="http://www.smogon.com/'+generation+'/items/'+itemName+'">'+generation.toUpperCase()+' '+item.name+' item analysis</a>, brought to you by <a href="http://www.smogon.com">Smogon University</a>');
 		}
-		
+
 		// Ability
 		if (ability.exists && genNumber > 2 && ability.gen <= genNumber) {
 			atLeastOne = true;
 			var abilityName = ability.name.toLowerCase().replace(' ', '_');
 			this.sendReplyBox('<a href="http://www.smogon.com/'+generation+'/abilities/'+abilityName+'">'+generation.toUpperCase()+' '+ability.name+' ability analysis</a>, brought to you by <a href="http://www.smogon.com">Smogon University</a>');
 		}
-		
+
 		// Move
 		if (move.exists && move.gen <= genNumber) {
 			atLeastOne = true;
 			var moveName = move.name.toLowerCase().replace(' ', '_');
 			this.sendReplyBox('<a href="http://www.smogon.com/'+generation+'/moves/'+moveName+'">'+generation.toUpperCase()+' '+move.name+' move analysis</a>, brought to you by <a href="http://www.smogon.com">Smogon University</a>');
 		}
-		
+
 		if (!atLeastOne) {
 			return this.sendReplyBox('Pokemon, item, move, or ability not found for generation ' + generation.toUpperCase() + '.');
 		}
@@ -1568,7 +1568,7 @@ var commands = exports.commands = {
 		if (target === '%' || target === 'hourmute') {
 			matched = true;
 			this.sendReply('/hourmute , [reason] - Mute user with reason for an hour. Requires: % @ & ~');
-		}	
+		}
 		if (target === '%' || target === 'unmute') {
 			matched = true;
 			this.sendReply('/unmute [username] - Remove mute from user. Requires: % @ & ~');

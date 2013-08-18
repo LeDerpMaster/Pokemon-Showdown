@@ -782,7 +782,7 @@ buy: function(target, room, user) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (Rooms.rooms[targetRoom.id].users[targetUser.userid]) {
-			return this.sendReply("The player " + targetUser.name + " is already in the room " + target + "!");	
+			return this.sendReply("The player " + targetUser.name + " is already in the room " + target + "!");
 		}
 		if (!Rooms.rooms[room.id].users[targetUser.userid]) {
 			return this.sendReply('User '+this.targetUsername+' is not in the room ' + room.id + '.');
@@ -999,13 +999,13 @@ nd(''+name+' was unbanned by '+user.name+'.');
 	/*********************************************************
 	 * Moderating: Other
 	 *********************************************************/
-	
+
 	modnote: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help note');
 		if (!this.can('mute')) return false;
 		return this.privateModCommand('(' + user.name + ' notes: ' + target + ')');
 	},
-	
+
 	demote: 'promote',
 	promote: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help promote');
@@ -1020,7 +1020,7 @@ nd(''+name+' was unbanned by '+user.name+'.');
 		} else if (Users.usergroups[userid]) {
 			currentGroup = Users.usergroups[userid].substr(0,1);
 		}
-		
+
 		var nextGroup = target ? target : Users.getNextGroupSymbol(currentGroup, cmd === 'demote', true);
 		if (target === 'deauth') nextGroup = config.groupsranking[0];
 		if (!config.groups[nextGroup]) {
@@ -1175,7 +1175,7 @@ nd(''+name+' was unbanned by '+user.name+'.');
 	modlog: function(target, room, user, connection) {
 		if (!this.can('modlog')) return false;
 		var lines = 0;
-		if (!target.match('[^0-9]')) { 
+		if (!target.match('[^0-9]')) {
 			lines = parseInt(target || 15, 10);
 			if (lines > 100) lines = 100;
 		}
@@ -1319,7 +1319,7 @@ nd(''+name+' was unbanned by '+user.name+'.');
 		if (this.can('hotpatch')) return false;
 		fs.writeFile('data/learnsets.js', 'exports.BattleLearnsets = '+JSON.stringify(BattleLearnsets)+";\n");
 		this.sendReply('learnsets.js saved.');
-	},	
+	},
 
 	disableladder: function(target, room, user) {
 		if (!this.can('disableladder')) return false;
