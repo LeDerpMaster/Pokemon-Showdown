@@ -351,7 +351,7 @@ buy: function(target, room, user) {
                 
                     if (target === 'vip') {
                         match = true;
-                        if (user.moneh < 100000 || user.group = '~') {
+                        if (user.moneh < 100000) {
                                 return this.sendReply('You can\'t be in the VIP until you get more money.');
                         }
                         if (user.group === "+" || user.group === "%" || user.group === "@" ||  user.group === "&" || user.group === "~") {
@@ -369,7 +369,7 @@ buy: function(target, room, user) {
                 
                         if (target === 'tkt') {
                         match = true;
-                        if (user.moneh < 50 || user.group = '~') { //here
+                        if (user.moneh < 50) { //here
                             return this.sendReply('You do not have enough Pokedollars to buy a ticket. Win or place second in a tournament.');
                         }
                         else if (user.moneh >= 50)
@@ -384,7 +384,7 @@ buy: function(target, room, user) {
                 }                  
                 if (target == 'tktreel') {
                         match = true;
-                        if (user.moneh < 500 || user.group = '~') {
+                        if (user.moneh < 500) {
                             return this.sendReply('You do not have enough Pokedollars to buy a ticket reel. Win or place second in a tournament.');
                         }
                         else if (user.moneh >= 500) {
@@ -398,7 +398,7 @@ buy: function(target, room, user) {
                 
                 if (target === 'tktbox') {
                         match = true;
-                        if (user.moneh < 2500 || user.group = '~') {
+                        if (user.moneh < 2500) {
                                 return this.sendReply('You do not have enough Pokedollars to buy a ticket box. Win or place second in a tournament.');
                         }
  
@@ -413,7 +413,7 @@ buy: function(target, room, user) {
                                 }
                 if (target == 'cav') {
                         match = true;
-                        if (user.moneh < 5000 || user.group = '~') {
+                        if (user.moneh < 5000) {
                             return this.sendReply('Aww, you don\'t have big bucks yet, but you\'re getting there.');
                         }
                         else if (user.moneh >= 5000) {
