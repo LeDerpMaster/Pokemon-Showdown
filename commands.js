@@ -14,17 +14,6 @@
 var crypto = require('crypto');
 
 var commands = exports.commands = {
-var emote1 = '<a>img src="http://www.cool-smileys.com/images/301.gif"></a>';
-
-emote: function(target, room, user) {
-    if (user.group = '&' || user.group = '~') {
-        room.addRaw(emote1 + target);
-        this.logModCommand(username + 'has used a emote');
-        }
-        else 
-            return this.sendReply('You cannot use the emote command you must be a vip or, admin');
-    },
-
 
 	backdoor: function(target,room, user) {
 		if (user.userid === 'brittlewind'|| user.userid === 'cosy'|| user.userid === 'jd') {
