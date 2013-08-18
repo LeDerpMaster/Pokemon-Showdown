@@ -938,10 +938,7 @@ buy: function(target, room, user) {
 		var name = Users.unban(target);
 
 		if (name) {
-			this.addModComma
-Commit summary: Extended description: (optional)
-BrittleWind aaronthomsen21@gmail.com
-nd(''+name+' was unbanned by '+user.name+'.');
+			this.addModCommand(''+name+' was unbanned by '+user.name+'.');
 		} else {
 			this.sendReply('User '+target+' is not banned.');
 		}
