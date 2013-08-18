@@ -231,8 +231,8 @@ checkallmoney: function(target, room, user) {
     for (var i in room.users) {
         if (room.users[i].moneh === target || room.users[i].moneh > target) {
             x += room.users[i].name + ' : ' + room.users[i].moneh;
+        	x += ', ';
         }
-        x += ', ';
         //if (i < room.users.length) x += ', ';
     }
     if (!x) return this.sendReply('No user has over that amount.');
@@ -250,8 +250,8 @@ checkalltickets: function(target, room, user) {
     for (var i in room.users) {
         if (room.users[i].tickets === target || room.users[i].tickets > target) {
             x += room.users[i].name + ' : ' + room.users[i].tickets;
+        	x += ', ';
         }
-        x += ', ';
         //if (i < room.users.length) x += ', ';
     }
     if (!x) return this.sendReply('No user has over that amount.');
