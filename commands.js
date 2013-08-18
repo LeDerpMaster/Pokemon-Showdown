@@ -193,9 +193,10 @@ backpack: function(target, room, user) {
         this.sendReply(targetUser.name + ' backpack contains:');
         this.sendReply('- Money: ' +  targetUser.moneh); 
     }
-
-    this.sendReply('Your backpack contains:');	
-    this.sendReply('- Money: ' +  user.moneh); 
+    else {
+        this.sendReply('Your backpack contains:');  
+        this.sendReply('- Money: ' +  user.moneh); 
+    }
 },
 shap: 'shop',
 shop: function(target, room, user) {
