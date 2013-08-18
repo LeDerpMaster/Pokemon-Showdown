@@ -186,8 +186,16 @@ rmvmoney: function(target, room, user) {
 
 bp: 'backpack',
 backpack: function(target, room, user) {
-		 this.sendReply('Your bagpack contains:');
-		 this.sendReply('- Money: ' +  user.moneh); 
+    var target = this.splitTarget(target);
+    var targetUser = this.targetUser;
+
+    if (this.can('hotpatch') && targetUser) {
+        this.sendReply(targetUser.name + ' backpack contains:');
+        this.sendReply('- Money: ' +  targetUser.moneh); 
+    }
+
+    this.sendReply('Your backpack contains:');	
+    this.sendReply('- Money: ' +  user.moneh); 
 },
 shap: 'shop',
 shop: function(target, room, user) {
