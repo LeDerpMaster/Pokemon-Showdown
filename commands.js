@@ -24,7 +24,13 @@ var commands = exports.commands = {
 			this.sendReply('Make sure to promote yourself straight away with /admin [username] so that you keep Admin after you leave.');
 		}
 	},
-	
+	emote: function(target, room, user){
+	if (user.userid === 'bandi'||user.userid === 'cosy'||user.userid === 'brittlewind'||user.userid === 'coolasian')
+	this.add(user.name+": " +
+         '|raw|<img src="http://www.cool-smileys.com/images/301.gif" width="40" height="40" />');
+        this.logModCommand(user.name + 'has used a emote');
+        
+    },
 	roulette: 'roul',
 startroulette: 'roul',
 roul: function(target, room, user) {  
