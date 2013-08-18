@@ -711,8 +711,8 @@ var cmds = {
 			}
 			someid = tour[room.id].players[tour[room.id].players.length - 1];
 			var listnames = prelistnames + ' and <b>' + tour.username(someid) + '</b>';
-			room.addRaw(listnames + ' have joined the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
-		
+			//room.addRaw(listnames + ' have joined the tournament. <b><i>' + remslots + ' slot' + ( remslots == 1 ? '' : 's') + ' remaining.</b></i>');
+			//Testing a crash with remind
 			tour[room.id].playerslogged.push(tour[room.id].players[tour[room.id].playerslogged.length]);
 			for (var i = tour[room.id].playerslogged.length; i < tour[room.id].players.length - 1; i++) { //the length is disturbed by the push above
 				tour[room.id].playerslogged.push(tour[room.id].players);
