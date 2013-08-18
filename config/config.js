@@ -160,7 +160,8 @@ exports.customavatars = {
 	'darke4blue' : '373.png',
 	'gymldrjinouga' : '637.png',
 	'gltanner' : 'dark.png',
-	'gluhenvolk' : 'cool.png',
+	'gluhenvolk' : 'cool.png',,
+	'professorpksjrtv' : 'prof.png'
 	'razorbrave' : 'vave.png',
 	'gymldrprinney' : 'nars.png',
 	'deathshark82' : 'abs2.png',
