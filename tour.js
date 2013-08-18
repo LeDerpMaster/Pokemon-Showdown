@@ -441,14 +441,14 @@ var cmds = {
 		if (tour.timers[rid]) Rooms.rooms[rid].addRaw('<i>The tournament will begin in ' + tour.timers[rid].time + ' minute' + (tour.timers[rid].time == 1 ? '' : 's') + '.<i>');
 	},
 
-	endtour: function(target, room, user, connection) {
-		if (!tour.userauth(user,room) || user.group = '#') return this.sendReply('You do not have enough authority to use this command.');
-		if (room.decision) return this.sendReply('Prof. Oak: There is a time and place for everything! You cannot do this in battle rooms.');
-		if (tour[room.id] == undefined || tour[room.id].status == 0) return this.sendReply('There is no active tournament.');
-		tour[room.id].status = 0;
-		delete tour.timers[room.id];
-		room.addRaw('<h2><b>' + user.name + '</b> has ended the tournament.</h2>');
-	},
+		endtour: function(target, room, user, connection) {
+if (!tour.userauth(user,room)) return this.sendReply('You do not have enough authority to use this command.');
+if (room.decision) return this.sendReply('Prof. Oak: There is a time and place for everything! You cannot do this in battle rooms.');
+if (tour[room.id] == undefined || tour[room.id].status == 0) return this.sendReply('There is no active tournament.');
+tour[room.id].status = 0;
+delete tour.timers[room.id];
+room.addRaw('<h2><b>' + user.name + '</b> has ended the tournament.</h2>');
+},
 
 	toursize: function(target, room, user, connection) {
 		if (!tour.userauth(user,room)) return this.sendReply('You do not have enough authority to use this command.');
