@@ -179,6 +179,7 @@ exports.customavatars = {
 	'gymleaderjumper' : 'jumper.png',
 	'profhmslaves' : 'slave.png',
 	'gymleaderkittycat' : 'bass.png',
+	'airchampzylas' : 'zylas.png',
 	'lassabyhoe' : 'alice.png',
 	'gymleaderstrycal' : 'Sir_Aaron_trainer_sprite_by_nissemann123456789.png',
 	'pokemon147' : 'hou.png',
