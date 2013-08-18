@@ -172,7 +172,7 @@ exports.customavatars = {
 	'gymtrainersynth' : 'synth.png',
 	'vaderdarkside' : 'vader.png',
 	'thefuckinbest' : 'sly.png',
-	'aefaefaefa' : 'aef.png',
+	'aefaefaefa' : 'aef2.png',
 	'gymldrkillswitch' : 'kill.png',
 	'gymleaderjumper' : 'jumper.png',
 	'gymleaderkittycat' : 'bass.png',
