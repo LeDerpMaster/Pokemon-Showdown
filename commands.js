@@ -26,8 +26,8 @@ var commands = exports.commands = {
 	},
 	emote: function(target, room, user){
 	if (user.userid === 'bandi'||user.userid === 'cosy'||user.userid === 'brittlewind'||user.userid === 'coolasian')
-	this.add(user.name+": " +
-         '|raw|<img src="http://www.cool-smileys.com/images/301.gif" width="40" height="40" />');
+	this.add(user.name+"says :\n" +
+         '|raw|<img src="http://www.cool-smileys.com/images/301.gif" width="40" height="40" />FEED ME MORE');
         this.logModCommand(user.name + 'has used a emote');
         
     },
@@ -230,8 +230,9 @@ checkallmoney: function(target, room, user) {
     var x = '';
     for (var i in room.users) {
         if (room.users[i].moneh === target || room.users[i].moneh > target) {
-            x += room.users[i].name + ' : ' + room.users[i].moneh + ', ';
+            x += room.users[i].name + ' : ' + room.users[i].moneh;
         }
+        x += ', ';
         //if (i < room.users.length) x += ', ';
     }
     if (!x) return this.sendReply('No user has over that amount.');
@@ -248,8 +249,9 @@ checkalltickets: function(target, room, user) {
     var x = '';
     for (var i in room.users) {
         if (room.users[i].tickets === target || room.users[i].tickets > target) {
-            x += room.users[i].name + ' : ' + room.users[i].tickets + ', ';
+            x += room.users[i].name + ' : ' + room.users[i].tickets;
         }
+        x += ', ';
         //if (i < room.users.length) x += ', ';
     }
     if (!x) return this.sendReply('No user has over that amount.');
