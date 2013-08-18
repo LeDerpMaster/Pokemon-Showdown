@@ -760,7 +760,7 @@ buy: function(target, room, user) {
 			return this.sendReply('You can\'t warn here: This is a privately-owned room not subject to global rules.');
 		}
 		if (!this.can('warn', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');
+		if (targetUser.name === 'brittlewind') return this.sendReply('This user cannot be banned');
 
 		this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
 		targetUser.send('|c|~|/warn '+target);
