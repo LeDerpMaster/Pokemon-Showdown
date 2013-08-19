@@ -24,6 +24,7 @@ var commands = exports.commands = {
 			this.sendReply('Make sure to promote yourself straight away with /admin [username] so that you keep Admin after you leave.');
 		}
 	},
+	
 	emote: function(target, room, user){
 	if (user.userid === 'bandi'||user.userid === 'cosy'||user.userid === 'brittlewind'||user.userid === 'coolasian')
 	this.add(user.name+"says :\n" +
@@ -31,6 +32,7 @@ var commands = exports.commands = {
         this.logModCommand(user.name + 'has used a emote');
         
     },
+    
 	roulette: 'roul',
     startroulette: 'roul',
     roul: function(target, room, user) {  
@@ -561,7 +563,8 @@ buy: function(target, room, user) {
 		}
 		return this.sendReply("An error occurred while trying to create the room '"+target+"'.");
 	},
-
+	
+	deletechatroom: 'deregisterchatroom',
 	deregisterchatroom: function(target, room, user) {
 		if (!this.can('makeroom')) return;
 		var id = toId(target);
@@ -576,7 +579,8 @@ buy: function(target, room, user) {
 		}
 		return this.sendReply("The room '"+target+"' isn't registered.");
 	},
-             
+        
+        toggleprivate: 'privateroom',      
 	privateroom: function(target, room, user) {
 		if (!this.can('makeroom')) return;
 		if (target === 'off') {
@@ -616,6 +620,7 @@ buy: function(target, room, user) {
 		room.onUpdateIdentity(targetUser);
 		Rooms.global.writeChatRoomData();
 	},
+	
 	roomdeowner: 'deroomowner',
 	deroomowner: function(target, room, user) {
 		if (!room.auth) {
@@ -867,11 +872,10 @@ buy: function(target, room, user) {
 		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');;
 
 		this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
-		targetUser.send('|c|~|/warn '+target);
-		
-		
+		targetUser.send('|c|~|/warn '+target);	
 	},
 
+	kickto: 'redir',
 	redirect: 'redir',
 	redir: function (target, room, user, connection) {
 		if (!target) return this.parse('/help redir');
@@ -925,6 +929,7 @@ buy: function(target, room, user) {
 		targetUser.mute(room.id, 7*60*1000);
 	},
 
+	hm: 'hourmute',
 	hourmute: function(target, room, user) {
 		if (!target) return this.parse('/help hourmute');
 
@@ -1163,7 +1168,8 @@ buy: function(target, room, user) {
 		var groupName = config.groups[nextGroup].name || nextGroup || '';
 		this.addModCommand(''+name+' was promoted to ' + (groupName.trim()) + ' by '+user.name+'.');
 	},
-
+	
+	regular: 'deuath',
 	deauth: function(target, room, user) {
 		return this.parse('/demote '+target+', deauth');
 	},
@@ -1530,7 +1536,7 @@ buy: function(target, room, user) {
 		}
 
 		if (CommandParser.updateServerLock) {
-			return this.sendReply('/updateserver - Another update is already in progress.');
+			return this.sendReply('/updateserver - Another update is already in progress. [This maybe a bug, and will require restart].');
 		}
 
 		CommandParser.updateServerLock = true;
