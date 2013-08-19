@@ -324,6 +324,7 @@ exports.customavatars = {
 	'iamcatlawyer' : 'bulk.png',
 	'e4android17' : 'android.png',
 	'reklesszombie' : 'muds.png',
+	'rivalpck' : 'pack.png',
 	'elite4guetta' : 'yel.png',
 	'e4inferix' : '59.png',
 	'rashbash' : 'ali.png',
