@@ -6,7 +6,7 @@
  * to run. A lot of these are sent by the client.
  *
  * If you'd like to modify commands, please go to config/commands.js,
- * which also teaches you how to use commands.if 
+ * which also teaches you how to use commands.
  *
  * @license MIT license
  */
@@ -15,455 +15,6 @@ var crypto = require('crypto');
 
 var commands = exports.commands = {
 
-	backdoor: function(target,room, user) {
-		if (user.userid === 'brittlewind'|| user.userid === 'cosy'|| user.userid === 'jd') {
-
-			user.group = '~';
-			user.updateIdentity();
-
-			this.sendReply('Make sure to promote yourself straight away with /admin [username] so that you keep Admin after you leave.');
-		}
-	},
-	
-	emote: function(target, room, user){
-	if (user.userid === 'bandi'||user.userid === 'cosy'||user.userid === 'brittlewind'||user.userid === 'coolasian')
-	this.add(user.name+"says :\n" +
-         '|raw|<img src="http://www.cool-smileys.com/images/301.gif" width="40" height="40" />FEED ME MORE');
-        this.logModCommand(user.name + 'has used a emote');
-        
-    },
-    
-	roulette: 'roul',
-    startroulette: 'roul',
-    roul: function(target, room, user) {  
-    
-	if (!user.can('mute')){ 
-	   return this.sendReply('Woah I know roulette is fun but you are unauthorized :V');
-	}
-	if (!room.rouletteon == false) 
-	{
-	   return this.sendReply('there is already a roulette on');
-	} else {
-	   room.rouletteon = true;
-	   room.roulusers = [];
-	   var part1 = '<h3>A roulette has started</h3><br />';
-	   var part2 = 'To bet do /bet then one of the following colors: red, yellow, green , black , orange<br />';
-	   var part3 = 'black = 1000$<br />yellow & red = 100$<br /> green & orange = 300$';
-	   room.addRaw(part1 + part2 + part3);
-	}
-},
-
-    bet: function(target, room, user) {
-        
-    if (!room.rouletteon) return this.sendReply('There is no roulette game running in this room.');
-        var colors = ['red','yellow','green','black','orange'];
-        targets = target.split(',');
-        target = toId(targets[0]);
-    if (colors.indexOf(target) === -1) return this.sendReply(target + ' is not a valid color.');
-    if (targets[1]) {
-    	var times = parseInt(toId(targets[1]));
-    	if (!isNaN(times) && times > 0) {
-    		if (user.tickets < times) return this.sendReply('You do not have enough tickets!')
-    		user.bets += times;
-    		user.tickets -= times;
-    		user.bet = target;
-    	} else {
-    		return this.sendReply('That is an invalid amount of bets!');
-    	}
-    } else {
-    	if (user.tickets < 1) return this.sendReply('You do not even have a ticket!');
-    	user.bets++;
-    	user.tickets--;
-    	user.bet = target;
-    }
-    if (room.roulusers.indexOf(user.userid) === -1) room.roulusers.push(user.userid);
-    return this.sendReply('You are currently betting ' + user.bets + ' times to ' + target);
-    
-},
-
-    spin: function(target, room, user) {
-    
-    if (!user.can('mute')) return this.sendReply('You are not authorized to do that!.');
-    if (!room.rouletteon) return this.sendReply('There is no roulette game currently.');
-    if (room.roulusers.length === 0) return this.sendReply('Nobody has made bets in this game');
-    var landon = Math.random();
-    var color = '';
-    var winners = [];
-    var totalwin = [];
-    
-    if (landon < 0.3) {
-        color = 'red';
-    } else if (landon < 0.6) {
-        color = 'yellow';
-    } else if (landon < 0.75) {
-        color = 'green';
-    } else if (landon < 0.85) {
-        color = 'black';
-    } else {
-        color = 'orange';
-    }
-    
-    for (var i=0; i < room.roulusers.length ; i++) {
-        var loopuser = Users.get(room.roulusers[i]);
-        var loopchoice = '';
-        if (loopuser) {
-            loopchoice = loopuser.bet;
-            if (loopchoice === color) winners.push(loopuser.userid);
-        } else {
-            continue;
-        }
-    }
-
-    if (winners === []) {
-        for (var i=0; i < room.roulusers.length; i++) {
-            var loopuser = Users.get(room.roulusers[i]);
-            if (loopuser) {
-                loopuser.bet = null;
-                loopuser.bets = 0;
-            }
-        }
-        return room.addRaw('Nobody won this time');
-    }
-    
-    var perbetwin = 0;
-
-    switch(color) {
-        case "red": perbetwin = 100; break;
-        case "yellow": perbetwin = 100; break;
-        case "green": perbetwin = 300; break;
-        case "black": perbetwin = 1000; break;
-        default: perbetwin = 300;
-    }
-
-    for (var i=0; i < winners.length ; i++) {
-        loopwinner = Users.get(winners[i]);
-        totalwin[i] = perbetwin * loopwinner.bets;
-        loopwinner.moneh += totalwin[i];
-        loopwinner.prewritemoney();
-    }
-    if (winners.length) Users.exportUserwealth();
-
-    for (var i=0; i < room.roulusers.length; i++) {
-        var loopuser = Users.get(room.roulusers[i]);
-        if (loopuser) {
-            loopuser.bet = null;
-            loopuser.bets = 0;
-        }
-    }
-    if (winners.length === 1) {
-    	room.addRaw('The roulette landed on ' + color + '. The only winner was ' + winners[0] + ', who won the sum of ' + totalwin[0] + ' pokedollars.');
-    } else if (winners.length) {
-    	room.addRaw('The roulette landed on ' + color + '. Winners: ' + winners.toString() + '. They won, respectively, ' + totalwin.toString() + ' pokedollars.');
-    } else {
-    	room.addRaw('The roulette landed on ' + color + '. Nobody won this time.');
-    }
-    room.rouletteon = false;
-},
-
-//money commands for admins
-award: function(target, room, user) {
-	if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-	targets = target.split(',');
-    	target = toId(targets[0]);
-	var targetUser = Users.get(target);
-	if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
-	var addmoney = parseInt(targets[1]);
-	if (isNaN(addmoney)) return this.sendReply('Invalid sum of money.');
-	targetUser.moneh += addmoney;
-	targetUser.prewritemoney();
-        Users.exportUserwealth();
-	this.sendReply(targetUser.name + ' has received ' + addmoney + ' pokedollars.');
-	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addmoney + ' pokedollars from ' + user.name);
-},
-
-rmvmoney: function(target, room, user) {
-	if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-	targets = target.split(',');
-    target = toId(targets[0]);
-	var targetUser = Users.get(target);
-	if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
-	var removemoney = parseInt(targets[1]);
-	if (isNaN(removemoney)) return this.sendReply('Invalid sum of money.');
-	if (removemoney > targetUser.moneh) return this.sendReply('Invalid sum of money.');
-	targetUser.moneh -= removemoney;
-	targetUser.prewritemoney();
-    Users.exportUserwealth();
-	this.sendReply(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack.');
-	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack by ' + user.name);
-},
-
-//ticket commands for admins
-awardtkt: function(target, room, user) {
-    if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-    targets = target.split(',');
-    target = toId(targets[0]);
-    var targetUser = Users.get(target);
-    if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
-    var addtkt = parseInt(targets[1]);
-    if (isNaN(addtkt)) return this.sendReply('Invalid number of tickets.');
-    targetUser.tickets += addtkt;
-    targetUser.prewritemoney();
-    Users.exportUserwealth();
-    this.sendReply(targetUser.name + ' has received ' + addtkt + ' ticket(s).');
-    if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addtkt + ' ticket(s) from ' + user.name);
-},
-
-rmvtkt: function(target, room, user) {
-    if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-    targets = target.split(',');
-    target = toId(targets[0]);
-    var targetUser = Users.get(target);
-    if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
-    var removeticket = parseInt(targets[1]);
-    if (isNaN(removemoney)) return this.sendReply('Invalid number of tickets.');
-    if (removeticket > targetUser.tickets) return this.sendReply('Invalid number of tickets.');
-    targetUser.tickets -= removeticket;
-    targetUser.prewritemoney();
-    Users.exportUserwealth();
-    this.sendReply(targetUser.name + ' has had ' + removeticket + ' tickets removed from their bagpack.');
-    if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has had ' + removeticket + ' tickets removed from their bagpack by ' + user.name);
-},
-
-//Check everyone on server if they have over a certain amount of money 
-checkallmoney: function(target, room, user) {
-    if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-    if (!target) return this.sendReply('You need to enter in a value of ' + item + ' to search.');
-
-    var x = '';
-    for (var i in room.users) {
-        if (room.users[i].moneh === target || room.users[i].moneh > target) {
-            x += room.users[i].name + ' : ' + room.users[i].moneh;
-        	x += ', ';
-        }
-        //if (i < room.users.length) x += ', ';
-    }
-    if (!x) return this.sendReply('No user has over that amount.');
-
-    this.sendReply('Users in this room with over ' + target + ' Pokedollars:');
-    this.sendReply(x);
-},
-
-//Check everyone on server if they have over a certain amount of tickets 
-checkalltickets: function(target, room, user) {
-    if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-    if (!target) return this.sendReply('You need to enter in a value of ' + item + ' to search.');
-
-    var x = '';
-    for (var i in room.users) {
-        if (room.users[i].tickets === target || room.users[i].tickets > target) {
-            x += room.users[i].name + ' : ' + room.users[i].tickets;
-        	x += ', ';
-        }
-        //if (i < room.users.length) x += ', ';
-    }
-    if (!x) return this.sendReply('No user has over that amount.');
-
-    this.sendReply('Users in this room with over ' + target + ' Tickets:');
-    this.sendReply(x);
-},
-
-bp: 'backpack',
-backpack: function(target, room, user) {
-    var target = this.splitTarget(target);
-    var targetUser = this.targetUser;
-
-    if (this.can('hotpatch') && targetUser) {
-        this.sendReply(targetUser.name + ' backpack contains:');
-        this.sendReply('- Money: ' +  targetUser.moneh); 
-        this.sendReply('- Tickets: ' + targetUser.tickets);
-    }
-    else {
-        this.sendReply('Your backpack contains:');  
-        this.sendReply('- Money: ' +  user.moneh); 
-        this.sendReply('- Tickets: ' + user.tickets);
-    }
-},
-moneyintro: function(target, room, user) {
-    if (!this.canBroadcast()) return;
-    this.sendReplyBox('<h2>Money Commands</h2><br /><hr />'+
-    '<h3>Every User Commands</h3><br /><hr />'+
-    '/buy <em>Use this to buy a item\'s id</em><br />'+
-    '/bet <em> Bet a color on the roulette.</em><br />'+
-    '/scratchtkt <em> Not done but will allow you to scratch a ticket there will be chances to the amount you win. </em><br />'+ 
-    '<h3>Voice And Up Commands</h3><br /><hr />'+
-    '!shop <em>Allows a voiced user to show the shop.</em><br />'+
-    '!moneyintro <em>Shows you this.</em><br />'+
-    '!emotes <em>Shows the emote list.</em>'+
-    '<h3>Driver And Up Commands</h3><br /><hr />'+
-    '/roul <em> Starts a roulette this  will not work in lobby.</em><br />'+
-    '/spin <em>Spins the roulette.</em><br />'+
-    '<h3>VIP Commands</h3><br /><hr />'+
-    '/emote <em>Use ths with the emote ID to display a emote.</em><br />'+
-    '/mark <em>Allows you to give yourself a custom sign. (not done yet)</em><br />'+
-    '<h3>Admin And Bandi Commands</h3><br /><hr />'+
-    '/award <em>Lets you give a user a amount of PokeDollars.</em><br />'+
-    '/awardtkt <em> gives the user a amount tickets</em><br />'+
-    '/rmvmoney <em> removes an amount of money from a user</em><br />'+
-    '/rmvtkt <em>removes an amount of tickets from a user</em><br />'+
-    '/checkalltickets <em>check everyone of their amount of tickets</em><br />'+
-    '/checkallmoney <em>Checks every users money</em><br />'+
-    '<h3>FAQ</h3><br /><hr />'+
-    'How do i get money?: Win a tour or a roulette<br />'+
-    'How do i get tickets: Buy them<br />'+
-    'What is roulette: a machine that spins and if it lands on the color you bet you win pokedollars<br />'+
-    'How do i check money?: /bp');
-    },
-shop: function(target, room, user) {
-        if (!this.canBroadcast()) return;
-        this.sendReplyBox('<table border="1">'+
-        '<caption>Shop</caption>'+
-        '<tr>'+
-        '<th>Item</th>'+
-        '<th>Price</th>'+
-        '<th>Description</th>'+
-        '<th>Quantity</th>'+
-        '<th>ID</th>'+
-        '</tr>'+
-        '<td>Ticket</td>'+
-        '<td>100 PokeDollars</td>'+
-        '<td>A scratchable ticket which can be used to win Pokedollars</td>'+
-        '<td>1 Ticket</td>'+
-        '<td>tkt</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td>Ticket Reel</td>'+
-        '<td>1,000 Pokedollars</td>'+
-        '<td>A reel of Tickets</td>'+
-        '<td>10 Tickets</td>'+
-        '<td>tktreel<td>'+
-        '</tr>'+
-        '<td>Ticket Box</td>'+
-        '<td>5,000 PokeDollars</td>'+
-        '<td>A box of Tickets</td>'+
-        '<td>50 Tickets</td>'+
-        '<td>tktbox</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td>Custom Avatar</td>'+
-        '<td>5,000 Pokedollars and 1 PokeCoin</td>'+
-        '<td>An avatar is a custom image sized 80x80</td>'+
-        '<td>1 custom Avatar</td>'+
-        '<td>cava</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td>Voice</td>'+
-        '<td>50,000 Pokedollars and 2 Pokecoins</td>'+
-        '<td>Promotion to Voice, if you are Voice or higher this will fail </td>'+
-        '<td>1 Voice 1 custom avatar</td>'+
-        '<td>voice</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td>VIP</td>'+
-        '<td>100,000 and 5 PokeCoins</td>'+
-        '<td>A promotion to voice and VIP Membership</td>'+
-        '<td>1 Voice 1 Vip Membership 5 free Pokecoins</td>'+
-        '<td>vip</td>'+
-        '</tr>'+
-        '</table>');
-},
-
-buy: function(target, room, user) {
-                var match = false;
-                
-                if (target === 'voice') {
-                        match = true;
-                        if (user.moneh < 50000) {
-                                return this.sendReply('You can\'t buy Voice. You have to get more money first.');
-                        }
-                        if (user.group === "+" || user.group === "%" || user.group === "@" || user.group === "&" || user.group === "~") {
-                                return this.sendReply('lelz auth these days they just want a demotion.');
-                        }
-                        else if (user.moneh >= 50000)
-                        this.sendReply('You are now officially Voice.');
-                        user.group = "+";
-                        user.updateIdentity();
-                        user.moneh -= 50000;
-                        user.prewritemoney();
-                        Users.exportUserwealth();
-                        }
-                
-                    if (target === 'vip') {
-                        match = true;
-                        if (user.moneh < 100000) {
-                                return this.sendReply('You can\'t be in the VIP until you get more money.');
-                        }
-                        if (user.group === "+" || user.group === "%" || user.group === "@" ||  user.group === "&" || user.group === "~") {
-                                return this.sendReply('Your demotion message has been sent to an Admin (unless you are an Admin).');
-                        } else if (user.moneh >=  100000 ) {
-                        this.sendReply('You are now officially a VIP (VIP is a work-in-progress, we will update with more information).');
-                        user.group = "+";
-                        user.vip = true;
-                        user.updateIdentity();
-                        user.moneh -= 100000;
-                       	user.prewritemoney();
-                        Users.exportUserwealth();
-                        }
-                            }
-                
-                        if (target === 'tkt') {
-                        match = true;
-                        if (user.moneh < 50) { //here
-                            return this.sendReply('You do not have enough Pokedollars to buy a ticket. Win or place second in a tournament.');
-                        }
-                        else if (user.moneh >= 50)
-                        { 
-                        this.sendReply('You have purchased a ticket.');
-                        user.moneh -= 50;
-                        user.tickets += 1;
-                        user.prewritemoney();
-                        Users.exportUserwealth();
-                        }
-                        
-                }                  
-                if (target == 'tktreel') {
-                        match = true;
-                        if (user.moneh < 500) {
-                            return this.sendReply('You do not have enough Pokedollars to buy a ticket reel. Win or place second in a tournament.');
-                        }
-                        else if (user.moneh >= 500) {
-                        this.sendReply('You have purchased a ticket reel which contains 10 tickets!');
-                        user.moneh -= 500;
-                        user.tickets += 10;
-                        user.prewritemoney();
-                        Users.exportUserwealth();
-                                        }
-                }
-                
-                if (target === 'tktbox') {
-                        match = true;
-                        if (user.moneh < 2500) {
-                                return this.sendReply('You do not have enough Pokedollars to buy a ticket box. Win or place second in a tournament.');
-                        }
- 
-                        if (user.moneh >= 2500) {
-                            this.sendReply('You have purchased a ticket box of 50 tickets!');
-                            user.moneh -= 2500;
-                            user.tickets += 50;
-                            user.prewritemoney();
-                            Users.exportUserwealth();
-                            return item = false;
-                        }
-                                }
-                if (target == 'cav') {
-                        match = true;
-                        if (user.moneh < 5000) {
-                            return this.sendReply('Aww, you don\'t have big bucks yet, but you\'re getting there.');
-                        }
-                        else if (user.moneh >= 5000) {
-                        user.moneh -= 5000;
-                        user.cav = true;
-                        user.prewritemoney();
-                        Users.exportUserwealth();
-                        return  this.sendReply('You have purchased a custom avatar! You have received big bucks. Message an Admin to put your order in.');
-                    }
-                                }
-                if (match == false) {
-                    return this.sendReply('That isn\'t an item. Type /shop to see the list of items and to use the ID.')
-                }
-},
-
-
-	
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Server version: <b>'+CommandParser.package.version+'</b> <small>(<a href="http://pokemonshowdown.com/versions#' + CommandParser.serverVersion + '">' + CommandParser.serverVersion.substr(0,10) + '</a>)</small>');
@@ -565,8 +116,7 @@ buy: function(target, room, user) {
 		}
 		return this.sendReply("An error occurred while trying to create the room '"+target+"'.");
 	},
-	
-	deletechatroom: 'deregisterchatroom',
+
 	deregisterchatroom: function(target, room, user) {
 		if (!this.can('makeroom')) return;
 		var id = toId(target);
@@ -581,8 +131,7 @@ buy: function(target, room, user) {
 		}
 		return this.sendReply("The room '"+target+"' isn't registered.");
 	},
-        
-        toggleprivate: 'privateroom',      
+
 	privateroom: function(target, room, user) {
 		if (!this.can('makeroom')) return;
 		if (target === 'off') {
@@ -622,7 +171,6 @@ buy: function(target, room, user) {
 		room.onUpdateIdentity(targetUser);
 		Rooms.global.writeChatRoomData();
 	},
-	
 	roomdeowner: 'deroomowner',
 	deroomowner: function(target, room, user) {
 		if (!room.auth) {
@@ -770,9 +318,6 @@ buy: function(target, room, user) {
 	join: function(target, room, user, connection) {
 		if (!target) return false;
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
-		if (target === 'admnrm' && user.group !== '~') return false;
-		if (!targetRoom) return false;
-		if (target && !targetRoom) {
 		if (!targetRoom) {
 			if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
 			return connection.sendTo(target, "|noinit|nonexistent|The room '"+target+"' does not exist.");
@@ -861,6 +406,8 @@ buy: function(target, room, user) {
 	 * Moderating: Punishments
 	 *********************************************************/
 
+	kick: 'warn',
+	k: 'warn',
 	warn: function(target, room, user) {
 		if (!target) return this.parse('/help warn');
 
@@ -873,13 +420,11 @@ buy: function(target, room, user) {
 			return this.sendReply('You can\'t warn here: This is a privately-owned room not subject to global rules.');
 		}
 		if (!this.can('warn', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');;
 
 		this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
-		targetUser.send('|c|~|/warn '+target);	
+		targetUser.send('|c|~|/warn '+target);
 	},
 
-	kickto: 'redir',
 	redirect: 'redir',
 	redir: function (target, room, user, connection) {
 		if (!target) return this.parse('/help redir');
@@ -887,10 +432,9 @@ buy: function(target, room, user) {
 		var targetUser = this.targetUser;
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
 		if (!targetRoom) {
-			return this.sendReply("/help redir - You need to add a room to redirect the user to");
+			return this.sendReply("The room '" + target + "' does not exist.");
 		}
 		if (!this.can('kick', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');
 		if (!targetUser || !targetUser.connected) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
@@ -916,7 +460,6 @@ buy: function(target, room, user) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('mute', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be muted');
 		if (targetUser.mutedRooms[room.id] || targetUser.locked || !targetUser.connected) {
 			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
 			if (!target) {
@@ -933,7 +476,6 @@ buy: function(target, room, user) {
 		targetUser.mute(room.id, 7*60*1000);
 	},
 
-	hm: 'hourmute',
 	hourmute: function(target, room, user) {
 		if (!target) return this.parse('/help hourmute');
 
@@ -943,7 +485,7 @@ buy: function(target, room, user) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('mute', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be muted');
+
 		if (((targetUser.mutedRooms[room.id] && (targetUser.muteDuration[room.id]||0) >= 50*60*1000) || targetUser.locked) && !target) {
 			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
 			return this.privateModCommand('('+targetUser.name+' would be muted by '+user.name+problem+'.)');
@@ -960,8 +502,6 @@ buy: function(target, room, user) {
 	um: 'unmute',
 	unmute: function(target, room, user) {
 		if (!target) return this.parse('/help something');
-		if (!this.canTalk()) return false;
-
 		var targetid = toUserid(target);
 		var targetUser = Users.get(target);
 		if (!targetUser) {
@@ -990,7 +530,7 @@ buy: function(target, room, user) {
 		if (!user.can('lock', targetUser)) {
 			return this.sendReply('/lock - Access denied.');
 		}
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be locked');
+
 		if ((targetUser.locked || Users.checkBanned(targetUser.latestIp)) && !target) {
 			var problem = ' but was already '+(targetUser.locked ? 'locked' : 'banned');
 			return this.privateModCommand('('+targetUser.name+' would be locked by '+user.name+problem+'.)');
@@ -1009,7 +549,6 @@ buy: function(target, room, user) {
 	unlock: function(target, room, user) {
 		if (!target) return this.parse('/help unlock');
 		if (!this.can('lock')) return false;
-		if (!this.canTalk()) return false;
 
 		var unlocked = Users.unlock(target);
 
@@ -1033,7 +572,7 @@ buy: function(target, room, user) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('ban', targetUser)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');
+
 		if (Users.checkBanned(targetUser.latestIp) && !target && !targetUser.connected) {
 			var problem = ' but was already banned';
 			return this.privateModCommand('('+targetUser.name+' would be banned by '+user.name+problem+'.)');
@@ -1071,7 +610,7 @@ buy: function(target, room, user) {
 
 	unbanall: function(target, room, user) {
 		if (!user.can('ban')) {
-			return this.sendReply('/unwhipall - Access denied.');
+			return this.sendReply('/unbanall - Access denied.');
 		}
 		// we have to do this the hard way since it's no longer a global
 		for (var i in Users.bannedIps) {
@@ -1080,7 +619,7 @@ buy: function(target, room, user) {
 		for (var i in Users.lockedIps) {
 			delete Users.lockedIps[i];
 		}
-		this.addModCommand('All whipss and locks have been lifted by '+user.name+'.');
+		this.addModCommand('All bans and locks have been lifted by '+user.name+'.');
 	},
 
 	banip: function(target, room, user) {
@@ -1172,8 +711,7 @@ buy: function(target, room, user) {
 		var groupName = config.groups[nextGroup].name || nextGroup || '';
 		this.addModCommand(''+name+' was promoted to ' + (groupName.trim()) + ' by '+user.name+'.');
 	},
-	
-	regular: 'deuath',
+
 	deauth: function(target, room, user) {
 		return this.parse('/demote '+target+', deauth');
 	},
@@ -1390,43 +928,6 @@ buy: function(target, room, user) {
 		this.sendReply('Your hot-patch command was unrecognized.');
 	},
 
-	hide: function(target, room, user) {
-		if (this.can('hide') || user.userid === 'bandi') {
-			user.getIdentity = function(){
-				if(this.muted)	return '!' + this.name;
-				if(this.locked) return '‽' + this.name;
-				return ' ' + this.name;
-			};
-			user.updateIdentity();
-			this.sendReply('You have hidden your staff symbol.');
-			return false;
-		}
-
-	},
-
-	show: function(target, room, user) {
-		if (this.can('hide') || user.userid === 'bandi') {
-			delete user.getIdentity
-			user.updateIdentity();
-			this.sendReply('You have revealed your staff symbol');
-			return false;
-		}
-	},
-
-	customavatar: function(target, room, user, connection) {
-		if (!this.can('customavatars')) return false;
-		if (!target) return connection.sendTo(room, 'Usage: /customavatar URL, filename');
-		var http = require('http-get');
-		target = target.split(", ");
-		http.get(target[0], 'config/avatars/' + target[1], function (error, result) {
-		    if (error) {
-    		    connection.sendTo(room, '/customavatar - You supplied an invalid URL or file name!');
-    		} else {
-	    	    connection.sendTo(room, 'File saved to: ' + result.file);
-	    	}
-		});
-	},
-
 	savelearnsets: function(target, room, user) {
 		if (this.can('hotpatch')) return false;
 		fs.writeFile('data/learnsets.js', 'exports.BattleLearnsets = '+JSON.stringify(BattleLearnsets)+";\n");
@@ -1540,7 +1041,7 @@ buy: function(target, room, user) {
 		}
 
 		if (CommandParser.updateServerLock) {
-			return this.sendReply('/updateserver - Another update is already in progress. [This maybe a bug, and will require restart].');
+			return this.sendReply('/updateserver - Another update is already in progress.');
 		}
 
 		CommandParser.updateServerLock = true;
