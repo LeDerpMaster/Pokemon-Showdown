@@ -864,7 +864,7 @@ buy: function(target, room, user) {
 			return this.sendReply('You can\'t warn here: This is a privately-owned room not subject to global rules.');
 		}
 		if (!this.can('warn', targetUser, room)) return false;
-		if (targetUser.name === 'brittlewind') return this.sendReply('This user cannot be banned');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');;
 
 		this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
 		targetUser.send('|c|~|/warn '+target);
@@ -882,6 +882,7 @@ buy: function(target, room, user) {
 			return this.sendReply("/help redir - You need to add a room to redirect the user to");
 		}
 		if (!this.can('kick', targetUser, room)) return false;
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');
 		if (!targetUser || !targetUser.connected) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
