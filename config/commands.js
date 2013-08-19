@@ -1327,7 +1327,36 @@ var commands = exports.commands = {
                     
             },
          
-         
+ moneyintro: function(target, room, user) {
+    if (!this.canBroadcast()) return;
+    this.sendReplyBox('<h2>Money Commands</h2><br /><hr />'+
+    '<h3>Every User Commands</h3><br /><hr />'+
+    '/buy <em>Use this to buy a item\'s id</em><br />'+
+    '/bet <em> Bet a color on the roulette.</em><br />'+
+    '/scratchtkt <em> Not done but will allow you to scratch a ticket there will be chances to the amount you win. </em><br />'+ 
+    '<h3>Voice And Up Commands</h3><br /><hr />'+
+    '!shop <em>Allows a voiced user to show the shop.</em><br />'+
+    '!moneyintro <em>Shows you this.</em><br />'+
+    '!emotes <em>Shows the emote list.</em>'+
+    '<h3>Driver And Up Commands</h3><br /><hr />'+
+    '/roul <em> Starts a roulette this  will not work in lobby.</em><br />'+
+    '/spin <em>Spins the roulette.</em><br />'+
+    '<h3>VIP Commands</h3><br /><hr />'+
+    '/emote <em>Use ths with the emote ID to display a emote.</em><br />'+
+    '/mark <em>Allows you to give yourself a custom sign. (not done yet)</em><br />'+
+    '<h3>Admin And Bandi Commands</h3><br /><hr />'+
+    '/award <em>Lets you give a user a amount of PokeDollars.</em><br />'+
+    '/awardtkt <em> gives the user a amount tickets</em><br />'+
+    '/rmvmoney <em> removes an amount of money from a user</em><br />'+
+    '/rmvtkt <em>removes an amount of tickets from a user</em><br />'+
+    '/checkalltickets <em>check everyone of their amount of tickets</em><br />'+
+    '/checkallmoney <em>Checks every users money</em><br />'+
+    '<h3>FAQ</h3><br /><hr />'+
+    'How do i get money?: Win a tour or a roulette<br />'+
+    'How do i get tickets: Buy them<br />'+
+    'What is roulette: a machine that spins and if it lands on the color you bet you win pokedollars<br />'+
+    'How do i check money?: /bp');
+    },
     
 	/*********************************************************
 	 * Miscellaneous commands
