@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 exports.BattleFormats = {
 
 	// Singles
@@ -691,132 +692,12 @@ exports.BattleFormats = {
 
 	// Past Generations
 	///////////////////////////////////////////////////////////////////
+=======
+// Note: These are the rules that formats use
+// The list of formats is stored in config/formats.js
+>>>>>>> upstream/master
 
-	gen4oubeta: {
-		name: "[Gen 4] OU (beta)",
-		section: "Past Generations",
-
-		mod: 'gen4',
-		effectType: 'Format',
-		challengeDefault: true,
-		rated: true,
-		challengeShow: true,
-		searchShow: true,
-		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber']
-	},
-	gen4uubeta: {
-		name: "[Gen 4] UU (beta)",
-		section: "Past Generations",
-
-		mod: 'gen4',
-		effectType: 'Format',
-		challengeDefault: true,
-		rated: true,
-		challengeShow: true,
-		searchShow: true,
-		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber', 'OU', 'BL']
-	},
-	gen4hackmons: {
-		name: "[Gen 4] Hackmons",
-		section: "Past Generations",
-
-		mod: 'gen4',
-		effectType: 'Format',
-		challengeShow: true,
-		ruleset: ['Pokemon', 'HP Percentage Mod'],
-		banlist: []
-	},
-	gen4customgame: {
-		name: "[Gen 4] Custom Game",
-		section: "Past Generations",
-
-		mod: 'gen4',
-		effectType: 'Format',
-		challengeShow: true,
-		canUseRandomTeam: true,
-		debug: true,
-		ruleset: []
-	},
-	gen3hackmons: {
-		name: "[Gen 3] Hackmons",
-		section: "Past Generations",
-
-		mod: 'gen3',
-		effectType: 'Format',
-		challengeShow: true,
-		debug: true,
-		ruleset: ['Pokemon', 'HP Percentage Mod'],
-		banlist: []
-	},
-	gen3customgame: {
-		name: "[Gen 3] Custom Game",
-		section: "Past Generations",
-
-		mod: 'gen3',
-		effectType: 'Format',
-		challengeShow: true,
-		ruleset: []
-	},
-	gen2oubeta: {
-		name: "[Gen 2] OU (beta)",
-		section: "Past Generations",
-
-		mod: 'gen2',
-		effectType: 'Format',
-		challengeDefault: true,
-		rated: true,
-		challengeShow: true,
-		searchShow: true,
-		isTeambuilderFormat: true,
-		debug: true,
-		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber', 'Mean Look + Hypnosis + Perish Song']
-	},
-	gen2customgame: {
-		name: "[Gen 2] Custom Game",
-		section: "Past Generations",
-
-		mod: 'gen2',
-		effectType: 'Format',
-		challengeShow: true,
-		debug: true,
-		ruleset: ['Pokemon']
-	},
-	gen1oubeta: {
-		name: "[Gen 1] OU (beta)",
-		section: "Past Generations",
-
-		mod: 'gen1',
-		effectType: 'Format',
-		challengeDefault: true,
-		rated: true,
-		challengeShow: true,
-		searchShow: true,
-		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber']
-	},
-	gen1customgame: {
-		name: "[Gen 1] Custom Game",
-		section: "Past Generations",
-
-		mod: 'gen1',
-		effectType: 'Format',
-		challengeShow: true,
-		debug: true,
-		ruleset: ['Pokemon']
-	},
-
-
-	standardnext: {
-		effectType: 'Banlist',
-		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'HP Percentage Mod'],
-		banlist: ['Unreleased', 'Illegal', 'Soul Dew']
-	},
+exports.BattleFormats = {
 
 	// Rulesets
 	///////////////////////////////////////////////////////////////////
@@ -825,6 +706,11 @@ exports.BattleFormats = {
 		effectType: 'Banlist',
 		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'HP Percentage Mod'],
 		banlist: ['Unreleased', 'Illegal']
+	},
+	standardnext: {
+		effectType: 'Banlist',
+		ruleset: ['Sleep Clause Mod', 'Species Clause', 'OHKO Clause', 'HP Percentage Mod'],
+		banlist: ['Unreleased', 'Illegal', 'Soul Dew']
 	},
 	standardubers: {
 		effectType: 'Banlist',
