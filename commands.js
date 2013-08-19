@@ -25,12 +25,29 @@ var commands = exports.commands = {
 		}
 	},
 	
-	emote: function(target, room, user){
-	if (user.userid === 'bandi'||user.userid === 'cosy'||user.userid === 'brittlewind'||user.userid === 'coolasian')
-	this.add(user.name+"says :\n" +
+	 emote: function(target, room, user){
+	if (user.userid === 'bandi'||user.vip == true|| user.group === '~') {
+	if (target == '1') {
+	this.add(user.name + 'says'+":\n" +
          '|raw|<img src="http://www.cool-smileys.com/images/301.gif" width="40" height="40" />FEED ME MORE');
         this.logModCommand(user.name + 'has used a emote');
-        
+		}
+		if (target == '2') {
+		this.add(user.name + 'says'+":\n" +
+         '|raw|<img src="http://www.cool-smileys.com/images/298.gif" width="40" height="40" />CRYBACK CRYBACK huehuehue');
+		this.logModCommand(user.name + 'has used a emote');
+		}
+		if (target === '3') {
+		this.add(user.name + 'says'+":\n" +
+		'|raw|<img src="http://www.cool-smileys.com/images/145.gif" width="40" height="40" />:PPPPPP');
+		this.logModCommand(user.name + 'has used a emote');
+        }
+		if (target === '4') {
+		this.add(user.name + 'says'+":\n" +
+		'|raw|<img src="http://www.cool-smileys.com/images/116.gif" width="40" height="40" />HERP A DERP');
+		this.logModCommand(user.name + 'has used a emote');
+		}
+		}
     },
     
 	roulette: 'roul',
