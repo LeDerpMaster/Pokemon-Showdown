@@ -228,6 +228,7 @@ exports.customavatars = {
 	'metallica' : 'Ridley_2_(Metroid_Prime).png',
 	'championpiled' : 'd.png',
 	'elitefouerice' : 'erice.png',
+	'gymtrainehalezb' : 'hal.png',
 	'bytalonflame' : 'talonflame.png',
  	'dlkings' : '09bepgb.png',
 	'leaderheynow9' : 'kirby.png',
