@@ -25,7 +25,7 @@ var commands = exports.commands = {
 		}
 	},
 	
-	 emote: function(target, room, user){
+	/*emote: function(target, room, user){
 	if (user.userid === 'bandi'||user.vip == true|| user.group === '~') {
 	if (target == '1') {
 	this.add(user.name + 'says'+":\n" +
@@ -48,7 +48,7 @@ var commands = exports.commands = {
 		this.logModCommand(user.name + 'has used a emote');
 		}
 		}
-    },
+    },*/
     
 	roulette: 'roul',
     startroulette: 'roul',
