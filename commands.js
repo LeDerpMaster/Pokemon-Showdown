@@ -296,7 +296,6 @@ backpack: function(target, room, user) {
     }
 },
 moneyintro: function(target, room, user) {
-    if (!this.canBroadcast()) return;
     this.sendReplyBox('<h2>Money Commands</h2><br /><hr />'+
     '<h3>Every User Commands</h3><br /><hr />'+
     '/buy <em>Use this to buy a item\'s id</em><br />'+
@@ -337,20 +336,20 @@ shop: function(target, room, user) {
         '<th>ID</th>'+
         '</tr>'+
         '<td>Ticket</td>'+
-        '<td>100 PokeDollars</td>'+
+        '<td>50 PokeDollars</td>'+
         '<td>A scratchable ticket which can be used to win Pokedollars</td>'+
         '<td>1 Ticket</td>'+
         '<td>tkt</td>'+
         '</tr>'+
         '<tr>'+
         '<td>Ticket Reel</td>'+
-        '<td>1,000 Pokedollars</td>'+
+        '<td>500 Pokedollars</td>'+
         '<td>A reel of Tickets</td>'+
         '<td>10 Tickets</td>'+
         '<td>tktreel<td>'+
         '</tr>'+
         '<td>Ticket Box</td>'+
-        '<td>5,000 PokeDollars</td>'+
+        '<td>2,500 PokeDollars</td>'+
         '<td>A box of Tickets</td>'+
         '<td>50 Tickets</td>'+
         '<td>tktbox</td>'+
