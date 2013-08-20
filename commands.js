@@ -792,30 +792,24 @@ buy: function(target, room, user) {
 		if (targetRoom.isPrivate && !user.named) {
 			return connection.sendTo(target, "|noinit|namerequired|You must have a name in order to join the room '"+target+"'.");
 		}
-		if (user.userid && targetRoom.bannedUsers && user.userid in targetRoom.bannedUsers) {
-			return connection.sendTo(target, "|noinit|joinfailed|You are banned from that room!");
-		}
-		if (user.ips && targetRoom.bannedIps) {
-			for (var ip in user.ips) {
-				if (ip in targetRoom.bannedIps) return connection.sendTo(target, "|noinit|joinfailed|You are banned from that room!");
-			}
-		}
-
 		if (!user.joinRoom(targetRoom || room, connection)) {
-			// This condition appears to be impossible for now.
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
 		}
 	},
 
 	roomban: function(target, room, user, connection) {
-		var target = this.splitTarget(target, true);
+		if (!target) return this.parse('/help roomban');
+		target = this.splitTarget(target, true);
 		var targetUser = this.targetUser;
 		var name = this.targetUsername;
 		var userid = toId(name);
-		if (!userid || userid === '') return this.sendReply("User '"+name+"' does not exist.");
+		if (!userid) return this.sendReply("User '" + name + "' does not exist.");
 		if (!this.can('ban', targetUser, room)) return false;
 		if (!Rooms.rooms[room.id].users[userid]) {
-			return this.sendReply('User '+this.targetUsername+' is not in the room ' + room.id + '.');
+			return this.sendReply('User ' + this.targetUsername + ' is not in the room ' + room.id + '.');
+		}
+		if (!room.bannedUsers || !room.bannedIps) {
+			return this.sendReply('Room bans are not meant to be used in room ' + room.id + '.');
 		}
 		room.bannedUsers[userid] = true;
 		for (var ip in targetUser.ips) {
@@ -837,12 +831,16 @@ buy: function(target, room, user) {
 	},
 
 	roomunban: function(target, room, user, connection) {
-		var target = this.splitTarget(target, true);
+		if (!target) return this.parse('/help roomunban');
+		target = this.splitTarget(target, true);
 		var targetUser = this.targetUser;
 		var name = this.targetUsername;
 		var userid = toId(name);
-		if (!userid || userid === '') return this.sendReply("User '"+name+"' does not exist.");
+		if (!userid) return this.sendReply("User '"+name+"' does not exist.");
 		if (!this.can('ban', targetUser, room)) return false;
+		if (!room.bannedUsers || !room.bannedIps) {
+			return this.sendReply('Room bans are not meant to be used in room ' + room.id + '.');
+		}
 		if (room.bannedUsers[userid]) delete room.bannedUsers[userid];
 		for (var ip in targetUser.ips) {
 			if (room.bannedIps[ip]) delete room.bannedIps[ip];
@@ -894,7 +892,7 @@ buy: function(target, room, user) {
 	kickto: 'redir',
 	redirect: 'redir',
 	redir: function (target, room, user, connection) {
-		if (!target) return this.parse('/help redir');
+		if (!target) return this.parse('/help redirect');
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
@@ -907,11 +905,12 @@ buy: function(target, room, user) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (Rooms.rooms[targetRoom.id].users[targetUser.userid]) {
-			return this.sendReply("The player " + targetUser.name + " is already in the room " + target + "!");
+			return this.sendReply("User " + targetUser.name + " is already in the room " + target + "!");
 		}
 		if (!Rooms.rooms[room.id].users[targetUser.userid]) {
 			return this.sendReply('User '+this.targetUsername+' is not in the room ' + room.id + '.');
 		}
+		if (!targetUser.joinRoom(target)) return this.sendReply('User "' + targetUser.name + '" could not be joined to room ' + target + '. They could be banned from the room.');
 		var roomName = (targetRoom.isPrivate)? 'a private room' : 'room ' + target;
 		this.addModCommand(targetUser.name + ' was redirected to ' + roomName + ' by ' + user.name + '.');
 		targetUser.leaveRoom(room);

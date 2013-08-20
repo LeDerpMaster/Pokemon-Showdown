@@ -1518,6 +1518,14 @@ var commands = exports.commands = {
 			this.sendReply('/dexsearch [type], [move], [move],...');
 			this.sendReply('The order of the parameters does not matter.');
 		}
+		if (target === '%' || target === 'roomban') {
+			matched = true;
+			this.sendReply('/roomban [username] - Bans the user from the room you are in. Requires: % @ & ~');
+		}
+		if (target === '%' || target === 'roomunban') {
+			matched = true;
+			this.sendReply('/roomunban [username] - Unbans the user from the room you are in. Requires: % @ & ~');
+		}
 		if (target === '%' || target === 'modnote') {
 			matched = true;
 			this.sendReply('/modnote [note] - Adds a moderator note that can be read through modlog. Requires: % @ & ~');
