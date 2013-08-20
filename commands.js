@@ -212,7 +212,7 @@ award: function(target, room, user) {
 	if (isNaN(addmoney)) return this.sendReply('Invalid sum of money.');
 	targetUser.moneh += addmoney;
 	targetUser.prewritemoney();
-        Users.exportUserwealth();
+    Users.exportUserwealth();
 	this.sendReply(targetUser.name + ' has received ' + addmoney + ' pokedollars.');
 	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addmoney + ' pokedollars from ' + user.name);
 },
