@@ -971,7 +971,7 @@ buy: function(target, room, user) {
 	um: 'unmute',
 	unmute: function(target, room, user) {
 		if (!target) return this.parse('/help something');
-		if (!this.canTalk()) return false;
+		if (!this.canTalk() && user.group !== '~') return false;
 
 		var targetid = toUserid(target);
 		var targetUser = Users.get(target);
@@ -1020,7 +1020,7 @@ buy: function(target, room, user) {
 	unlock: function(target, room, user) {
 		if (!target) return this.parse('/help unlock');
 		if (!this.can('lock')) return false;
-		if (!this.canTalk()) return false;
+		if (!this.canTalk() && user.group !== '~') return false;
 
 		var unlocked = Users.unlock(target);
 
