@@ -102,6 +102,87 @@ function connectUser(socket) {
 			connection.sendTo(null, '|challstr|' + keyid + '|' + connection.challenge);
 		}
 	});
+	//looks up an ip with DroneBL, bans the user if they are listed.
+	dns = require('dns');
+	var ipbans = fs.createWriteStream('config/ipbans.txt', {'flags': 'a'});
+	ip = connection.ip.split('.');
+	dronebl = ip[3] + '.' + ip[2] + '.' + ip[1] + '.' + ip[0] + '.dnsbl.dronebl.org';
+	dns.resolve(dronebl, function(err, addresses) {
+	if (!err) {
+		switch(addresses[0]){
+			case '127.0.0.3':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (IRC Drone) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (IRC Drone) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.5':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Bottler) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Bottler) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.6':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Unknown spambot or drone) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Unknown spambot or drone) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.7':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (DDOS Drone) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (DDOS Drone) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.8':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (SOCKS Proxy) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (SOCKS Proxy) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.9':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (HTTP Proxy) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (HTTP Proxy) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.10':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (ProxyChain) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (ProxyChain) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.13':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Brute force attackers) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Brute force attackers) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.14':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Open Wingate proxy) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Open Wingate proxy) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.15':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Compromised router / gateway) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Compromised router / gateway) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.17':
+				user.ban();
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Automatically determined botnet IPs (experimental)) IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (Automatically determined botnet IPs (experimental)) IP: ' + connection.ip);
+				ipbans.write('\n'+connection.ip);
+				break;
+			case '127.0.0.255':
+				CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' is listed in DroneBL as Unknown. IP: ' + connection.ip + '\n');
+				Rooms.rooms.staff.add('['+(new Date().toJSON())+'] ' + user.name + ' is listed in DroneBL as Unknown. IP: ' + connection.ip);
+				break;
+		}
+	}
+	});
 	user.joinRoom('global', connection);
 	return connection;
 }
