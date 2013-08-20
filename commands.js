@@ -29,7 +29,7 @@ gogotkt: function(target, room, user) {
    if (user.tickets == '0') {
        return this.sendReply('You dont have a ticket');
        }
-       else if(user.money =< 1) {
+       else if(user.money < 0) {
             if (landon < 0.3) {
         user.moneh += '50';
         this.sendReply('sorry You didnt win this time');

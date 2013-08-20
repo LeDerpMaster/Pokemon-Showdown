@@ -1037,6 +1037,7 @@ var cmds = {
 			html += "&bull; " + option + " - " + Math.floor(value / votes * 100) + "% (" + value + ")<br />";
 		}
 		room.addRaw('<div class="infobox"><h2>Results to "' + obj.question + '"</h2><hr />' + html + '</div>');
+		if (Rooms.rooms.thecosyroom) Rooms.rooms.thecosyroom.addRaw(user.name + ' has ended a poll in ' + room.id + ' - Question: ' + tour[room.id].question);
 		tour[room.id].question = undefined;
 		tour[room.id].answerList = new Array();
 		tour[room.id].answers = new Object();
