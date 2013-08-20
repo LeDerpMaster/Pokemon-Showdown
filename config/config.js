@@ -284,6 +284,7 @@ exports.customavatars = {
 	'allioze' : 'rAloJYX.png',
 	'lassaby' : 'alice.png',
 	'desokoro' : 'sceptile.png',
+	'gymleaderkarp' : 'karp.png',
 	'snooki' : 'wh.png',
 	'theumbreonlover' : 'PnnPwUz.png',
 	'googer771' : 'Spr_2g_094.png',
