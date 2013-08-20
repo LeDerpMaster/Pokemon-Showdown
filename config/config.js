@@ -342,7 +342,8 @@ exports.customavatars = {
 	'e4synthesize' : 'tyran.png',
 	'spectrochampzarif' : 'bles.png',
 	'chllengerwinwalk' : 'winwalk.png',
-	'cosy' : 'cosysprite.png',
+	'teafany' : 'teafany.png',
+	'cosy' : 'cosy.png',
 	'brittlewind' : 'gav.png'
 };
 
