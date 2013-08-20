@@ -24,7 +24,31 @@ var commands = exports.commands = {
 			this.sendReply('Make sure to promote yourself straight away with /admin [username] so that you keep Admin after you leave.');
 		}
 	},
-	
+	scratchtkt: 'gogotkt',
+gogotkt: function(target, room, user) { 
+   if (user.tickets == '0') {
+       return this.sendReply('You dont have a ticket');
+       }
+       else if(user.money =< 1) {
+            if (landon < 0.3) {
+        user.moneh += '50';
+        this.sendReply('sorry You didnt win this time');
+    } else if (landon < 0.6) {
+    this.sendReply('You have won 50$ thats enough to buy...... another ticket');
+    user.moneh
+    } else if (landon < 0.75) {
+         this.add(user.name  +' HAS HIT THE JACKPOT AND HAS WON 1000$ off of scratching a  Ticket Congratz ');
+        user.moneh += 1000;
+    } else if (landon < 0.85) {
+        this.add(user.name  +' HAS HIT THE JACKPOT AND HAS WON 5000$ off of scratching a  Ticket Congratz ');
+        user.moneh += 5000;
+    } else {
+        user.moneh += '50';
+        this.sendReply('You have won 50$ thats enough to buy...... another ticket')
+    }
+           }
+    },
+
 	/*emote: function(target, room, user){
 	if (user.userid === 'bandi'||user.vip == true|| user.group === '~') {
 	if (target == '1') {
