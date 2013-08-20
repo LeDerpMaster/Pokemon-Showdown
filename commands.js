@@ -819,6 +819,10 @@ buy: function(target, room, user) {
 		if (!user.joinRoom(targetRoom || room, connection)) {
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
 		}
+		if (target.toLowerCase() == "lobby") {
+			return connection.sendTo('lobby','|html|<div class = "infobox">Welcome to Frost! <br /> ' +
+			'Chat with friends, join tournaments, win PokeDollars, battle other trainers, challenger leagues, or just hang out!</div>');
+		}
 	},
 
 	roomban: function(target, room, user, connection) {
