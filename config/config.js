@@ -345,7 +345,7 @@ exports.customavatars = {
 	'chllengerwinwalk' : 'winwalk.png',
 	'teafany' : 'teafany.png',
 	'cosy' : 'cosy.png',
-	'brittlewind' : 'gav.png'
+	'brittlewind' : 'hehehehhe.png'
 };
 
 // appealurl - specify a URL containing information on how users can appeal
