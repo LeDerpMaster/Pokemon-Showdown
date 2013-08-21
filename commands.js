@@ -25,7 +25,7 @@ var commands = exports.commands = {
 		}
 	},
 	
-    scratchtkt: function(target, room, user) {
+    /*scratchtkt: function(target, room, user) {
         if (user.tickets < 1) this.sendReply('You do not have a ticket to scratch.');
 
         var landon = Math.random();
@@ -61,7 +61,7 @@ var commands = exports.commands = {
 
 
         this.sendReply('All money based systems are work-in-progress meaning that they are temporary and mainly for testing. Thank you.')
-    },
+    },*/ //Just bad random generation giving bad numbers
 
 	/*emote: function(target, room, user){
 	if (user.userid === 'bandi'||user.vip == true|| user.group === '~') {
