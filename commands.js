@@ -49,10 +49,18 @@ var commands = exports.commands = {
             this.sendReply('You won, 1000 Pokedollars!');
             user.moneh += 1000;
         }
+        else if (landon < 1) {
+            user.tickets -= 1;
+            this.sendReply('You won, 2500 Pokedollars!');
+            user.moneh += 2500;
+        }
         else
             user.tickets -= 1;
-            this.sendReply('You won the jackpot of 2500 Pokedollars!');
-            user.moneh += 2500;
+            this.sendReply('You won, 50 Pokedollars...');
+            user.moneh += 50;
+
+
+        this.sendReply('All money based systems are work-in-progress meaning that they are temporary and mainly for testing. Thank you.')
     },
 
 	/*emote: function(target, room, user){
