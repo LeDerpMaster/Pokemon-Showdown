@@ -25,29 +25,34 @@ var commands = exports.commands = {
 		}
 	},
 	
-	scratchtkt: 'gogotkt',
-    gogotkt: function(target, room, user) { 
-   if (user.tickets == '0') {
-       return this.sendReply('You dont have a ticket');
-       }
-       else if(user.money > 0) {
-            if (landon < 0.3) {
-        user.moneh += '50';
-        this.sendReply('sorry You didnt win this time');
-    } else if (landon < 0.6) {
-    this.sendReply('You have won 50$ thats enough to buy...... another ticket');
-    user.moneh
-    } else if (landon < 0.75) {
-         this.add(user.name  +' HAS HIT THE JACKPOT AND HAS WON 1000$ off of scratching a  Ticket Congratz ');
-        user.moneh += 1000;
-    } else if (landon < 0.85) {
-        this.add(user.name  +' HAS HIT THE JACKPOT AND HAS WON 5000$ off of scratching a  Ticket Congratz ');
-        user.moneh += 5000;
-    } else {
-        user.moneh += '50';
-        this.sendReply('You have won 50$ thats enough to buy...... another ticket')
-    }
-           }
+    scratchtkt: function(target, room, user) {
+        if (user.tickets < 1) this.sendReply('You do not have a ticket to scratch.');
+
+        var landon = Math.random();
+
+        if (landon < 0.3) {
+            user.tickets -= 1;
+            this.sendReply('Your ticket reveal nothing, bad luck.');
+        }
+        else if (landon < 0.5) {
+            user.tickets -= 1;
+            this.sendReply('You won, 50 Pokedollars...');
+            user.moneh += 50;
+        }
+        else if (landon < 0.7) {
+            user.tickets -= 1;
+            this.sendReply('You won, 250 Pokedollars.');
+            user.moneh += 250;
+        }
+        else if (landon < 0.9) {
+            user.tickets -= 1;
+            this.sendReply('You won, 1000 Pokedollars!');
+            user.moneh += 1000;
+        }
+        else
+            user.tickets -= 1;
+            this.sendReply('You won the jackpot of 2500 Pokedollars!');
+            user.moneh += 2500;
     },
 
 	/*emote: function(target, room, user){
