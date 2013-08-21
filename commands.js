@@ -410,7 +410,7 @@ moneyintro: function(target, room, user) {
 shop: function(target, room, user) {
         if (!this.canBroadcast()) return;
         this.sendReplyBox('<table border="1">'+
-        '<caption>Shop - Work in Progress may be bugs/errors (loading money).</caption>'+
+        '<caption>Shop - Work in Progress may be bugs/errors (loading money). Only tickets can be purchased, other items are not redeemable due to being WIP</caption>'+
         '<tr>'+
         '<th>Item</th>'+
         '<th>Price</th>'+
