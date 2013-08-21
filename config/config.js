@@ -143,7 +143,7 @@ exports.customavatars = {
 	'garyoaklegacy' : 'gary_oak_sprite_by_legendkyurem97-d53os6n.png',
 	'championtyphoz' : '1364487440459.png',
 	'se7engruntwander' : 'aLxYuV.png',
-	'scizorman' : 'scizor.png',
+	'scizorman' : 'iz.png',
 	'ifazeoptical' : 'ssj3_goku_costume_2_by_64tre2-d4d6irr.png',
 	'murana' : 'bigeyes.png',
 	'awsomeabsol25' : 'abs2.png',
