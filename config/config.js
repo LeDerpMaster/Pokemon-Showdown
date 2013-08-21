@@ -172,7 +172,7 @@ exports.customavatars = {
 	'leaderdarkrai147' : 'arch.png',
 	'benjo' : 'prime.png',
 	'musai' : 'musai.png',
-	'idontbayleefyou' : 'turds.png'
+	'idontbayleefyou' : 'turds.png',
 	'tcchampionexzlu' : 'exzlu.png',
 	'gymtrainersynth' : 'synth.png',
 	'vaderdarkside' : 'vader.png',
