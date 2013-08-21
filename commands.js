@@ -26,7 +26,7 @@ var commands = exports.commands = {
 	},
 	
 	scratchtkt: 'gogotkt',
-gogotkt: function(target, room, user) { 
+    gogotkt: function(target, room, user) { 
    if (user.tickets == '0') {
        return this.sendReply('You dont have a ticket');
        }
@@ -202,107 +202,124 @@ gogotkt: function(target, room, user) {
     room.rouletteon = false;
 },
 
-//money commands for admins
-award: function(target, room, user) {
-	if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-	targets = target.split(',');
-    	target = toId(targets[0]);
-	var targetUser = Users.get(target);
-	if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
-	var addmoney = parseInt(targets[1]);
-	if (isNaN(addmoney)) return this.sendReply('Invalid sum of money.');
-	targetUser.moneh += addmoney;
-	targetUser.prewritemoney();
-    Users.exportUserwealth();
-	this.sendReply(targetUser.name + ' has received ' + addmoney + ' pokedollars.');
-	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addmoney + ' pokedollars from ' + user.name);
+    //money commands for admins
+    award: function(target, room, user) {
+	    if (!user.can('hotpatch')) return false;
+	    targets = target.split(',');
+        target = toId(targets[0]);
+	    var targetUser = Users.get(target);
+	    if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
+	    var addmoney = parseInt(targets[1]);
+	    if (isNaN(addmoney)) return this.sendReply('Invalid sum of money.');
+	    targetUser.moneh += addmoney;
+	    targetUser.prewritemoney();
+        Users.exportUserwealth();
+	    this.sendReply(targetUser.name + ' has received ' + addmoney + ' pokedollars.');
+	    if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addmoney + ' pokedollars from ' + user.name);
 },
 
-rmvmoney: function(target, room, user) {
-	if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-	targets = target.split(',');
-    target = toId(targets[0]);
-	var targetUser = Users.get(target);
-	if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
-	var removemoney = parseInt(targets[1]);
-	if (isNaN(removemoney)) return this.sendReply('Invalid sum of money.');
-	if (removemoney > targetUser.moneh) return this.sendReply('Invalid sum of money.');
-	targetUser.moneh -= removemoney;
-	targetUser.prewritemoney();
-    Users.exportUserwealth();
-	this.sendReply(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack.');
-	if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack by ' + user.name);
+    rmvmoney: function(target, room, user) {
+	    if (!user.can('hotpatch')) return false;
+	    targets = target.split(',');
+        target = toId(targets[0]);
+	    var targetUser = Users.get(target);
+	    if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
+	    var removemoney = parseInt(targets[1]);
+	    if (isNaN(removemoney)) return this.sendReply('Invalid sum of money.');
+	    if (removemoney > targetUser.moneh) return this.sendReply('Invalid sum of money.');
+	    targetUser.moneh -= removemoney;
+	    targetUser.prewritemoney();
+        Users.exportUserwealth();
+	    this.sendReply(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack.');
+	    if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has had ' + removemoney + ' pokedollars removed from their bagpack by ' + user.name);
 },
 
 //ticket commands for admins
-awardtkt: function(target, room, user) {
-    if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-    targets = target.split(',');
-    target = toId(targets[0]);
-    var targetUser = Users.get(target);
-    if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
-    var addtkt = parseInt(targets[1]);
-    if (isNaN(addtkt)) return this.sendReply('Invalid number of tickets.');
-    targetUser.tickets += addtkt;
-    targetUser.prewritemoney();
-    Users.exportUserwealth();
-    this.sendReply(targetUser.name + ' has received ' + addtkt + ' ticket(s).');
-    if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addtkt + ' ticket(s) from ' + user.name);
+    awardtkt: function(target, room, user) {
+        if (!user.can('hotpatch')) return false;
+        targets = target.split(',');
+        target = toId(targets[0]);
+        var targetUser = Users.get(target);
+        if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
+        var addtkt = parseInt(targets[1]);
+        if (isNaN(addtkt)) return this.sendReply('Invalid number of tickets.');
+        targetUser.tickets += addtkt;
+        targetUser.prewritemoney();
+        Users.exportUserwealth();
+        this.sendReply(targetUser.name + ' has received ' + addtkt + ' ticket(s).');
+        if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has received ' + addtkt + ' ticket(s) from ' + user.name);
 },
 
-rmvtkt: function(target, room, user) {
-    if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-    targets = target.split(',');
-    target = toId(targets[0]);
-    var targetUser = Users.get(target);
-    if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
-    var removeticket = parseInt(targets[1]);
-    if (isNaN(removemoney)) return this.sendReply('Invalid number of tickets.');
-    if (removeticket > targetUser.tickets) return this.sendReply('Invalid number of tickets.');
-    targetUser.tickets -= removeticket;
-    targetUser.prewritemoney();
-    Users.exportUserwealth();
-    this.sendReply(targetUser.name + ' has had ' + removeticket + ' tickets removed from their bagpack.');
-    if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has had ' + removeticket + ' tickets removed from their bagpack by ' + user.name);
+    rmvtkt: function(target, room, user) {
+        if (!user.can('hotpatch')) return false;
+        targets = target.split(',');
+        target = toId(targets[0]);
+        var targetUser = Users.get(target);
+        if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
+        var removeticket = parseInt(targets[1]);
+        if (isNaN(removemoney)) return this.sendReply('Invalid number of tickets.');
+        if (removeticket > targetUser.tickets) return this.sendReply('Invalid number of tickets.');
+        targetUser.tickets -= removeticket;
+        targetUser.prewritemoney();
+        Users.exportUserwealth();
+        this.sendReply(targetUser.name + ' has had ' + removeticket + ' tickets removed from their bagpack.');
+        if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(targetUser.name + ' has had ' + removeticket + ' tickets removed from their bagpack by ' + user.name);
 },
 
 //Check everyone on server if they have over a certain amount of money 
-checkallmoney: function(target, room, user) {
-    if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-    if (!target) return this.sendReply('You need to enter in a value of ' + item + ' to search.');
+    checkallmoney: function(target, room, user) {
+        if (!user.can('hotpatch')) return false;
+        if (!target) return this.sendReply('You need to enter in a value of ' + item + ' to search.');
 
-    var x = '';
-    for (var i in room.users) {
-        if (room.users[i].moneh === target || room.users[i].moneh > target) {
-            x += room.users[i].name + ' : ' + room.users[i].moneh;
-        	x += ', ';
+        var x = '';
+        for (var i in room.users) {
+            if (room.users[i].moneh === target || room.users[i].moneh > target) {
+                x += room.users[i].name + ' : ' + room.users[i].moneh;
+            	x += ', ';
+            }
+            //if (i < room.users.length) x += ', ';
         }
-        //if (i < room.users.length) x += ', ';
-    }
-    if (!x) return this.sendReply('No user has over that amount.');
+        if (!x) return this.sendReply('No user has over that amount.');
 
-    this.sendReply('Users in this room with over ' + target + ' Pokedollars:');
-    this.sendReply(x);
+        this.sendReply('Users in this room with over ' + target + ' Pokedollars:');
+        this.sendReply(x);
 },
 
 //Check everyone on server if they have over a certain amount of tickets 
-checkalltickets: function(target, room, user) {
-    if (!user.can('hotpatch')) return this.sendReply('You are not authorized to do that!');
-    if (!target) return this.sendReply('You need to enter in a value of ' + item + ' to search.');
+    checkalltickets: function(target, room, user) {
+        if (!user.can('hotpatch')) return false;
+        if (!target) return this.sendReply('You need to enter in a value of ' + item + ' to search.');
 
-    var x = '';
-    for (var i in room.users) {
-        if (room.users[i].tickets === target || room.users[i].tickets > target) {
-            x += room.users[i].name + ' : ' + room.users[i].tickets;
-        	x += ', ';
+        var x = '';
+        for (var i in room.users) {
+            if (room.users[i].tickets === target || room.users[i].tickets > target) {
+                x += room.users[i].name + ' : ' + room.users[i].tickets;
+            	x += ', ';
+            }
+            //if (i < room.users.length) x += ', ';
         }
-        //if (i < room.users.length) x += ', ';
-    }
-    if (!x) return this.sendReply('No user has over that amount.');
+        if (!x) return this.sendReply('No user has over that amount.');
 
-    this.sendReply('Users in this room with over ' + target + ' Tickets:');
-    this.sendReply(x);
+        this.sendReply('Users in this room with over ' + target + ' Tickets:');
+        this.sendReply(x);
 },
+
+//DO NOT USE UNLESS NEEDED OTHERWISE IT WILL WIPE ALL PEOPLES MONEY AND TICKETS
+    clearallbags: function(target, room, user) {
+        if (!user.can('hotpatch')) return false;
+        if (!target) return this.sendReply('What you are about to do will clear EVERYONE\'S BAG of money and tickets. Do /clearallbags yes if you want to');
+        var target = target.toLowerCase();
+        if (target !== 'yes') return this.sendReply('What you are about to do will clear EVERYONE\'S BAG of money and tickets. Do /clearallbags yes if you want to');
+
+        for (var i in room.users) {
+            if (room.users[i].moneh > 0 || room.users[i].tickets > 0) {
+                room.users[i].moneh = 0;
+                room.users[i].tickets = 0;
+            }
+        }
+        this.sendReply('All users bags have been emptied (in the room).');
+        if (Rooms.rooms.staff) Rooms.rooms.staff.addRaw(user.name + ' has removed all tickets and money from everyones bags in ' + room.id + '.');
+    },
 
 bp: 'backpack',
 backpack: function(target, room, user) {
@@ -318,8 +335,43 @@ backpack: function(target, room, user) {
         this.sendReply('Your backpack contains:');  
         this.sendReply('- Money: ' +  user.moneh); 
         this.sendReply('- Tickets: ' + user.tickets);
+        this.sendReply('Pokecoins are not a currency at the moment.');
     }
 },
+
+//Users give money or tickets
+    givemoney: function(target, room, user) {
+    if (user.moneh < 1) return this.sendReply('You do not have money to give.');
+    targets = target.split(',');
+    target = toId(targets[0]);
+    var targetUser = Users.get(target);
+    if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
+    var givemoney = parseInt(targets[1]);
+    if (isNaN(givemoney)) return this.sendReply('Invalid sum of money.');
+    targetUser.moneh += givemoney;
+    user.moneh -= givemoney;
+    targetUser.prewritemoney();
+    user.prewritemoney();
+    Users.exportUserwealth();
+    this.sendReply(targetUser.name + ' has received ' + givemoney + ' pokedollars from you.');
+},
+
+givetkt: function(target, room, user) {
+    if (user.tickets < 1) return this.sendReply('You do not have tickets to give.');
+    targets = target.split(',');
+    target = toId(targets[0]);
+    var targetUser = Users.get(target);
+    if (!targetUser) return this.sendReply('The user ' + targetUser + ' was not found.');
+    var givetkt = parseInt(targets[1]);
+    if (isNaN(givetkt)) return this.sendReply('Invalid number of tickets.');
+    targetUser.tickets += givetkt;
+    user.tickets -= givetkt;
+    targetUser.prewritemoney();
+    user.prewritemoney();
+    Users.exportUserwealth();
+    this.sendReply(targetUser.name + ' has received ' + givetkt + ' ticket(s) from you.');
+},
+
 moneyintro: function(target, room, user) {
     this.sendReplyBox('<h2>Money Commands</h2><br /><hr />'+
     '<h3>Every User Commands</h3><br /><hr />'+
@@ -349,10 +401,11 @@ moneyintro: function(target, room, user) {
     'What is roulette: a machine that spins and if it lands on the color you bet you win pokedollars<br />'+
     'How do i check money?: /bp');
     },
+
 shop: function(target, room, user) {
         if (!this.canBroadcast()) return;
         this.sendReplyBox('<table border="1">'+
-        '<caption>Shop</caption>'+
+        '<caption>Shop - Work in Progress may be bugs/errors (loading money).</caption>'+
         '<tr>'+
         '<th>Item</th>'+
         '<th>Price</th>'+

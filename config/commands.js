@@ -63,9 +63,6 @@
  *
  * this.logEntry(message)
  *   Log a message to the room's log without sending it to anyone. This
-Commit summary: Extended description: (optional)
-BrittleWind aaronthomsen21@gmail.com
-
  *   is like this.add, except no one will see it.
  *
  * this.addModCommand(message)
