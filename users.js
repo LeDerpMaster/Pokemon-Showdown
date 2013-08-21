@@ -32,8 +32,6 @@ var numUsers = 0;
 var bannedIps = {};
 var lockedIps = {};
 
-var ipbans = fs.createWriteStream('config/ipbans.txt', {'flags': 'a'});
-
 /**
  * Get a user.
  *
@@ -105,6 +103,9 @@ function connectUser(socket) {
 		}
 	});
 	if (config.blacklist) Users.blacklistLookup(connection.ip, user, true);
+	user.joinRoom('global', connection);
+	return connection;
+}
 	user.joinRoom('global', connection);
 	return connection;
 }
@@ -185,9 +186,9 @@ function exportUserwealth() {
 importUserwealth();
 
 var usertkts = {};
-function importUserwealth() {
+function importUsertkts() {
 	// can't just say usertkts = {} because it's exported
-	for (var i in usertkts) delete userwealth[i];
+	for (var i in usertkts) delete usertkts[i];
 
 
 
@@ -203,14 +204,14 @@ function importUserwealth() {
 		}
 	});
 }
-/*function exportUsertkts() {
+function exportUsertkts() {
 	var buffer = '';
 	for (var i in usertkts) {
 		buffer += i + ',' + usertkts[i] + "\n";
 	}
 	fs.writeFile('config/usertkts.csv', buffer);
 }
-importUsertkts();*/
+importUsertkts();
 
 // User
 var User = (function () {
@@ -249,7 +250,7 @@ var User = (function () {
 		this.bet = '';
 		this.bets = 0;
 		this.tickets = 0;
-                this.vip = true;
+
 		// challenges
 		this.challengesFrom = {};
 		this.challengeTo = null;
@@ -922,7 +923,7 @@ var User = (function () {
 		if (typeof mmr === 'number') {
 			this.mmrCache[formatid] = mmr;
 		} else {
-			this.mmrCache[formatid] = Math.floor((Number(mmr.rpr)*2+Number(mmr.r))/3);
+			this.mmrCache[formatid] = parseInt(mmr.rpr,10);
 		}
 	};
 	User.prototype.mute = function(roomid, time, force, noRecurse) {
@@ -986,12 +987,7 @@ var User = (function () {
 		room = Rooms.get(room);
 		if (!room) return false;
 		if (room.staffRoom && !this.isStaff) return false;
-		if (this.userid && room.bannedUsers && this.userid in room.bannedUsers) return false;
-		if (this.ips && room.bannedIps) {
-			for (var ip in this.ips) {
-				if (ip in room.bannedIps) return false;
-			}
-		}
+		//console.log('JOIN ROOM: '+this.userid+' '+room.id);
 		if (!connection) {
 			for (var i=0; i<this.connections.length;i++) {
 				// only join full clients, not pop-out single-room
@@ -1346,6 +1342,8 @@ exports.connectUser = connectUser;
 exports.importUsergroups = importUsergroups;
 exports.importUserwealth = importUserwealth;
 exports.exportUserwealth = exportUserwealth;
+exports.importUsertkts = importUsertkts;
+exports.exportUsertkts = exportUsertkts;
 exports.addBannedWord = addBannedWord;
 exports.removeBannedWord = removeBannedWord;
 
@@ -1403,7 +1401,6 @@ exports.setOfflineGroup = function(name, group, force) {
 	exportUsergroups();
 	return true;
 };
-
 exports.blacklistLookup = function (connection, user, ban) {	
 	//looks up an ip with DroneBL, bans the user if they are listed.
 	dns = require('dns');
@@ -1771,4 +1768,4 @@ exports.blacklistLookup = function (connection, user, ban) {
 					});
 				}	
 		});
-};
+		};
