@@ -122,6 +122,7 @@ var commands = exports.commands = {
 		}
 		if (Rooms.global.addChatRoom(target)) {
 			return this.sendReply("The room '"+target+"' was created.");
+			if (Rooms.rooms.logroom) Rooms.rooms.logroom.addRaw('ROOM LOG ' + user.name + ' has made the room ' + target + '.');
 		}
 		return this.sendReply("An error occurred while trying to create the room '"+target+"'.");
 	},
@@ -142,6 +143,7 @@ var commands = exports.commands = {
 		return this.sendReply("The room '"+target+"' isn't registered.");
 	},
         
+        makeprivate: 'privateroom',
         toggleprivate: 'privateroom',      
 	privateroom: function(target, room, user) {
 		if (!this.can('makeroom')) return;
