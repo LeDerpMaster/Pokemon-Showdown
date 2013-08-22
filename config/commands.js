@@ -374,9 +374,8 @@ var commands = exports.commands = {
 
 		for (var i in room.users){
 			if (room.users[i].group === target) {
-				name = name + room.users[i].name;
+				name = name + room.users[i].name + ', ';
 			}
-			if (i < room.users.length) name += ', ';
 		}
 		if (!name) return this.sendReply('There are no users of the rank ' + target + ' in this room.');
 
