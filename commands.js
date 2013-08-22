@@ -564,7 +564,7 @@ buy: function(target, room, user) {
                         //user.prewritemoney();
                         //Users.exportUserwealth();
                         //return  this.sendReply('You have purchased a custom avatar! You have received big bucks. Message an Admin to put your order in.');
-                    	return this.sendeply('Currently not available');
+                    	return this.sendReply('Currently not available');
                     }
                                 }
                 if (match == false) {
