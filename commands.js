@@ -1499,7 +1499,7 @@ buy: function(target, room, user) {
 	},
 
 	hide: function(target, room, user) {
-		if (this.can('hide') || user.userid === 'bandi') {
+		if (this.can('hide')) {
 			user.getIdentity = function(){
 				if(this.muted)	return '!' + this.name;
 				if(this.locked) return '‽' + this.name;
@@ -1513,7 +1513,7 @@ buy: function(target, room, user) {
 	},
 
 	show: function(target, room, user) {
-		if (this.can('hide') || user.userid === 'bandi') {
+		if (this.can('hide')) {
 			delete user.getIdentity
 			user.updateIdentity();
 			this.sendReply('You have revealed your staff symbol');
