@@ -355,6 +355,7 @@ var commands = exports.commands = {
 		var userid = toId(name);
 		if (!userid) return this.sendReply("User '" + name + "' does not exist.");
 		if (!this.can('ban', targetUser, room)) return false;
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');;
 		if (!Rooms.rooms[room.id].users[userid]) {
 			return this.sendReply('User ' + this.targetUsername + ' is not in the room ' + room.id + '.');
 		}
