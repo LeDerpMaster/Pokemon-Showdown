@@ -334,7 +334,7 @@ var commands = exports.commands = {
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
 		if (target.id === 'admnrm' && user.group !== '~') return false;
 		if (target.id === 'logroom' && user.group !== '~') return false;
-		if (target.id === 'adminroom' && user.group !== '~') return false;
+		if (target.id == 'adminroom' && user.group !== '~') return false;
 		if (target.id === 'thecosyroom' && user.group !== '~') return false;
 		if (!targetRoom) {
 			if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
