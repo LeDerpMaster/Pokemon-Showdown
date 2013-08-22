@@ -332,10 +332,10 @@ var commands = exports.commands = {
 	join: function(target, room, user, connection) {
 		if (!target) return false;
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
-		if (targetRoom.toLowerCase() === 'admnrm' && user.group !== '~') return false;
-		if (targetRoom.toLowerCase() === 'logroom' && user.group !== '~') return false;
-		if (targetRoom.toLowerCase() === 'adminroom' && user.group !== '~') return false;
-		if (targetRoom.toLowerCase() === 'thecosyroom' && user.group !== '~') return false;
+		if (targetRoom === 'admnrm' && user.group !== '~') return false;
+		if (targetRoom === 'logroom' && user.group !== '~') return false;
+		if (targetRoom === 'adminroom' && user.group !== '~') return false;
+		if (targetRoom === 'thecosyroom' && user.group !== '~') return false;
 		if (!targetRoom) {
 			if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
 			return connection.sendTo(target, "|noinit|nonexistent|The room '"+target+"' does not exist.");
