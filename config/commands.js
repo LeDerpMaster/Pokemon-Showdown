@@ -386,11 +386,13 @@ var commands = exports.commands = {
 
 	spop: 'sendpopup',
 	sendpopup: function(target, room, user) {
-		if (!target) return this.sendReply('/sendpopup [user], [message]');
 		if (!this.can('hotpatch')) return false;
 		
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
+
+		if (!targetUser) return this.sendReply('/sendpopup [user], [message] - You missed the user');
+		if (!target) return this.sendReply('/sendpopup [user], [message] - You missed the message');
 
 		targetUser.popup(target);
 		this.sendReply(targetUser.name + ' got the message as popup: ' + target);
