@@ -181,6 +181,7 @@ exports.customavatars = {
 	'thefuckinbest' : 'sly.png',
 	'se7enadminbomber' : 'bomber.png',
 	'chespintheknight' : 'ches.png',
+	'whythehate' : 'snorlax.png',
 	'shadowninjask' : 'poop.png',
 	'aefaefaefa' : 'aef2.png',
 	'gymldrkillswitch' : 'kill.png',
