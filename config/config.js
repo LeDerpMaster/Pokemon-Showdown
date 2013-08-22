@@ -148,6 +148,7 @@ exports.customavatars = {
 	'murana' : 'bigeyes.png',
 	'awsomeabsol25' : 'abs2.png',
 	'lmtgamezz' : 'noi.png',
+	'ozmosis' : 'ozmoisis.png',
 	'priest' : 'shed.png',
 	'skymin' : 'skymin.png',
 	'trainerbofish' : 'ret.png',
