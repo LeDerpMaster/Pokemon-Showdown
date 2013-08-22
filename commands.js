@@ -481,12 +481,13 @@ buy: function(target, room, user) {
                                 return this.sendReply('lelz auth these days they just want a demotion.');
                         }
                         else if (user.moneh >= 50000)
-                        this.sendReply('You are now officially Voice.');
-                        user.group = "+";
-                        user.updateIdentity();
-                        user.moneh -= 50000;
-                        user.prewritemoney();
-                        Users.exportUserwealth();
+                        //this.sendReply('You are now officially Voice.');
+                        //user.group = "+";
+                        //user.updateIdentity();
+                        //user.moneh -= 50000;
+                       	//user.prewritemoney();
+                        //Users.exportUserwealth();
+                        this.sendReply('Currently not available');
                         }
                 
                     if (target === 'vip') {
@@ -497,13 +498,14 @@ buy: function(target, room, user) {
                         if (user.group === "+" || user.group === "%" || user.group === "@" ||  user.group === "&" || user.group === "~") {
                                 return this.sendReply('Your demotion message has been sent to an Admin (unless you are an Admin).');
                         } else if (user.moneh >=  100000 ) {
-                        this.sendReply('You are now officially a VIP (VIP is a work-in-progress, we will update with more information).');
-                        user.group = "+";
-                        user.vip = true;
-                        user.updateIdentity();
-                        user.moneh -= 100000;
-                       	user.prewritemoney();
-                        Users.exportUserwealth();
+                        //this.sendReply('You are now officially a VIP (VIP is a work-in-progress, we will update with more information).');
+                        //user.group = "+";
+                        //user.vip = true;
+                        //user.updateIdentity();
+                        //user.moneh -= 100000;
+                       	//user.prewritemoney();
+                        //Users.exportUserwealth();
+                        this.sendReply('Currently not available');
                         }
                             }
                 
@@ -557,11 +559,12 @@ buy: function(target, room, user) {
                             return this.sendReply('Aww, you don\'t have big bucks yet, but you\'re getting there.');
                         }
                         else if (user.moneh >= 5000) {
-                        user.moneh -= 5000;
-                        user.cav = true;
-                        user.prewritemoney();
-                        Users.exportUserwealth();
-                        return  this.sendReply('You have purchased a custom avatar! You have received big bucks. Message an Admin to put your order in.');
+                        //user.moneh -= 5000;
+                        //user.cav = true;
+                        //user.prewritemoney();
+                        //Users.exportUserwealth();
+                        //return  this.sendReply('You have purchased a custom avatar! You have received big bucks. Message an Admin to put your order in.');
+                    	return this.sendeply('Currently not available');
                     }
                                 }
                 if (match == false) {
