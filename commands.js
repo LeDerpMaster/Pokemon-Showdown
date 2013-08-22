@@ -330,7 +330,10 @@ var commands = exports.commands = {
 	join: function(target, room, user, connection) {
 		if (!target) return false;
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
-		if (target === 'admnrm' && user.group !== '~') return false;
+		if (targetRoom.toLowerCase() === 'admnrm' && user.group !== '~') return false;
+		if (targetRoom.toLowerCase() === 'logroom' && user.group !== '~') return false;
+		if (targetRoom.toLowerCase() === 'adminroom' && user.group !== '~') return false;
+		if (targetRoom.toLowerCase() === 'thecosyroom' && user.group !== '~') return false;
 		if (!targetRoom) {
 			if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
 			return connection.sendTo(target, "|noinit|nonexistent|The room '"+target+"' does not exist.");
@@ -342,8 +345,8 @@ var commands = exports.commands = {
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
 		}
 		if (target.toLowerCase() == "lobby") {
-			return connection.sendTo('lobby','|html|<div class = "infobox">Welcome to Frost! <br /> ' +
-			'Chat with friends, join tournaments, win PokeDollars, battle other trainers, challenger leagues, or just hang out!</div>');
+			return connection.sendTo('lobby','|html|<div class = "infobox">Welcome to Frost Server!<br /> ' +
+			'Home of many leagues free to challenge, battle users, talk and participate in tournaments, or just hangout!</div>');
 		}
 	},
 
@@ -355,7 +358,7 @@ var commands = exports.commands = {
 		var userid = toId(name);
 		if (!userid) return this.sendReply("User '" + name + "' does not exist.");
 		if (!this.can('ban', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');;
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');
 		if (!Rooms.rooms[room.id].users[userid]) {
 			return this.sendReply('User ' + this.targetUsername + ' is not in the room ' + room.id + '.');
 		}
@@ -558,7 +561,7 @@ var commands = exports.commands = {
 		}
 
 		targetUser.popup(user.name+' has locked you from talking in chats, battles, and PMing regular users.\n\n'+target+'\n\nIf you feel that your lock was unjustified, you can still PM staff members (%, @, &, and ~) to discuss it.');
-
+		if (Rooms.rooms.logroom) Rooms.rooms.logroom.addRaw('LOCK LOG: ' + user.name + ' has locked ' + targetUser.name + ' from ' + room.id + '.');
 		this.addModCommand(""+targetUser.name+" was locked from talking by "+user.name+"." + (target ? " (" + target + ")" : ""));
 		var alts = targetUser.getAlts();
 		if (alts.length) this.addModCommand(""+targetUser.name+"'s alts were also locked: "+alts.join(", "));
@@ -601,7 +604,7 @@ var commands = exports.commands = {
 		}
 
 		targetUser.popup(user.name+" has banned you." + (config.appealurl ? ("  If you feel that your banning was unjustified you can appeal the ban:\n" + config.appealurl) : "") + "\n\n"+target);
-
+		if (Rooms.rooms.logroom) Rooms.rooms.logroom.addRaw('BAN LOG: ' + user.name + ' has locked ' + targetUser.name + ' from ' + room.id + '.');
 		this.addModCommand(""+targetUser.name+" was banned by "+user.name+"." + (target ? " (" + target + ")" : ""));
 		var alts = targetUser.getAlts();
 		if (alts.length) {
@@ -712,8 +715,10 @@ var commands = exports.commands = {
 			if (targetUser) {
 				targetUser.popup('You were demoted to ' + groupName + ' by ' + user.name + '.');
 			}
+			if (Rooms.rooms.logroom) Rooms.rooms.logroom.addRaw('DEMOTE LOG: ' + user.name + ' has demoted ' + name + ' to ' + groupName + '.');
 		} else {
 			this.addModCommand(''+name+' was promoted to ' + groupName + ' by '+user.name+'.');
+			if (Rooms.rooms.logroom) Rooms.rooms.logroom.addRaw('PROMOTE LOG: ' + user.name + ' has promoted ' + name + ' to ' + groupName + '.');
 		}
 		if (targetUser) {
 			targetUser.updateIdentity();
