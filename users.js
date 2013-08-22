@@ -106,11 +106,9 @@ function connectUser(socket) {
 	user.joinRoom('global', connection);
 	return connection;
 }
-	user.joinRoom('global', connection);
-	return connection;
-}
 
 var usergroups = {};
+
 function importUsergroups() {
 	// can't just say usergroups = {} because it's exported
 	for (var i in usergroups) delete usergroups[i];
