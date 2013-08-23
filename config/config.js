@@ -160,6 +160,7 @@ exports.customavatars = {
 	'duskumbreon' : 'umb.png',
 	'flyingj138' : 'flyin.png',
 	'jadedrag' : 'groudon.png',
+	'championlapras' : 'championlapras.png',
 	'jd' : 'jd.png',
 	'sinatraswing' : 'P0jePu4.png',
 	'darke4blue' : '373.png',
