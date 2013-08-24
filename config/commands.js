@@ -292,7 +292,9 @@ var commands = exports.commands = {
 		if (targetUser.can('hotpatch')) return this.sendReply('You cannot force logout another Admin - nice try. Chump.');
 
 		this.addModCommand(''+targetUser.name+' was forcibly logged out by '+user.name+'.' + (target ? " (" + target + ")" : ""));
-
+		
+		this.logModCommand(user.name+' forcibly logged out '+targetUser.name);
+		
 		targetUser.resetName();
 	},
 
@@ -315,6 +317,8 @@ var commands = exports.commands = {
 		this.addModCommand(targetUser.name+' was kicked from the room by '+user.name+'.');
 
 		targetUser.popup('You were kicked from '+room.id+' by '+user.name+'.');
+		
+		this.logModCommand(user.name+' kicked '+targetUser.name+' from the room '+room.id);
 
 		targetUser.leaveRoom(room.id);
 	},
@@ -395,6 +399,10 @@ var commands = exports.commands = {
 
 		targetUser.popup(target);
 		this.sendReply(targetUser.name + ' got the message as popup: ' + target);
+		
+		targetUser.send(user.name+' sent a popup message to you.');
+		
+		this.logModCommand(user.name+' send a popup message to '+targetUser.name);
 	},
 
 	/*********************************************************
