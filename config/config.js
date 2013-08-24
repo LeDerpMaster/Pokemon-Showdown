@@ -183,6 +183,7 @@ exports.customavatars = {
 	'elitefoursynxx' : 'synxx.png',
 	'thepenguinking2' : 'thepenguinking2.png',
 	'crypticvoltage' : 'crypticvoltage.png',
+	'fbdarkwinds55' : 'fbdarkwinds55.png',
 	'razorbrave' : 'vave.png',
 	'gymldrprinney' : 'nars.png',
 	'deathshark82' : 'abs2.png',
