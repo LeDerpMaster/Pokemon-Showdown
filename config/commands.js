@@ -1332,6 +1332,14 @@ var commands = exports.commands = {
 					'<b>Note:</b>Chatrooms get cleared out every Wednesday at 5:00 Pacific Time. If no one is in your room at that time, it will get deleted. You may only remake a chatroom once.<br \>')
                     
             },
+            
+       championpiled: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Trainer: CHAMPIONPileD<br \>' +
+		'Ace: Scizor<br \>' + 
+		'Catchphrase: mhm.. KAIO-KEN!<br \>' +
+		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/212.gif">')
+	},
          
  
     
