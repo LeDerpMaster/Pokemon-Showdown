@@ -243,7 +243,7 @@ var commands = exports.commands = {
 				if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-green"><b><font size=1><i>Global declare from '+roomName+'<br /></i></font size>'+target+'</b></div>');
 			}
 		}
-		this.logEntry(user.name + ' used /gdeclare');
+		this.logModCommand(user.name+' globally declared '+target);
 	},
 
 	declaregreen: 'declarered',
