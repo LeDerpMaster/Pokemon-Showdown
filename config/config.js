@@ -138,6 +138,7 @@ exports.blacklist = true;
 // displayed in the client.
 exports.customavatars = {
 //'userid': 'customavatar.png'	
+	'eliteformizu':'mizu1.png',
 	'elite4ninja' : 'ct.png',
 	'leaderlinksage' : 'WNZyhaf.png',
 	'garyoaklegacy' : 'gary_oak_sprite_by_legendkyurem97-d53os6n.png',
