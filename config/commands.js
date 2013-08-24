@@ -1313,6 +1313,13 @@ var commands = exports.commands = {
 					'Catchphrase: Moo, moo muthafuckas.<br \>' +
                     '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/241.gif">')
             },
+         championpiled: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Trainer: CHAMPIONPileD<br \>' +
+		'Ace: Scizor<br \>' + 
+		'Catchphrase: mhm.. KAIO-KEN!<br \>' +
+		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/212.gif">')
+	       },
             
              customavatars: function(target, room, user) {
                     if (!this.canBroadcast()) return;
