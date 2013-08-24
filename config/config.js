@@ -150,7 +150,7 @@ exports.customavatars = {
 	'awsomeabsol25' : 'abs2.png',
 	'lmtgamezz' : 'noi.png',
 	'ozmosis' : 'ozmoisis.png',
-	'priest' : 'shed.png',
+	'priest' : 'priest.png',
 	'skymin' : 'skymin.png',
 	'trainerbofish' : 'ret.png',
 	'elteforhallie' : '319.png',
