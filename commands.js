@@ -343,6 +343,9 @@ var commands = exports.commands = {
 		if (targetRoom.isPrivate && !user.named) {
 			return connection.sendTo(target, "|noinit|namerequired|You must have a name in order to join the room '"+target+"'.");
 		}
+		if (target.toLowerCase() != "lobby" && !user.named) {
+			return connection.sendTo(target, "|noinit|namerequired|You must have a name in order to join the room " + target + ".");
+		}
 		if (!user.joinRoom(targetRoom || room, connection)) {
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
 		}
