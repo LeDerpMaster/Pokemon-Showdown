@@ -1348,7 +1348,13 @@ var commands = exports.commands = {
 		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/212.gif">')
 	},
          
- 
+        e4bigtinkler: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Trainer: E4 BigTinkler<br \>' +
+		'Ace: Kyurem-Black<br \>' + 
+		'Catchphrase: There be a storm comin laddie<br \>' +
+		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/646-black.gif">')
+	},
     
     
 	/*********************************************************
