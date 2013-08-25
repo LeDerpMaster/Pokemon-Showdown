@@ -184,6 +184,7 @@ exports.customavatars = {
 	'spleliteme67676' : 'spl.png',
 	'elitefoursynxx' : 'synxx.png',
 	'thepenguinking2' : 'thepenguinking2.png',
+	'rioted.png' : ' rioted.png',
 	'crypticvoltage' : 'crypticvoltage.png',
 	'fbdarkwinds55' : 'fbdarkwinds55.png',
 	'razorbrave' : 'vave.png',
