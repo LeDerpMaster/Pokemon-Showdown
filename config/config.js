@@ -191,6 +191,8 @@ exports.customavatars = {
 	'rctic' : 'rtic.png',
 	'leaderdarkrai147' : 'arch.png',
 	'benjo' : 'prime.png',
+	'e4bigtinkler' : 'e4bigtinkler.png',
+	'limeysmile' : 'limeysmile.png',
 	'musai' : 'musai.png',
 	'idontbayleefyou' : 'turds.png',
 	'tcchampionexzlu' : 'exzlu.png',
