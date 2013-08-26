@@ -147,6 +147,7 @@ exports.customavatars = {
 	'scizorman' : 'iz.png',
 	'ifazeoptical' : 'ssj3_goku_costume_2_by_64tre2-d4d6irr.png',
 	'murana' : 'bigeyes.png',
+	'starmaster' : 'starmaster.png',
 	'awsomeabsol25' : 'abs2.png',
 	'lmtgamezz' : 'noi.png',
 	'ozmosis' : 'ozmoisis.png',
