@@ -1907,8 +1907,8 @@ var commands = exports.commands = {
 		var pmName = '~Server PM';
 
 		for (var i in room.users) {
-			var message = '|pm|'+pmName+'|'+target.getIdentity()+'|'+target;
-			target.send(message);
+			var message = '|pm|'+pmName+'|'+room.users[i].getIdentity()+'|'+target;
+			room.users[i].send(message);
 		}
 	},
 
