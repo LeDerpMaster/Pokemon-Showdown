@@ -1903,7 +1903,6 @@ var commands = exports.commands = {
 	pmall: function(target, room, user) {
 		if (!target) return this.parse('/pmall [message] - Sends a PM to every user in a room.');
 		if (!this.can('hotpatch')) return false;
-		if (user.id !== 'cosy') return this.sendReply('In testing, only Cosy can use.');
 
 		var pmName = '~Server PM';
 
