@@ -220,189 +220,32 @@ var commands = exports.commands = {
 		if (!atLeastOne) this.sendReply("No results found.");
 	},
 
-	gdeclarered: 'gdeclare',
-	gdeclaregreen: 'gdeclare',
-	gdeclare: function(target, room, user, connection, cmd) {
-		if (!target) return this.parse('/help gdeclare');
-		if (!this.can('lockdown')) return false;
+	/*********************************************************
+	 * Additional Commands
+	 *********************************************************/
 
-		var roomName = (room.isPrivate)? 'a private room' : room.id;
-
-		if (cmd === 'gdeclare'){
-			for (var id in Rooms.rooms) {
-				if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-blue"><b><font size=1><i>Global declare from '+roomName+'<br /></i></font size>'+target+'</b></div>');
-			}
-		}
-		if (cmd === 'gdeclarered'){
-			for (var id in Rooms.rooms) {
-				if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-red"><b><font size=1><i>Global declare from '+roomName+'<br /></i></font size>'+target+'</b></div>');
-			}
-		}
-		else if (cmd === 'gdeclaregreen'){
-			for (var id in Rooms.rooms) {
-				if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-green"><b><font size=1><i>Global declare from '+roomName+'<br /></i></font size>'+target+'</b></div>');
-			}
-		}
-		this.logModCommand(user.name+' globally declared '+target);
+	getrandom: 'pickrandom',
+	pickrandom: function (target, room, user) {
+		if (!target) return this.sendReply('/pickrandom [option 1], [option 2], ... - Randomly chooses one of the given options.');
+		if (!this.canBroadcast()) return;
+		var targets;
+		if (target.indexOf(',') === -1) {
+			targets = target.split(' ');
+		} else {
+			targets = target.split(',');
+		};
+		var result = Math.floor(Math.random() * targets.length);
+		return this.sendReplyBox(targets[result].trim());
 	},
 
-	declaregreen: 'declarered',
-	declarered: function(target, room, user, connection, cmd) {
-		if (!target) return this.parse('/help declare');
-		if (!this.can('declare', null, room)) return false;
-
-		if (!this.canTalk()) return;
-
-		if (cmd === 'declarered'){
-			this.add('|raw|<div class="broadcast-red"><b>'+target+'</b></div>');
-		}
-		else if (cmd === 'declaregreen'){
-			this.add('|raw|<div class="broadcast-green"><b>'+target+'</b></div>');
-		}
-		this.logModCommand(user.name+' declared '+target);
+	poke: function(target, room, user){
+		if(!target) return this.sendReply('/poke needs a target.');
+		return this.parse('/me pokes ' + target);
 	},
 
-	modmsg: 'declaremod',
-	moddeclare: 'declaremod',
-	declaremod: function(target, room, user) {
-		if (!target) return this.sendReply('/declaremod [message] - Also /moddeclare and /modmsg');
-		if (!this.can('declare', null, room)) return false;
-
-		if (!this.canTalk()) return;
-
-		this.privateModCommand('|raw|<div class="broadcast-red"><b><font size=1><i>Private Auth (Driver +) declare from '+user.name+'<br /></i></font size>'+target+'</b></div>');
-
-		this.logModCommand(user.name+' mod declared '+target);
-	},
-
-	flogout: 'forcelogout',
-	forcelogout: function(target, room, user) {
-		if(!user.can('hotpatch')) return;
-		if (!this.canTalk()) return false;
-
-		if (!target) return this.sendReply('/forcelogout [username], [reason] OR /flogout [username], [reason] - You do not have to add a reason');
-
-		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
-
-		if (!targetUser) {
-			return this.sendReply('User '+this.targetUsername+' not found.');
-		}
-
-		if (targetUser.can('hotpatch')) return this.sendReply('You cannot force logout another Admin - nice try. Chump.');
-
-		this.addModCommand(''+targetUser.name+' was forcibly logged out by '+user.name+'.' + (target ? " (" + target + ")" : ""));
-		
-		this.logModCommand(user.name+' forcibly logged out '+targetUser.name);
-		
-		targetUser.resetName();
-	},
-
-
-	k: 'kick',
-	kick: function(target, room, user){
-		if (!this.can('lock')) return false;
-		if (!target) return this.sendReply('/help kick');
-		if (!this.canTalk()) return false;
-
-		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
-
-		if (!targetUser || !targetUser.connected) {
-			return this.sendReply('User '+this.targetUsername+' not found.');
-		}
-
-		if (!this.can('lock', targetUser, room)) return false;
-
-		this.addModCommand(targetUser.name+' was kicked from the room by '+user.name+'.');
-
-		targetUser.popup('You were kicked from '+room.id+' by '+user.name+'.');
-		
-		this.logModCommand(user.name+' kicked '+targetUser.name+' from the room '+room.id);
-
-		targetUser.leaveRoom(room.id);
-	},
-
-	daymute: function(target, room, user) {
-		if (!target) return this.parse('/help daymute');
-		if (!this.canTalk()) return false;
-
-		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
-		if (!targetUser) {
-			return this.sendReply('User '+this.targetUsername+' not found.');
-		}
-		if (targetUser.name === 'Brittle Wind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be muted');
-		if (!this.can('mute', targetUser, room)) return false;
-
-		if (((targetUser.mutedRooms[room.id] && (targetUser.muteDuration[room.id]||0) >= 50*60*1000) || targetUser.locked) && !target) {
-			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
-			return this.privateModCommand('('+targetUser.name+' would be muted by '+user.name+problem+'.)');
-		}
-
-		targetUser.popup(user.name+' has muted you for 24 hours. '+target);
-		this.addModCommand(''+targetUser.name+' was muted by '+user.name+' for 24 hours.' + (target ? " (" + target + ")" : ""));
-		var alts = targetUser.getAlts();
-		if (alts.length) this.addModCommand(""+targetUser.name+"'s alts were also muted: "+alts.join(", "));
-
-		targetUser.mute(room.id, 24*60*60*1000, true);
-	},
-
-	showuserid: function(target, room, user) {
-		if (!target) return this.parse('/getid [username] - To get the raw id of the user');
-
-		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
-
-		if (!this.can('lock')) return false;
-
-		this.sendReply('The ID of the target is: ' + targetUser);
-	},
-
-	uui: 'userupdate',
-	userupdate: function(target, room, user) {
-		if (!target) return this.sendReply('/userupdate [username] OR /uui [username] - Updates the user identity fixing the users shown group.');
-		if (!this.can('hotpatch')) return false;
-
-		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
-
-		targetUser.updateIdentity();
-
-		this.sendReply(targetUser + '\'s identity has been updated.');
-	},
-
-	usersofrank: function(target, room, user) {
-		if (!target) return false;
-		var name = '';
-
-		for (var i in room.users){
-			if (room.users[i].group === target) {
-				name = name + room.users[i].name + ', ';
-			}
-		}
-		if (!name) return this.sendReply('There are no users of the rank ' + target + ' in this room.');
-
-		this.sendReply('Users of rank ' + target + ' in this room:');
-		this.sendReply(name);
-	},
-
-	spop: 'sendpopup',
-	sendpopup: function(target, room, user) {
-		if (!this.can('hotpatch')) return false;
-		
-		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
-
-		if (!targetUser) return this.sendReply('/sendpopup [user], [message] - You missed the user');
-		if (!target) return this.sendReply('/sendpopup [user], [message] - You missed the message');
-
-		targetUser.popup(target);
-		this.sendReply(targetUser.name + ' got the message as popup: ' + target);
-		
-		targetUser.send(user.name+' sent a popup message to you.');
-		
-		this.logModCommand(user.name+' send a popup message to '+targetUser.name);
+	slap: function(target, room, user){
+		if(!target) return this.sendReply('/poke needs a target.');
+		return this.parse('/me slaps ' + target + ' in the face with a slipper');
 	},
 
 	/*********************************************************
@@ -1128,6 +971,8 @@ var commands = exports.commands = {
 		}
 	},
 
+	//FORMATS
+
 	pointscore: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Point Score is a custom rule set which uses points to adjust how you make a team:<br />' +
@@ -1144,6 +989,21 @@ var commands = exports.commands = {
 			'- <a href="http://pokemonshowdown.com/replay/phoenixleague-perseverance-3900">Cosy vs Champion® Lynn</a>');
 	},
 
+	//TOUR COMMANDS
+            
+    tourcommands: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Tournaments through /tour can be started by Voice (+) users and higher:<br \>' +
+        '/tour [tier], [size] - Starts a tournament<br \>' +
+		'/endtour - Ends a currently running tournament<br \>' +
+		'/fj [username] - Force someone to join a tournament<br \>' +
+		'/fl [username] - Force someone to leave a tournament<br \>' +
+		'/toursize [size] - Changes the size of a currently running tournament<br \>' +
+		'/replace [username], [username] - Replaces user in a tournament with the second user');
+    },
+
+	//TRAINER CARDS - Brittle, please try and keep them neat :)
+
 	lenora: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Trainer: Lenora<br \>' +
@@ -1152,201 +1012,166 @@ var commands = exports.commands = {
 		'<img src="http://hydra-images.cursecdn.com/pokemon.gamepedia.com/3/3e/LenoraBWsprite.gif">')
 	},
 
-        brittlewind: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: BrittleWind<br \>' +
-					'Ace: ?<br \>' +
-					'Catchphrase: Ho, ho, ho bitch.<br \>' +
-                    '<img src="http://www.pokecharms.com/trainercards/images/trainers/Other/vSpecial-Santa.png">')
-            },
+    brittlewind: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: BrittleWind<br \>' +
+		'Ace: ?<br \>' +
+		'Catchphrase: Ho, ho, ho bitch.<br \>' +
+        '<img src="http://www.pokecharms.com/trainercards/images/trainers/Other/vSpecial-Santa.png">')
+    },
 
 	glisteringaeon: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Glistering Aeon<br \>' +
-					'Ace: Really? Duh.<br \>' +
-					'Catchphrase: Grab your sombreros and glow sticks and lets rave!<br \>' +
-                    '<img src="http://www.animeyume.com/ludicolo.jpg">')
-            },
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Glistering Aeon<br \>' +
+		'Ace: Really? Duh.<br \>' +
+		'Catchphrase: Grab your sombreros and glow sticks and lets rave!<br \>' +
+        '<img src="http://www.animeyume.com/ludicolo.jpg">')
+    },
 
 	champwickedweavile: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: ChampWickedWeavile<br \>' +
-					'Ace: Scyther<br \>' +
-					'Catchphrase: I suck at this game.<br \>' +
-                    '<img src="http://play.pokemonshowdown.com/sprites/trainers/80.png">')
-            },
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: ChampWickedWeavile<br \>' +
+		'Ace: Scyther<br \>' +
+		'Catchphrase: I suck at this game.<br \>' +
+        '<img src="http://play.pokemonshowdown.com/sprites/trainers/80.png">')
+    },
 
 	championdarkrai: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: ChampWickedWeavile<br \>' +
-					'Ace: Darkrai<br \>' +
-					'Catchphrase: Thats a nice dream you have there, it would be a shame if someone.....ATE IT.<br \>' +
-                    '<img src="http://www.pokecharms.com/trainercards/images/trainers/Cosplayers/p491-1.png">')
-            },	
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: ChampWickedWeavile<br \>' +
+		'Ace: Darkrai<br \>' +
+		'Catchphrase: Thats a nice dream you have there, it would be a shame if someone.....ATE IT.<br \>' +
+        '<img src="http://www.pokecharms.com/trainercards/images/trainers/Cosplayers/p491-1.png">')
+    },	
 
 	priest: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Priest<br \>' +
-					'Ace: Shedinja<br \>' +
-					'Catchphrase: Nigga try touching me! Try it!<br \>' +
-                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/292.gif">')
-            },
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Priest<br \>' +
+		'Ace: Shedinja<br \>' +
+		'Catchphrase: N**** try touching me! Try it!<br \>' +
+        '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/292.gif">')
+    },
 
 	trainerbofish: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Trainer Bofish<br \>' +
-					'Ace: Electivire<br \>' +
-					'Catchphrase: I love to shock you.<br \>' +
-                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/466.gif">')
-            },	
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Trainer Bofish<br \>' +
+		'Ace: Electivire<br \>' +
+		'Catchphrase: I love to shock you.<br \>' +
+        '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/466.gif">')
+    },	
 
 	snooki: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Snooki<br \>' +
-					'Ace: Jynx<br \>' +
-					'Catchphrase: Snooki want smoosh smoosh.<br \>' +
-                    '<img src="http://www.pokecharms.com/trainercards/images/trainers/Other/Female-077.png">')
-            },		
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Snooki<br \>' +
+		'Ace: Jynx<br \>' +
+		'Catchphrase: Snooki want smoosh smoosh.<br \>' +
+        '<img src="http://www.pokecharms.com/trainercards/images/trainers/Other/Female-077.png">')
+    },		
 
 	championbrave: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Champion Brave<br \>' +
-					'Ace: Vaporeon<br \>' +
-					'Catchphrase: :I<br \>' +
-                    '<img src="http://www.clipular.com/c?12387261=ZIkxKRLvilzvix0USgnMX0YSGjA&f=.png">')
-            },
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Champion Brave<br \>' +
+		'Ace: Vaporeon<br \>' +
+		'Catchphrase: :I<br \>' +
+        '<img src="http://www.clipular.com/c?12387261=ZIkxKRLvilzvix0USgnMX0YSGjA&f=.png">')
+    },
 
 	elite4synth: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Elite4^Synth<br \>' +
-					'Ace: Crobat<br \>' +
-					'Catchphrase: Only pussies get poisoned.<br \>' +
-                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/169.gif">')
-            },	
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Elite4^Synth<br \>' +
+		'Ace: Crobat<br \>' +
+		'Catchphrase: Only pussies get poisoned.<br \>' +
+        '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/169.gif">')
+    },	
 
 	elite4quality: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Elite4^Quality<br \>' +
-					'Ace: Dragonite<br \>' +
-					'Catchphrase: You wanna fly, you got to give up the shit that weighs you down.<br \>' +
-                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/149.gif">')
-            },	
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Elite4^Quality<br \>' +
+		'Ace: Dragonite<br \>' +
+		'Catchphrase: You wanna fly, you got to give up the shit that weighs you down.<br \>' +
+        '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/149.gif">')
+    },	
 
 	elitefoursalty: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Elite Four Salty<br \>' +
-					'Ace: Keldeo<br \>' +
-					'Catchphrase: I will wash away your sin.<br \>' +
-                    '<img src="http://images3.wikia.nocookie.net/__cb20120629095010/pokemon/images/9/98/BrycenBWsprite.gif">')
-            },	
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Elite Four Salty<br \>' +
+		'Ace: Keldeo<br \>' +
+		'Catchphrase: I will wash away your sin.<br \>' +
+        '<img src="http://images3.wikia.nocookie.net/__cb20120629095010/pokemon/images/9/98/BrycenBWsprite.gif">')
+    },	
 
 	jiraqua: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Jiraqua<br \>' +
-					'Ace: Jirachi<br \>' +
-					'Catchphrase: Go Jirachi!<br \>' +
-                    '<img src="http://cdn.bulbagarden.net/upload/4/48/Spr_B2W2_Rich_Boy.png">')
-            },
-            
-        tourcommands: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Tournaments through /tour can be started by Voice (+) users and up<br \>' +
-                    			'/tour [tier], [size] - Starts a tournament<br \>' +
-					'/endtour - Ends a currently running tournament<br \>' +
-					'/fj [username] - Force someone to join a tournament<br \>' +
-					'/fl [username] - Force someone to leave a tournament<br \>' +
-					'/toursize [size] - Changes the size of a currently running tournament<br \>' +
-					'/replace [username], [username] - Replaces user in a tournament with the second user');
-                    
-            },
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Jiraqua<br \>' +
+		'Ace: Jirachi<br \>' +
+		'Catchphrase: Go Jirachi!<br \>' +
+        '<img src="http://cdn.bulbagarden.net/upload/4/48/Spr_B2W2_Rich_Boy.png">')
+    },
 	
 	gymldrrhichguy: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Gym Ldr RhichGuy<br \>' +
-					'Ace: Thundurus-T<br \>' +
-					'Catchphrase: Prepare to discover the true power of the thunder!<br \>' +
-                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/642-therian.gif">')
-            },
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Gym Ldr RhichGuy<br \>' +
+		'Ace: Thundurus-T<br \>' +
+		'Catchphrase: Prepare to discover the true power of the thunder!<br \>' +
+    	'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/642-therian.gif">')
+    },
             
-        murana: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: Murana<br \>' +
-					'Ace: Espeon<br \>' +
-					'Catchphrase: Clutching victory from the jaws of defeat.<br \>' +
-                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/196.gif">')
-            },
-            
-        tcards: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('What is a trainer card?-A ! command that brings up some of your info.<br \>' +
-					'How do I get one?-PM BrittleWind your ace and catchphrase. Then go to http://pldh.net/dex/sprites/index and find your ace. Scroll down to the moving picture, right click it, view image, and PM that link to BrittleWind<br \>')
-        	},			
+    murana: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: Murana<br \>' +
+		'Ace: Espeon<br \>' +
+		'Catchphrase: Clutching victory from the jaws of defeat.<br \>' +
+        '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/196.gif">')
+    },		
   	
-  	 ifazeoptical: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: ♫iFaZeOpTiCal♫<br \>' +
-					'Ace: Latios<br \>' +
-					'Catchphrase: Its All Shits And Giggles Until Someone Giggles And Shits.<br \>' +
-                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/381.gif">')
-            },
-            
-            
+  	ifazeoptical: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: ♫iFaZeOpTiCal♫<br \>' +
+		'Ace: Latios<br \>' +
+		'Catchphrase: Its All Shits And Giggles Until Someone Giggles And Shits.<br \>' +
+        '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/381.gif">')
+    },
+                 
 	superjeenius: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: SuperJeenius<br \>' +
-					'Ace: Alakazam<br \>' +
-					'Catchphrase: Dont quote me on that though. Just dont quote me in general though: its generally a bad idea.<br \>' +
-                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/065.gif">')
-            },
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: SuperJeenius<br \>' +
+		'Ace: Alakazam<br \>' +
+		'Catchphrase: Dont quote me on that though. Just dont quote me in general though: its generally a bad idea.<br \>' +
+        '<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/065.gif">')
+    },
             
-        electricapples: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: ElectricApples<br \>' +
-					'Ace: Jolteon<br \>' +
-					'Catchphrase: You are not you when your zappy.<br \>' +
-                    '<img src="http://pldh.net/media/pokemon/gen5/blackwhite/135.png">')
-            },
-        nochansey: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('Trainer: NoChansey<br \>' +
-					'Ace: Miltank<br \>' +
-					'Catchphrase: Moo, moo muthafuckas.<br \>' +
-                    '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/241.gif">')
-            },
-         championpiled: function(target, room, user) {
+    electricapples: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: ElectricApples<br \>' +
+		'Ace: Jolteon<br \>' +
+		'Catchphrase: You are not you when your zappy.<br \>' +
+        '<img src="http://pldh.net/media/pokemon/gen5/blackwhite/135.png">')
+    },
+
+    nochansey: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        this.sendReplyBox('Trainer: NoChansey<br \>' +
+		'Ace: Miltank<br \>' +
+		'Catchphrase: Moo, moo muthafuckas.<br \>' +
+        '<img src="http://media.pldh.net/pokemon/gen5/blackwhite_animated_front/241.gif">')
+    },
+
+    championpiled: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Trainer: CHAMPIONPileD<br \>' +
 		'Ace: Scizor<br \>' + 
 		'Catchphrase: mhm.. KAIO-KEN!<br \>' +
 		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/212.gif">')
-	       },
-            e4bigtinkler: function(target, room, user) {
+	},
+
+    e4bigtinkler: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Trainer: E4 BigTinkler<br \>' +
 		'Ace: Kyurem-Black<br \>' + 
 		'Catchphrase: There be a storm comin laddie<br \>' +
 		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/646-black.gif">')
-	        },
-             customavatars: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('<b>What is?</b>-A special avatar you find online to replace your current one.<br \>' +
-					'<b>How do I get one?</b>-PM BrittleWind the link to your avatar. If its on your computer upload it to imgur.com . DO NOT SPAM BRITTLE.<br \>' +
-					'<b>What do I need?</b>-You need to have your picture in .png form and it cannot be on photobucket.<br \>' +
-					'<b>Whats the ideal picuture?</b>-The ideal picture is 80x80 and has a gray background. If it is too big then it will appear werid in battles. <a href="http://www.pokecharms.com/trainercards/images/trainers/O_BW/g2.png">Example of a perfect one.</a>  <br \>' +
-					'<b>Note:</b>It may take a while to get your picture uploaded so please do not spam BrittleWind. Tell Brittle if you already have a custom avatar and are just changing it. You can only change your avatar once a week. YOUR ACCOUNT MUST BE REGISTERED FOR IT TO WORK.<br \>')
-                    
-            },
-            
-             makingachatroom: function(target, room, user) {
-                    if (!this.canBroadcast()) return;
-                    this.sendReplyBox('<b>What is?</b>-A chatroom in which you are the roomowner just for your league.<br \>' +
-					'<b>How do I get one?</b>-PM BrittleWind your leagues name.DO NOT SPAM BRITTLE.<br \>' +
-					'<b>What do I need?</b>-You need to have 10 or more people in your league<br \>' +
-					'<b>Note:</b>Chatrooms get cleared out every Wednesday at 5:00 Pacific Time. If no one is in your room at that time, it will get deleted. You may only remake a chatroom once.<br \>')
-                    
-            },
-            
-   
+	},
+       
 	/*********************************************************
 	 * Miscellaneous commands
 	 *********************************************************/
