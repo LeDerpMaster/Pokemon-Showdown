@@ -439,6 +439,8 @@ exports.groups = {
 		rangeban: true,
 		potd: true,
 		disableladder: true,
+		forcejoin: true,
+		permaban: true,
 		rank: 6
 	},
 	'#': {
@@ -447,6 +449,7 @@ exports.groups = {
 		inherit: '@',
 		jurisdiction: 'u',
 		roommod: true,
+		roomonly: true;
 		declare: true,
 		modchatall: true,
 		rank: 5

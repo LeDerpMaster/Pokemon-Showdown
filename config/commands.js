@@ -1396,6 +1396,10 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/unbanall - Unban all IP addresses. Requires: @ & ~');
 		}
+		if (target === '&' || target === 'permaban' || target === 'permban' || target === 'pban') {
+     		matched = true;
+      		this.sendReply('/permaban [username] - Permanently bans the user from the server. Bans placed by this command do not reset on server restarts. Requires: & ~');
+    	}
 		if (target === '%' || target === 'modlog') {
 			matched = true;
 			this.sendReply('/modlog [n] - If n is a number or omitted, display the last n lines of the moderator log. Defaults to 15. If n is not a number, search the moderator log for "n". Requires: % @ & ~');
@@ -1496,7 +1500,7 @@ var commands = exports.commands = {
 			if (user.group !== config.groupsranking[0]) {
 				this.sendReply('DRIVER COMMANDS: /mute, /unmute, /announce, /forcerename, /alts')
 				this.sendReply('MODERATOR COMMANDS: /ban, /unban, /unbanall, /ip, /modlog, /redirect, /kick');
-				this.sendReply('LEADER COMMANDS: /promote, /demote, /forcewin, /forcetie, /declare');
+				this.sendReply('LEADER COMMANDS: /promote, /demote, /forcewin, /forcetie, /declare, /permaban');
 				this.sendReply('For details on all moderator commands, use /help @');
 			}
 			this.sendReply('For details of a specific command, use something like: /help data');
