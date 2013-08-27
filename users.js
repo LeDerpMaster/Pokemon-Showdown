@@ -32,6 +32,8 @@ var numUsers = 0;
 var bannedIps = {};
 var lockedIps = {};
 
+var ipbans = fs.createWriteStream("config/ipbans.txt", {flags: "a"}); // do not remove this line
+	
 /**
  * Get a user.
  *
@@ -1338,7 +1340,6 @@ exports.blacklistLookup = function (connection, user, ban) {
 	//looks up an ip with DroneBL, bans the user if they are listed.
 	dns = require('dns');
 	ip = connection.split('.');
-	var ipbans = fs.createWriteStream("config/ipbans.txt", {flags: "a"});
 	dronebl = ip[3] + '.' + ip[2] + '.' + ip[1] + '.' + ip[0] + '.dnsbl.dronebl.org';
 	efnetrbl = ip[3] + '.' + ip[2] + '.' + ip[1] + '.' + ip[0] + '.rbl.efnetrbl.org';
 	ahbl = ip[3] + '.' + ip[2] + '.' + ip[1] + '.' + ip[0] + '.dnsbl.ahbl.org';
