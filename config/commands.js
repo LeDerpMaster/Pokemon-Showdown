@@ -1426,7 +1426,11 @@ var commands = exports.commands = {
 		}
 		if (target === '%' || target === 'daymute') {
 			matched = true;
-			this.sendReply('/daymute , [reason] - Mute user with reason for one day / 24 hours. Requires: % @ & ~');
+			this.sendReply('/daymute [username], [reason] - Mute user with reason for one day / 24 hours. Requires: % @ & ~');
+		}
+		if (target === '%' || target === 'cmute' || target === 'cm') {
+			matched = true;
+			this.sendReply('/cmute [username], [time in hours] - Mute a user for the amount of hours. Requires: % @ & ~');
 		}
 		if (target === '&' || target === 'promote') {
 			matched = true;
