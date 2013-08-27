@@ -374,7 +374,7 @@ var commands = exports.commands = {
 		var targetUser = this.targetUser;
 		var name = this.targetUsername;
 		var userid = toId(name);
-		if (!userid) return this.sendReply("User '" + name + "' does not exist.");
+		if (!userid || !targetUser) return this.sendReply("User '" + name + "' does not exist.");
 		if (!this.can('ban', targetUser, room)) return false;
 		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned');
 		if (!Rooms.rooms[room.id].users[userid]) {
@@ -408,7 +408,7 @@ var commands = exports.commands = {
 		var targetUser = this.targetUser;
 		var name = this.targetUsername;
 		var userid = toId(name);
-		if (!userid) return this.sendReply("User '"+name+"' does not exist.");
+		if (!userid || !targetUser) return this.sendReply("User '"+name+"' does not exist.");
 		if (!this.can('ban', targetUser, room)) return false;
 		if (!room.bannedUsers || !room.bannedIps) {
 			return this.sendReply('Room bans are not meant to be used in room ' + room.id + '.');
@@ -427,6 +427,20 @@ var commands = exports.commands = {
 				if (room.bannedUsers[altId]) delete room.bannedUsers[altId];
 			}
 		}
+	},
+
+	roomauth: function(target, room, user, connection) {
+		if (!room.auth) return this.sendReply("/roomauth - This room isn't designed for per-room moderation and therefor has no auth list.");
+		var buffer = [];
+		for (var u in room.auth) {
+			buffer.push(room.auth[u] + u);
+		}
+		if (buffer.length > 0) {
+			buffer = buffer.join(', ');
+		} else {
+			buffer = 'This room has no auth.';
+		}
+		connection.popup(buffer);
 	},
 
 	leave: 'part',
@@ -1966,6 +1980,34 @@ var commands = exports.commands = {
 
 	},
 
+	emergency: function(target, room, user) {
+		if (!this.can('lockdown')) return false;
+
+		if (config.emergency) {
+			return this.sendReply("We're already in emergency mode.");
+		}
+		config.emergency = true;
+		for (var id in Rooms.rooms) {
+			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-red">The server has entered emergency mode. Some features might be disabled or limited.</div>');
+		}
+
+		this.logEntry(user.name + ' used /emergency');
+	},
+
+	endemergency: function(target, room, user) {
+		if (!this.can('lockdown')) return false;
+
+		if (!config.emergency) {
+			return this.sendReply("We're not in emergency mode.");
+		}
+		config.emergency = false;
+		for (var id in Rooms.rooms) {
+			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-green"><b>The server is no longer in emergency mode.</b></div>');
+		}
+
+		this.logEntry(user.name + ' used /endemergency');
+	},
+
 	kill: function(target, room, user) {
 		if (!this.can('lockdown')) return false;
 
@@ -2434,6 +2476,9 @@ var commands = exports.commands = {
 
 	cmd: 'query',
 	query: function(target, room, user, connection) {
+		// Avoid guest users to use the cmd errors to ease the app-layer attacks in emergency mode
+		var trustable = (!config.emergency || (user.named && user.authenticated));
+		if (config.emergency && ResourceMonitor.countCmd(connection.ip, user.name)) return false;
 		var spaceIndex = target.indexOf(' ');
 		var cmd = target;
 		if (spaceIndex > 0) {
@@ -2445,7 +2490,7 @@ var commands = exports.commands = {
 		if (cmd === 'userdetails') {
 
 			var targetUser = Users.get(target);
-			if (!targetUser) {
+			if (!trustable || !targetUser) {
 				connection.send('|queryresponse|userdetails|'+JSON.stringify({
 					userid: toId(target),
 					rooms: false
@@ -2482,13 +2527,13 @@ var commands = exports.commands = {
 			connection.send('|queryresponse|userdetails|'+JSON.stringify(userdetails));
 
 		} else if (cmd === 'roomlist') {
-
+			if (!trustable) return false;
 			connection.send('|queryresponse|roomlist|'+JSON.stringify({
 				rooms: Rooms.global.getRoomList(true)
 			}));
 
 		} else if (cmd === 'rooms') {
-
+			if (!trustable) return false;
 			connection.send('|queryresponse|rooms|'+JSON.stringify(
 				Rooms.global.getRooms()
 			));
