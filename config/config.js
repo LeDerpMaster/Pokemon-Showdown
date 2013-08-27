@@ -164,6 +164,7 @@ exports.customavatars = {
 	'jadedrag' : 'groudon.png',
 	'elite4salemance' : 'elite4salemance.png',
 	'championlapras' : 'championlapras.png',
+	'leaderbrawls' : 'leaderbrawls.png',
 	'sircookies' : 'sircookies.png',
 	'elite4fail' : 'elite4fail.png',
 	'glaeroblaze' : 'glaeroblaze.png',
