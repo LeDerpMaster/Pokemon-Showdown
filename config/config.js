@@ -449,7 +449,7 @@ exports.groups = {
 		inherit: '@',
 		jurisdiction: 'u',
 		roommod: true,
-		roomonly: true;
+		roomonly: true,
 		declare: true,
 		modchatall: true,
 		rank: 5
