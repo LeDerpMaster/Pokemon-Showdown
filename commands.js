@@ -589,21 +589,6 @@ var commands = exports.commands = {
 		this.logModCommand(targetUser + ' was removed from spamroom by ' + user.name);
 		return this.sendReply(this.targetUsername + ' and their alts were successfully removed from the spamroom list.');
 	},
-
-	k: 'kick',
-	kick: function(target, room, user) {
-		if (!target) return this.parse('/help kick');
-
-		target = this.splitTarget(target);
-		var targetUser = this.targetUser;
-		if (!targetUser || !targetUser.connected) {
-			return this.sendReply('User '+this.targetUsername+' not found.');
-		}
-		if (!this.can('warn', targetUser)) return false;
-
-		this.addModCommand(targetUser.name + ' was kicked from ' + room.id + ' by ' + user.name);
-		targetUser.leaveRoom(room.id);
-	},
 	
 	warn: function(target, room, user) {
 		if (!target) return this.parse('/help warn');
@@ -664,7 +649,7 @@ var commands = exports.commands = {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 
-		if (!this.can('lock', targetUser, room)) return false;
+		if (!this.can('warn', targetUser, room)) return false;
 
 		this.addModCommand(targetUser.name+' was kicked from the room by '+user.name+'.');
 		targetUser.popup('You were kicked from '+room.id+' by '+user.name+'.');
