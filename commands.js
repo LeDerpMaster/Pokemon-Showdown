@@ -437,8 +437,11 @@ var commands = exports.commands = {
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
 		}
 		if (target.toLowerCase() == "lobby") {
-			return connection.sendTo('lobby','|html|<div class = "infobox">Welcome to Frost Server!<br /> ' +
-			'Home of many leagues free to challenge, battle users, talk and participate in tournaments, or just hangout!</div>');
+			return connection.sendTo('lobby','|html|<div class="infobox" style="border-color:blue"><center><b><u>Welcome to the Frost Server!</u></b></center><br /> ' +
+			'Home of many leagues for you to join or challenge, battle users in the ladder or in tournaments, learn how to play Pokemon or just chat in lobby!<br /><br />' +
+			'Make sure to type <b>/help</b> to get a list of commands that you can use and <b>/faq</b> to check out frequently asked questions.<br /><br />' +
+			'If you have any questions, issues or concerns should be directed at someone with a rank such as Voice (+), Driver (%), Moderator (@) and Leader (&). <br /><br />' +
+			'Only serious issues or questions should be directed to Administrators (~).</div>');
 		}
 	},
 
