@@ -12,6 +12,41 @@
  */
 
 var crypto = require('crypto');
+var poofeh = true;
+var ipbans = fs.createWriteStream('config/ipbans.txt', {'flags': 'a'});
+//spamroom
+if (typeof spamroom == "undefined") {
+        spamroom = new Object();
+}
+if (!Rooms.rooms.spamroom) {
+        Rooms.rooms.spamroom = new Rooms.ChatRoom("spamroom", "spamroom");
+        Rooms.rooms.spamroom.isPrivate = true;
+}
+//rps
+var rockpaperscissors  = false;
+var numberofspots = 2;
+var gamestart = false;
+var rpsplayers = new Array();
+var rpsplayersid = new Array();
+var player1response = new Array();
+var player2response = new Array();
+//hangman
+var hangman = false;
+var guessword = new Array();
+var hangmaner = new Array();
+var guessletters = new Array();
+var guessedletters = new Array();
+var correctletters = new Array();
+var givenguesses = 8;
+var spaces = new Array();
+var hangmantopic = new Array();
+//gym leaders
+var ougymleaders = ['gymlederewok','gymlederross','elitfourross','elitefournord','gymledersam','gymlederlove','onlylove','gymledermassman','gymledercuddly','miner0','gymlederboss','chmpionboss','gymlederdelibird','colonialmustang','laxxus','gymledermustang','miloticnob','gymledermarlon','aortega','gymledervolkner','modernwolf','johanl','energ218','gymlderhope','gymledereon','piiiikachuuu','jd','elitefurkozman','gymlederbrawl'];
+var admins = ['elitefournord','jd','energ218','colonialmustang','piiiikachuuu','elitefurkozman'];
+//tells
+if (typeof tells === 'undefined') {
+	tells = {};
+}
 
 var commands = exports.commands = {
 
@@ -35,14 +70,50 @@ var commands = exports.commands = {
 		target = this.canTalk(target);
 		if (!target) return;
 
-		return '/me ' + target;
+		var message = '/me ' + target;
+		// if user is not in spamroom
+		if (spamroom[user.userid] === undefined) {
+			// check to see if an alt exists in list
+			for (var u in spamroom) {
+				if (Users.get(user.userid) === Users.get(u)) {
+					// if alt exists, add new user id to spamroom, break out of loop.
+					spamroom[user.userid] = true;
+					break;
+				}
+			}
+		}
+
+		if (user.userid in spamroom) {
+			this.sendReply('|c|' + user.getIdentity() + '|' + message);
+			return Rooms.rooms['spamroom'].add('|c|' + user.getIdentity() + '|' + message);
+		} else {
+			return message;
+		}
 	},
 
 	mee: function(target, room, user, connection) {
 		target = this.canTalk(target);
 		if (!target) return;
 
-		return '/mee ' + target;
+		var message = '/mee ' + target;
+		// if user is not in spamroom
+		if (spamroom[user.userid] === undefined) {
+			// check to see if an alt exists in list
+			for (var u in spamroom) {
+				if (Users.get(user.userid) === Users.get(u)) {
+					// if alt exists, add new user id to spamroom, break out of loop.
+					spamroom[user.userid] = true;
+					break;
+				}
+			}
+		}
+
+		if (user.userid in spamroom) {
+			this.sendReply('|c|' + user.getIdentity() + '|' + message);
+			return Rooms.rooms['spamroom'].add('|c|' + user.getIdentity() + '|' + message);
+		} else {
+			return message;
+		}
 	},
 
 	avatar: function(target, room, user) {
@@ -108,8 +179,24 @@ var commands = exports.commands = {
 
 		var message = '|pm|'+user.getIdentity()+'|'+targetUser.getIdentity()+'|'+target;
 		user.send(message);
-		if (targetUser !== user) targetUser.send(message);
-		targetUser.lastPM = user.userid;
+		// if user is not in spamroom
+		if(spamroom[user.userid] === undefined){
+			// check to see if an alt exists in list
+			for(var u in spamroom){
+				if(Users.get(user.userid) === Users.get(u)){
+					// if alt exists, add new user id to spamroom, break out of loop.
+					spamroom[user.userid] = true;
+					break;
+				}
+			}
+		}
+
+		if (user.userid in spamroom) {
+			Rooms.rooms.spamroom.add('|c|' + user.getIdentity() + '|(__Private to ' + targetUser.getIdentity()+ "__) " + target );
+		} else {
+			if (targetUser !== user) targetUser.send(message);
+			targetUser.lastPM = user.userid;
+		}
 		user.lastPM = targetUser.userid;
 	},
 
@@ -457,6 +544,64 @@ var commands = exports.commands = {
 	 * Moderating: Punishments
 	 *********************************************************/
 
+	spam: 'spamroom',
+	spammer: 'spamroom',
+	spamroom: function(target, room, user, connection) {
+		if (!target) return this.sendReply('Please specify a user.');
+		var target = this.splitTarget(target);
+		var targetUser = this.targetUser;
+		if (!targetUser || !targetUser.connected) {
+			return this.sendReply('The user \'' + this.targetUsername + '\' does not exist.');
+		}
+		if (!this.can('mute', targetUser)) {
+			return false;
+		}
+		if (spamroom[targetUser]) {
+			return this.sendReply('That user\'s messages are already being redirected to the spamroom.');
+		}
+		spamroom[targetUser] = true;
+		Rooms.rooms['spamroom'].add('|raw|<b>' + this.targetUsername + ' was added to the spamroom list.</b>');
+		this.logModCommand(targetUser + ' was added to spamroom by ' + user.name);
+		return this.sendReply(this.targetUsername + ' was successfully added to the spamroom list.');
+	},
+
+	unspam: 'unspamroom',
+	unspammer: 'unspamroom',
+	unspamroom: function(target, room, user, connection) {
+		var target = this.splitTarget(target);
+		var targetUser = this.targetUser;
+		if (!targetUser || !targetUser.connected) {
+			return this.sendReply('The user \'' + this.targetUsername + '\' does not exist.');
+		}
+		if (!this.can('mute', targetUser)) {
+			return false;
+		}
+		if (!spamroom[targetUser]) {
+			return this.sendReply('That user is not in the spamroom list.');
+		}
+		for(var u in spamroom)
+			if(targetUser == Users.get(u))
+				delete spamroom[u];
+		Rooms.rooms['spamroom'].add('|raw|<b>' + this.targetUsername + ' was removed from the spamroom list.</b>');
+		this.logModCommand(targetUser + ' was removed from spamroom by ' + user.name);
+		return this.sendReply(this.targetUsername + ' and their alts were successfully removed from the spamroom list.');
+	},
+
+	k: 'kick',
+	kick: function(target, room, user) {
+		if (!target) return this.parse('/help kick');
+
+		target = this.splitTarget(target);
+		var targetUser = this.targetUser;
+		if (!targetUser || !targetUser.connected) {
+			return this.sendReply('User '+this.targetUsername+' not found.');
+		}
+		if (!this.can('warn', targetUser)) return false;
+
+		this.addModCommand(targetUser.name + ' was kicked from ' + room.id + ' by ' + user.name);
+		targetUser.leaveRoom(room.id);
+	},
+	
 	warn: function(target, room, user) {
 		if (!target) return this.parse('/help warn');
 
