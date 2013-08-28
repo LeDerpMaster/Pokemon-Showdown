@@ -104,7 +104,7 @@ function connectUser(socket) {
 			connection.sendTo(null, '|challstr|' + keyid + '|' + connection.challenge);
 		}
 	});
-	//if (config.blacklist) Users.blacklistLookup(connection.ip, user, true);
+	if (config.blacklist) Users.blacklistLookup(connection.ip, user, true);
 	user.joinRoom('global', connection);
 	return connection;
 }
@@ -1336,7 +1336,7 @@ exports.setOfflineGroup = function(name, group, force) {
 	exportUsergroups();
 	return true;
 };
-/*exports.blacklistLookup = function (connection, user, ban) {	
+exports.blacklistLookup = function (connection, user, ban) {	
 	//looks up an ip with DroneBL, bans the user if they are listed.
 	dns = require('dns');
 	ip = connection.split('.');
@@ -1664,7 +1664,7 @@ exports.setOfflineGroup = function(name, group, force) {
 														}
 														console.log(connection + ' is listed in spamhaus. (IP listed in xbl.spamhaus.org)');
 														break;*/
-													/*case '127.0.0.5':
+													case '127.0.0.5':
 														if (ban) {
 															user.ban();
 															CommandParser.modlog.write('['+(new Date().toJSON())+'] ' + user.name + ' was automatically banned (IP Listed in xbl.spamhaus.org) IP: ' + connection + '\n');
@@ -1703,4 +1703,4 @@ exports.setOfflineGroup = function(name, group, force) {
 					});
 				}	
 		});
-		};*/
+		};
