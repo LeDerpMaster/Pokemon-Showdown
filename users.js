@@ -510,7 +510,7 @@ var User = (function () {
 				}
 			}
 			if (userid === this.userid && !auth) {
-				return this.forceRename(name, this.authenticated);
+				return this.forceRename(name, this.authenticated, this.forceRenamed);
 			}
 		}
 		if (users[userid] && !users[userid].authenticated && users[userid].connected && !auth) {
