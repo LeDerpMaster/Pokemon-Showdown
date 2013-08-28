@@ -639,7 +639,7 @@ var commands = exports.commands = {
 	k: 'kick',
 	kick: function(target, room, user){
 		if (!this.can('lock')) return false;
-		if (!target) return this.sendReply('/help kick');
+		if (!target) return this.parse('/help kick');
 		if (!this.canTalk()) return false;
 
 		target = this.splitTarget(target);
