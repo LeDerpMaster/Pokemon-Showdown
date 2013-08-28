@@ -446,7 +446,7 @@ var cmds = {
 			targets[1] = parseInt(targets[1]);
 			if (isNaN(targets[1]) || !targets[1]) return this.sendReply('/tour tier, NUMBER minutes');
 			targets[1] = Math.ceil(targets[1]);
-			if (targets[1] < 0) return this.sendReply('Why would you want to schedule a tournament for the past?');
+			if (targets[1] < 1) return this.sendReply('That is not a valid reschedule.');
 			tour.timers[rid] = {
 				time: targets[1],
 				startTime: tour.currentSeconds
