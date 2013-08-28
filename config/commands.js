@@ -1171,6 +1171,13 @@ var commands = exports.commands = {
 		'Catchphrase: There be a storm comin laddie<br \>' +
 		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/646-black.gif">')
 	},
+	
+	lavacadicemoo: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('La vaca dice moo<br \>' +
+		'The cow says moo!<br \>' + 
+		'<img src="http://www.apeconmyth.com/wp-content/uploads/2011/09/moo-cow.gif">')
+	},
        
 	/*********************************************************
 	 * Miscellaneous commands
