@@ -288,7 +288,7 @@ exports.customavatars = {
 	'v4insanity' : 'wev.png',
 	'gymleaderdrag' : 'gh.png',
 	'frontierbrainelde' : 'chin.png',
-	'elite4quality' : 'bal.png',
+	'quality' : 'bal.png',
 	'gymleaderhazo' : 'ren.png',
 	'gymldrfox' : 'za.png',
 	'champe4will' : 'night.png',
