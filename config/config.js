@@ -203,6 +203,7 @@ exports.customavatars = {
 	'tcchampionexzlu' : 'exzlu.png',
 	'gymtrainersynth' : 'synth.png',
 	'vaderdarkside' : 'vader.png',
+	'shirotagachi' : 'shirotagachi.png',
 	'thefuckinbest' : 'sly.png',
 	'se7enadminbomber' : 'bomber.png',
 	'chespintheknight' : 'ches.png',
