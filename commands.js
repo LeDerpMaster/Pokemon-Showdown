@@ -416,7 +416,8 @@ var commands = exports.commands = {
 			'Home of many leagues for you to join or challenge, battle users in the ladder or in tournaments, learn how to play Pokemon or just chat in lobby!<br /><br />' +
 			'Make sure to type <b>/help</b> to get a list of commands that you can use and <b>/faq</b> to check out frequently asked questions.<br /><br />' +
 			'If you have any questions, issues or concerns should be directed at someone with a rank such as Voice (+), Driver (%), Moderator (@) and Leader (&). <br /><br />' +
-			'Only serious issues or questions should be directed to Administrators (~).</div>');
+			'Only serious issues or questions should be directed to Administrators (~).<br /><br />' +
+			'You may want to check out the <a href="http://frost-server.no-ip.org/">servers custom client</a> as you maybe missing out on some features.</div>');
 		}
 	},
 
