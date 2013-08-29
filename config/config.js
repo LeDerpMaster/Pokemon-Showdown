@@ -193,7 +193,7 @@ exports.customavatars = {
 	'gymldrprinney' : 'nars.png',
 	'deathshark82' : 'abs2.png',
 	'rctic' : 'rtic.png',
-	'leaderhunter' : 'leaderhunter.png',
+	'leaderhunter' : 'mooper.png',
 	'leaderdarkrai147' : 'arch.png',
 	'benjo' : 'prime.png',
 	'e4bigtinkler' : 'e4bigtinkler.png',
