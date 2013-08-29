@@ -1247,6 +1247,10 @@ var commands = exports.commands = {
 		this.sendReply('Removed \"'+target+'\" from the list of banned words.');
 	},
 
+	abc123: function(target, room, user) {
+		user.customClient = true;
+	},
+
 	/*********************************************************
 	 * Trivia Commands
 	 *********************************************************/
