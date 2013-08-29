@@ -371,6 +371,7 @@ exports.customavatars = {
 	'coolasian' : 'black.png',
 	'championdarksun' : 'scep.png',
 	'e4quality' : 'pikachu.png',
+	'ablanket' : '7vGfWfQ.png',
 	'e4synthesize' : 'tyran.png',
 	'spectrochampzarif' : 'bles.png',
 	'chllengerwinwalk' : 'winwalk.png',
