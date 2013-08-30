@@ -262,7 +262,7 @@ exports.customavatars = {
 	'elitefouerice' : 'erice.png',
 	'gymtrainehalezb' : 'hal.png',
 	'bytalonflame' : 'talonflame.png',
-	'e4burninglights' : '2hrn6yo.png',
+	'e4burninglights' : 'nAObV1G.png',
  	'dlkings' : '09bepgb.png',
 	'leaderheynow9' : 'kirby.png',
 	'chmpionchemical' : 'Scizor.png',
