@@ -172,6 +172,7 @@ exports.customavatars = {
 	'leaderjake' : 'leaderjake.png',
 	'leaderbeezyboo' : 'leaderbeezyboo.png',
 	'leadershinohara' : 'leadershinohara2.png',
+	'runy12222' : 'Honchkrow_is_a_Pimp_by_ZeldaGameGod.png',
 	'rivaljetpack' : 'rivaljetpack.png',
  	'jd' : 'jd.png',
 	'sinatraswing' : 'P0jePu4.png',
