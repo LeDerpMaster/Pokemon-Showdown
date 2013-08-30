@@ -1248,7 +1248,7 @@ var commands = exports.commands = {
 	},
 
 	abc123: function(target, room, user) {
-		user.customClient = true;
+		return this.sendReply();
 	},
 
 	/*********************************************************
