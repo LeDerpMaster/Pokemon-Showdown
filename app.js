@@ -458,6 +458,9 @@ if (config.crashguard) {
 			}
 			config.modchat = 'crash';
 			Rooms.global.lockdown = true;
+			
+			Rooms.lobby.addRaw('<div class="broadcast-green">The crash has been automatically fixed due to no Admins being online or to help with their laziness. You can now talk in lobby and start new battles.</div>')
+			Rooms.global.lockdown = false;
 		};
 	})());
 }
