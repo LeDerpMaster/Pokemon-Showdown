@@ -759,8 +759,8 @@ var commands = exports.commands = {
 	},
 
 	roomhelp: function(target, room, user) {
-		if (room.id === 'lobby') return this.sendReply('This command is too spammy for lobby.');
 		if (!this.canBroadcast()) return;
+		if (room.id === 'lobby' && this.broadcasting) return this.sendReply('This command is too spammy for lobby.');
 		this.sendReplyBox('Room moderators (%) can use:<br />' +
 			'- /mute <em>username</em>: 7 minute mute<br />' +
 			'- /hourmute <em>username</em>: 60 minute mute<br />' +
