@@ -187,6 +187,9 @@ var commands = exports.commands = {
 		if (targetUser.staffAccess) {
 			this.sendReply('(Pok\xE9mon Showdown Development Staff)');
 		}
+		if (targetUser.customClient) {
+			this.sendReply('|raw|' + targetUser.name + ' is using the <a href="http://frost-server.no-ip.org"><i>custom client!</i></a>');
+		}
 		if (!targetUser.authenticated) {
 			this.sendReply('(Unregistered)');
 		}
@@ -204,6 +207,9 @@ var commands = exports.commands = {
 			output += '<a href="/'+i+'" room="'+i+'">'+i+'</a>';
 		}
 		this.sendReply('|raw|'+output);
+		if (!targetUser.connected) {
+			this.sendReply('|raw|This user is <font color = "red">offline</font>.');
+		}
 	},
 
 	ipsearch: function(target, room, user) {
