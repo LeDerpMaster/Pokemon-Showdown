@@ -1,8 +1,8 @@
 #!/bin/bash
 if  pgrep node > /dev/null
 then
-	pkill node && screen -dmS pokemonshowdown nodejs app.js &
+	pkill node && nohup node app.js &
 else 
-	screen -dmS pokemonshowdown nodejs app.js &
+	nohup node app.js &
 fi
 
