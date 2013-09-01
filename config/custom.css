@@ -8,8 +8,23 @@
 * your server.
 */
 
-#header{background:url("http://www.fastcoexist.com/multisite_files/coexist/imagecache/1920/poster/2013/02/1681430-poster-1280-blue-energy.jpg")}
-.mainmenuwrapper{background:url("http://i.imgur.com/g119NaH.png?2") no-repeat scroll center;background-color:#A2B5CD}
-.menugroup .button{background:#3A5FCD}
-.menugroup .button:hover{background:#4876FF}
+#header{background:url("http://upload.wikimedia.org/wikipedia/commons/d/da/Shades_of_blue.jpg")}
+
+body{background-image:url("http://i.imgur.com/hcpz7c2.jpg");background-repeat:no-repeat;background-position:right top}
+
+.chat-log{font-size:10pt;background:#f2f9ff;color:#000;overflow:auto}
+
+.menugroup .button{background:#3A5FCD}.menugroup 
+
+.menugroup {
+background:#f2f9ff);
+text-align: center;
+}
+
+.button:hover{background:#4876FF}
+
+.userlist {
+border-left: 1px solid #D5DDE4;
+background: #e5f5ff;
+}
 
