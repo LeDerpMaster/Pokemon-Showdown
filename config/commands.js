@@ -1189,6 +1189,17 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('For any questions please check <a href="http://frostserver.weebly.com/faq.html">this</a> out before asking mods.')
 	},
+	
+		kongstunes: function(target, room, user) {
+			if (!this.canBroadcast()) return;
+			this.sendReplyBox('Get ready to go on an adventure!<br />' +
+			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/38_-_mine_menace__donkey_kong_country_returns_soundtrack1.mp3><button>Mine Menace </button></a><br />' +
+			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/73_-_crankys_theme__donkey_kong_country_returns_soundtrack.mp3><button>Kranky Kongs Theme</button></a><br />' +
+			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/blinx_-_the_time_sweeper_-_shop_-_collection_view_music.mp3><button>Welcome to Frost!</button></a><br />' +
+			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/04_-_london_calling_-_michael_giacchino___star_trek_into_darkness.mp3><button>Khan</button></a><br />');
+		},
+
+
        
 	/*********************************************************
 	 * Miscellaneous commands
