@@ -161,6 +161,7 @@ exports.customavatars = {
 	'marcospaccaculo' : 'moo.png',
 	'themapples' : 'themapples.png',
 	'duskumbreon' : 'umb.png',
+	'lexie':'lexie.png',
 	'flyingj138' : 'flyin.png',
 	'jadedrag' : 'groudon.png',
 	'elite4salemance' : 'elite4salemance.png',
