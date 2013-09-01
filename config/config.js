@@ -164,6 +164,7 @@ exports.customavatars = {
 	'lexie':'lexie.png',
 	'flyingj138' : 'flyin.png',
 	'jadedrag' : 'groudon.png',
+	'championlights' : '34.png',
 	'elite4salemance' : 'elite4salemance.png',
 	'championlapras' : 'championlapras.png',
 	'leaderbrawls' : 'leaderbrawls.png',
