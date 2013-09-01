@@ -578,7 +578,6 @@ var commands = exports.commands = {
 			return this.sendReply('You can\'t warn here: This is a privately-owned room not subject to global rules.');
 		}
 		if (!this.can('warn', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be warned.');;
 
 		this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
 		targetUser.send('|c|~|/warn '+target);	
@@ -626,6 +625,8 @@ var commands = exports.commands = {
 		}
 
 		if (!this.can('warn', targetUser, room)) return false;
+
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be kicked.');
 
 		this.addModCommand(targetUser.name+' was kicked from the room by '+user.name+'.');
 		targetUser.popup('You were kicked from '+room.id+' by '+user.name+'.');
