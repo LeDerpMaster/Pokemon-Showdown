@@ -446,20 +446,24 @@ if (config.crashguard) {
 	process.on('uncaughtException', (function() {
 		var lastCrash = 0;
 		return function(err) {
-			var dateNow = Date.now();
-			var quietCrash = require('./crashlogger.js')(err, 'The main process');
-			quietCrash = quietCrash || ((dateNow - lastCrash) <= 1000 * 60 * 5)
-			lastCrash = Date.now();
-			if (quietCrash) return;
-			var stack = (""+err.stack).split("\n").slice(0,2).join("<br />");
-			if (Rooms.lobby) {
-				Rooms.lobby.addRaw('<div class="broadcast-red"><b>THE SERVER HAS CRASHED:</b> '+stack+'<br />Please restart the server.</div>');
-				Rooms.lobby.addRaw('<div class="broadcast-red">You will not be able to talk in the lobby or start new battles until the server restarts.</div>');
+			var disabled = true
+
+			if (disabled) {
+				var dateNow = Date.now();
+				var quietCrash = require('./crashlogger.js')(err, 'The main process');
+				quietCrash = quietCrash || ((dateNow - lastCrash) <= 1000 * 60 * 5)
+				lastCrash = Date.now();
+				if (quietCrash) return;
+				var stack = (""+err.stack).split("\n").slice(0,2).join("<br />");
+				if (Rooms.lobby) {
+					Rooms.lobby.addRaw('<div class="broadcast-red"><b>THE SERVER HAS CRASHED:</b> '+stack+'<br />Please restart the server.</div>');
+					Rooms.lobby.addRaw('<div class="broadcast-red">You will not be able to talk in the lobby or start new battles until the server restarts.</div>');
+				}
+				config.modchat = 'crash';
+				Rooms.global.lockdown = true;
 			}
-			config.modchat = 'crash';
-			Rooms.global.lockdown = true;
-			
-			Rooms.lobby.addRaw('<div class="broadcast-green">The crash has been automatically fixed due to no Admins being online or to help with their laziness. You can now talk in lobby and start new battles.</div>')
+			Rooms.staff.addRaw('<div class="broadcast-red"><b>There was a crash, details:</b> '+stack+'<br />Automatically fixed but Admins check this.</div>');
+			Rooms.lobby.addRaw('<div class="broadcast-green">The server just crashed, but everything is fine... ish. Admins check Staff Room for crash information.</div>')
 			Rooms.global.lockdown = false;
 		};
 	})());
