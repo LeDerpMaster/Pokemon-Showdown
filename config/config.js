@@ -360,6 +360,7 @@ exports.customavatars = {
 	'gymldraero' : '212.png',
 	'suddendeath5' : '212.png',
 	'princessaby' : 'fuck.png',
+	'e4killswitch' : 'wes.png',
 	'gymleaderdooom' : 'ruby.png',
 	'georgeflimmerman' : '136.png',
 	'iamcatlawyer' : 'bulk.png',
