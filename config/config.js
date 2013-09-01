@@ -382,7 +382,7 @@ exports.customavatars = {
 	'cosy' : 'cosy.png',
 	'brittlewind' : 'hehehehhe.png',
 	'alakazamscaf' : 'alakazam.png',
-	'ryun' : 'ryun.png',
+	'ryun' : 'vag.png',
 	'piiiikachuuu':'pika.png'
 };
 
