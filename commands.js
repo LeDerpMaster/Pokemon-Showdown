@@ -2243,6 +2243,8 @@ var commands = exports.commands = {
 		this.logEntry(user.name + ' used /refreshpage');
 	},
 
+	serverupdate: 'updateserver',
+	gitpull : 'updateserver',
 	updateserver: function(target, room, user, connection) {
 		if (!user.checkConsolePermission(connection)) {
 			return this.sendReply('/updateserver - Access denied.');
