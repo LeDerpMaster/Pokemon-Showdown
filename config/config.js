@@ -273,7 +273,7 @@ exports.customavatars = {
 	'grumpigthepiggy' : 'grump.png',
 	'auraburst' : 'muF6H.png',
 	'rioted' : 'rioted.png',
-	'killertiger' : 'blaziken.png',
+	'killertiger' : 'sexm.png',
 	'gymladerriot' : 'fire.png',
 	'hotsuinyamato' : 'bitch.png',
 	'darbanitan' : 'Iq0Hbit.png',
