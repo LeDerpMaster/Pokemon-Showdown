@@ -388,6 +388,7 @@ exports.customavatars = {
 	'elite4strycal' : 'strycal.png',
 	'elite4anttya' : 'anttya.png',
 	'gymldrfluffy' : 'fluffy.png',
+	'gymldrspirtomb' : 'spirtomb.png',
 	'piiiikachuuu':'pika.png'
 };
 
