@@ -385,6 +385,9 @@ exports.customavatars = {
 	'brittlewind' : 'hehehehhe.png',
 	'alakazamscaf' : 'alakazam.png',
 	'ryun' : 'glooms.png',
+	'elite4strycal' : 'strycal.png',
+	'elite4anttya' : 'anttya.png',
+	'gymldrfluffy' : 'fluffy.png',
 	'piiiikachuuu':'pika.png'
 };
 
