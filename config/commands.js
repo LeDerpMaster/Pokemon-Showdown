@@ -1201,8 +1201,8 @@ var commands = exports.commands = {
 		
 		getpoints: function(target, room, user) {
 			if (!this.canBroadcast()) return;
-			this.sendReplyBox('You can currently get points by:<br \>' +
-			'Signing up for the official Frost forums by clicking <a href="<br \>' +">here.</a>Once you have signed up, PM BrittleWind to get 2 points.')
+			this.sendReplyBox('You can currently get points by:<br />' +
+			'Signing up for the official Frost forums by clicking <a href="http://frostserver.weebly.com/forums.html#/offtopic/">here.</a>Once you have signed up, PM BrittleWind to get 2 points.')
 			},
 
 
