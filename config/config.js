@@ -401,6 +401,7 @@ exports.customavatars = {
 	'elite4snake' : 'snake11.png',
 	'elite4dalex' : 'dalex.png',
 	'frontiershadual' : 'shadual.png',
+	'ldrassumaril' : 'assumaril.png',
 	'piiiikachuuu':'pika.png'
 };
 
