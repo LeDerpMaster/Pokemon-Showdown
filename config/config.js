@@ -390,6 +390,7 @@ exports.customavatars = {
 	'ryun' : 'glooms.png',
 	'elite4strycal' : 'strycal.png',
 	'elite4anttya' : 'anttya.png',
+	'anttya' : 'anttya.png',
 	'gymldrfluffy' : 'fluffy.png',
 	'gymldrspirtomb' : 'spirtomb.png',
 	'gymldrblazing' : 'blazing.png',
