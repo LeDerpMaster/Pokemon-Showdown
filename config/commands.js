@@ -1215,7 +1215,7 @@ var commands = exports.commands = {
 			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/14_-_main_theme_-_michael_giacchino___star_trek_into_darkness.mp3><button>Listen!</button></a><br />');
 		},
 		
-		avacadicemoo: function(target, room, user) {
+		trivia: function(target, room, user) {
 			if (!this.canBroadcast()) return;
 			this.sendReplyBox('Tell me what to put here<br \>' +
 			'credits here?<br \>' + 
