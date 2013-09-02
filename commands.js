@@ -804,8 +804,9 @@ var commands = exports.commands = {
 		}
 	},
 
+	bh: 'ban'
 	b: 'ban',
-	ban: function(target, room, user) {
+	ban: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help ban');
 
 		target = this.splitTarget(target);
@@ -822,7 +823,13 @@ var commands = exports.commands = {
 
 		targetUser.popup(user.name+" has banned you." + (config.appealurl ? ("  If you feel that your banning was unjustified you can appeal the ban:\n" + config.appealurl) : "") + "\n\n"+target);
 		if (Rooms.rooms.logroom) Rooms.rooms.logroom.addRaw('BAN LOG: ' + user.name + ' has locked ' + targetUser.name + ' from ' + room.id + '.');
-		this.addModCommand(""+targetUser.name+" was banned by "+user.name+"." + (target ? " (" + target + ")" : ""));
+		
+		if (cmd === 'bh') {
+			this.addModCommand(""+targetUser.name+" was hit by "+user.name+"'s banhammer." + (target ? " (" + target + ")" : ""));
+		} else {
+			this.addModCommand(""+targetUser.name+" was banned by "+user.name+"." + (target ? " (" + target + ")" : ""));
+		}
+		
 		var alts = targetUser.getAlts();
 		if (alts.length) {
 			this.addModCommand(""+targetUser.name+"'s alts were also banned: "+alts.join(", "));
