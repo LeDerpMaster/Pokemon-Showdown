@@ -579,7 +579,7 @@ var commands = exports.commands = {
 			return this.sendReply('You can\'t warn here: This is a privately-owned room not subject to global rules.');
 		}
 		if (!this.can('warn', targetUser, room)) return false;
-
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('You cannot warn this user.');
 		this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
 		targetUser.send('|c|~|/warn '+target);	
 	},
@@ -895,7 +895,7 @@ var commands = exports.commands = {
 	permaban: function(target, room, user) {
 		if (!target) return this.parse('/help permaban');
 		if (!this.can('permaban', targetUser)) return false;
-
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('You cannot permban this user.');
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
 		if (!targetUser) {
