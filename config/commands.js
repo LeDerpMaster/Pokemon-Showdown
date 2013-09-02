@@ -1204,6 +1204,17 @@ var commands = exports.commands = {
 			this.sendReplyBox('You can currently get points by:<br />' +
 			'Signing up for the official Frost forums by clicking <a href="http://frostserver.weebly.com/forums.html#/offtopic/">here.</a>Once you have signed up, PM BrittleWind to get 2 points.')
 			},
+			
+		moviemusic: function(target, room, user) {
+			if (!this.canBroadcast()) return;
+			this.sendReplyBox('Guess the movie based on the song!<br />' +
+			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/inception_soundtrack-dream_is_collapsing_hans_zimmer.mp3><button>Listen!</button></a><br />' +
+			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/sherlock_holmes__a_game_of_shadows_ost_17_-_the_end__full_hd.mp3><button>Listen!</button></a><br />' +
+			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/hans_zimmer_-_madagascar_2_-_theme_song.mp3><button>Listen!</button></a><br />' +
+			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/ratatouille_theme_song__colette_shows_him_le_ropes.mp3><button>Brittles Theme</button></a><br />' +
+			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/14_-_main_theme_-_michael_giacchino___star_trek_into_darkness.mp3><button>Listen!</button></a><br />');
+		},
+		
 
 
        
