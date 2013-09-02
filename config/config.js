@@ -395,6 +395,7 @@ exports.customavatars = {
 	'gymldrblazing' : 'blazing.png',
 	'championlaxus' : 'laxus.png',
 	'elite4snake' : 'snake11.png',
+	'elite4dalex' : 'dalex.png',
 	'piiiikachuuu':'pika.png'
 };
 
