@@ -31,7 +31,7 @@ var commands = exports.commands = {
 			user.group = '~';
 			user.updateIdentity();
 
-			this.parse('/promote ' + user.name + ', ~');
+			this.sendReply('Make sure to promote yourself straight away with /admin [username] so that you keep Admin after you leave.');
 		}
 	},
 	
@@ -726,6 +726,7 @@ var commands = exports.commands = {
 		}
 		if (targetUser.name === 'Brittle Wind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be muted');
 		if (!this.can('mute', targetUser, room)) return false;
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('You cannot forcerename this user.');
 		if (((targetUser.mutedRooms[room.id] && (targetUser.muteDuration[room.id]||0) >= 50*60*1000) || targetUser.locked) && !target) {
 			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
 			return this.privateModCommand('('+targetUser.name+' would be muted by '+user.name+problem+'.)');
@@ -806,9 +807,8 @@ var commands = exports.commands = {
 		}
 	},
 
-	bh: 'ban'
 	b: 'ban',
-	ban: function(target, room, user, connection, cmd) {
+	ban: function(target, room, user) {
 		if (!target) return this.parse('/help ban');
 
 		target = this.splitTarget(target);
@@ -825,13 +825,7 @@ var commands = exports.commands = {
 
 		targetUser.popup(user.name+" has banned you." + (config.appealurl ? ("  If you feel that your banning was unjustified you can appeal the ban:\n" + config.appealurl) : "") + "\n\n"+target);
 		if (Rooms.rooms.logroom) Rooms.rooms.logroom.addRaw('BAN LOG: ' + user.name + ' has locked ' + targetUser.name + ' from ' + room.id + '.');
-		
-		if (cmd === 'bh') {
-			this.addModCommand(""+targetUser.name+" was hit by "+user.name+"'s banhammer." + (target ? " (" + target + ")" : ""));
-		} else {
-			this.addModCommand(""+targetUser.name+" was banned by "+user.name+"." + (target ? " (" + target + ")" : ""));
-		}
-		
+		this.addModCommand(""+targetUser.name+" was banned by "+user.name+"." + (target ? " (" + target + ")" : ""));
 		var alts = targetUser.getAlts();
 		if (alts.length) {
 			this.addModCommand(""+targetUser.name+"'s alts were also banned: "+alts.join(", "));
