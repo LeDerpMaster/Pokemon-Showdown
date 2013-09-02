@@ -388,7 +388,7 @@ exports.customavatars = {
 	'chllengerwinwalk' : 'winwalk.png',
 	'teafany' : 'teafany.png',
 	'cosy' : 'cosy.png',
-	'brittlewind' : 'hehehehhe.png',
+	'brittlewind' : 'hicosyhijd.png',
 	'alakazamscaf' : 'alakazam.png',
 	'ryun' : 'glooms.png',
 	'elite4strycal' : 'strycal.png',
