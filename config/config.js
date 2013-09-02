@@ -77,7 +77,7 @@ exports.reportbattles = false;
 // moderated chat - prevent unregistered, unvoiced users from speaking
 //   This should only be enabled temporarily, when you're dealing with
 //   huge influxes of spammy users.
-exports.modchat = true;
+exports.modchat = false;
 
 // backdoor - allows Zarel and his authorised Pokemon Showdown development
 //            staff to provide tech support for your server
@@ -402,7 +402,7 @@ exports.customavatars = {
 // appealurl - specify a URL containing information on how users can appeal
 // disciplinary actions on your section. You can also leave this blank, in
 // which case users won't be given any information on how to appeal.
-exports.appealurl = '';
+exports.appealurl = 'http://frostserver.forumotion.com/f7-discipline-appeals';
 
 // permissions and groups:
 //   Each entry in `groupsranking' specifies the ranking of the groups.
