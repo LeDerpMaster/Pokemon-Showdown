@@ -192,6 +192,7 @@ exports.customavatars = {
 	'lazerbeam' : 'lazerbeam.png',
 	'spleliteme67676' : 'spl.png',
 	'elitefoursynxx' : 'synxx.png',
+	'riggedworld' : 'riggedworld.png',
 	'thepenguinking2' : 'thepenguinking2.png',
 	'crypticvoltage' : 'crypticvoltage.png',
 	'fbdarkwinds55' : 'fbdarkwinds55.png',
