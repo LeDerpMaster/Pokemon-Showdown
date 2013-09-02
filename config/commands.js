@@ -1198,6 +1198,12 @@ var commands = exports.commands = {
 			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/blinx_-_the_time_sweeper_-_shop_-_collection_view_music.mp3><button>Welcome to Frost!</button></a><br />' +
 			'<a href=http://www.weebly.com/uploads/2/1/8/8/21888580/04_-_london_calling_-_michael_giacchino___star_trek_into_darkness.mp3><button>Khan</button></a><br />');
 		},
+		
+		getpoints: function(target, room, user) {
+			if (!this.canBroadcast()) return;
+			this.sendReplyBox('You can currently get points by:<br \>' +
+			'Signing up for the official Frost forums by clicking <a href="<br \>' +">here.</a>Once you have signed up, PM BrittleWind to get 2 points.')
+			},
 
 
        
