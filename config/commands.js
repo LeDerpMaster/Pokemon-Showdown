@@ -1219,7 +1219,7 @@ var commands = exports.commands = {
 			if (!this.canBroadcast()) return;
 			this.sendReplyBox('Tell me what to put here<br \>' +
 			'credits here?<br \>' + 
-			'<img src="http://www.decodeunicode.org/en/u+fe56/data/glyph/196x196/FE56.gif">')
+			'<img src="http://media.tumblr.com/tumblr_lf89xxYPvn1qagx30.gif">')
 		},
 		
 
