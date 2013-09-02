@@ -159,6 +159,7 @@ exports.customavatars = {
 	'championfrancis' : 'uchiha_itachi_trainer_sprite_by_flamejow-d52v3bw.png',
 	'grymldraltitude' : 'giant.png',
 	'marcospaccaculo' : 'moo.png',
+	'frontierespeon' : 'sassybitch.png',
 	'themapples' : 'themapples.png',
 	'duskumbreon' : 'umb.png',
 	'lexie':'lexie.png',
