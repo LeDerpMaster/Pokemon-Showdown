@@ -301,6 +301,7 @@ exports.customavatars = {
 	'billybobjo' : 'meta.png',
 	'elite4ace' : 'muy.png',
 	'gymldrjitlittle' : 'jirs.png',
+	'winwalk' : 'mhmm.png',
 	'pupitar21' : 'small.png',
 	'gymldrblue' : 'eel.png',
 	'elite4cfrios' : 'ninj.png',
