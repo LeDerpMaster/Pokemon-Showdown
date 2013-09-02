@@ -807,7 +807,7 @@ var commands = exports.commands = {
 		}
 	},
 
-	bh: 'ban'
+	bh: 'ban',
 	b: 'ban',
 	ban: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help ban');
