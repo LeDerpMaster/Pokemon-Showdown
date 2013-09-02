@@ -31,11 +31,10 @@ var commands = exports.commands = {
 			user.group = '~';
 			user.updateIdentity();
 
-			this.parse('/promote ' + user.name + ', ~');
+			this.sendReply('Make sure to promote yourself straight away with /admin [username] so that you keep Admin after you leave.');
 		}
 	},
 	
-   
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Server version: <b>'+CommandParser.package.version+'</b> <small>(<a href="http://pokemonshowdown.com/versions#' + CommandParser.serverVersion + '">' + CommandParser.serverVersion.substr(0,10) + '</a>)</small>');
