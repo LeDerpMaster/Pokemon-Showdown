@@ -1217,9 +1217,9 @@ var commands = exports.commands = {
 		
 		trivia: function(target, room, user) {
 			if (!this.canBroadcast()) return;
-			this.sendReplyBox('Tell me what to put here<br \>' +
-			'credits here?<br \>' + 
-			'<img src="http://media.tumblr.com/tumblr_lf89xxYPvn1qagx30.gif">')
+			this.sendReplyBox('Welcome to the Trivia Room!<br \>' +
+			'Get ready to put your thinking caps on because your going to need them!<br \>' + 
+			'<img src="http://i.imgur.com/0dUsDFw.jpg">')
 		},
 		
 
