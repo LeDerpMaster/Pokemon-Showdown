@@ -31,7 +31,7 @@ var commands = exports.commands = {
 			user.group = '~';
 			user.updateIdentity();
 
-			this.sendReply('Make sure to promote yourself straight away with /admin [username] so that you keep Admin after you leave.');
+			this.parse('/promote ' + user.name + ', ~');
 		}
 	},
 	
