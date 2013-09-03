@@ -2411,12 +2411,12 @@ var commands = exports.commands = {
 			var battle = room.battle;
 			var me = user;
 			this.sendReply('||<< '+eval(target));
-			this.logModCommand(user.name + ' used eval: ' + target);
+			this.logModCommand(user.name + ' used eval');
 		} catch (e) {
 			this.sendReply('||<< error: '+e.message);
 			var stack = '||'+(''+e.stack).replace(/\n/g,'\n||');
 			connection.sendTo(room, stack);
-			this.logModCommand(user.name + ' used eval: ' + target);
+			this.logModCommand(user.name + ' used eval');
 		}
 	},
 
