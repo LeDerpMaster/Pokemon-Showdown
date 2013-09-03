@@ -405,6 +405,7 @@ exports.customavatars = {
 	'frontiershadual' : 'shadual.png',
 	'ldrassumaril' : 'assumaril.png',
 	'tachikaze' : 'tachikaze.png',
+	'prez' : 'cosy.png',
 	'piiiikachuuu':'pika.png'
 };
 
