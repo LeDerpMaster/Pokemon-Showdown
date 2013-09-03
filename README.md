@@ -124,13 +124,13 @@ Owner
 
 - Guangcong Luo [Zarel] - Development, Design
 
-Senior Staff
-
-- Cathy J. Fitzpatrick [cathyjf] - Development
-
 Staff
 
 - Bill Meltsner [bmelts] - Development
+
+Retired Staff
+
+- Cathy J. Fitzpatrick [cathyjf] - Development
 - Mathieu Dias-Martins [Marty-D] - Research (game mechanics), Development
 
 Contributors
@@ -141,3 +141,4 @@ Contributors
 - Kyle Dove [Kyle_Dove] - Art (battle backdrops)
 - Samuel Teo [Yilx] - Art (main background)
 - [The Immortal] - Development
+- Vivian Zou [Vtas] - Art (alternate main background)
