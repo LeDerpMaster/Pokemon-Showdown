@@ -27,6 +27,69 @@ if (typeof tells === 'undefined') {
 }
 
 var commands = exports.commands = {
+
+	/*********************************************************
+	 * Money                                     
+	 *********************************************************/
+	money: function(target, room, user, connection) {
+	if (!this.canBroadcast()) return;
+	if (!target) {
+	var data = fs.readFileSync('config/money.csv','utf8')
+		var match = false;
+		var money = 0;
+		var row = (''+data).split("\n");
+		for (var i = row.length; i > -1; i--) {
+			if (!row[i]) continue;
+			var parts = row[i].split(",");
+			var userid = toUserid(parts[0]);
+			if (user.userid == userid) {
+			var x = Number(parts[1])
+			var money = x;
+			match = true;
+			if (match === true) {
+				break;
+			}
+			}
+		}
+		if (match === true) {
+			this.sendReplyBox(user.name + ' has ' + money + ' Pokedollar(s).');
+		}
+		if (match === false) {
+			connection.sendTo(room, 'You have no money.');
+		}
+		user.money = money;
+	} else {
+		var data = fs.readFileSync('config/money.csv','utf8')
+		target = this.splitTarget(target);
+		var targetUser = this.targetUser;
+		if (!targetUser) {
+			return this.sendReply('User '+this.targetUsername+' not found.');
+		}
+		var match = false;
+		var money = 0;
+		var row = (''+data).split("\n");
+		for (var i = row.length; i > -1; i--) {
+			if (!row[i]) continue;
+			var parts = row[i].split(",");
+			var userid = toUserid(row[0]);
+			if (targetUser.userid == userid || target == userid) {
+			var x = Number(parts[1])
+			var money = x;
+			match = true;
+			if (match === true) {
+				break;
+			}
+			}
+		}
+		if (match === true) {
+			this.sendReplyBox(targetUser.name + ' has ' + money + ' Pokedollar(s).');
+		}
+		if (match === false) {
+			connection.sendTo(room, '' + targetUser.name + ' has no money.');
+		}
+		Users.get(targetUser.userid).money = money;
+	}
+	},
 	
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
