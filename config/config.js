@@ -409,6 +409,7 @@ exports.customavatars = {
 	'figufgyu' : 'figufgyu.png',
 	'akeino' : 'akeino.png',
 	'franknstein' : 'stein.png',
+	'e4sly' : 'e4sly.png',
 	'piiiikachuuu':'pika.png'
 };
 
