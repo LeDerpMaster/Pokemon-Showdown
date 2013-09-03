@@ -1420,6 +1420,10 @@ var commands = exports.commands = {
 			this.sendReply('/dexsearch [type], [move], [move],...');
 			this.sendReply('The order of the parameters does not matter.');
 		}
+		if (target === 'all' || target === 'vote') {
+			matched = true;
+			this.sendReply('/vote [option] - votes for the specified option in the poll');
+		}
 		if (target === '%' || target === 'roomban') {
 			matched = true;
 			this.sendReply('/roomban [username] - Bans the user from the room you are in. Requires: % @ & ~');
