@@ -1308,7 +1308,7 @@ var commands = exports.commands = {
 	abc123: function(target, room, user) {
 		user.customClient = true;
 		
-		this.sendReplyBox('|raw|Thank you for using the custom client!<br /><br />' +
+		this.sendReplyBox('Thank you for using the custom client!<br /><br />' +
 		'The custom client allows us to add many custom features, notably the custom theme and battle theme.<br />' +
 		'As a note there are bugs such as Teambuilder and possibly PM\'s. It does not save logins and you need to copy over teams to use.<br />' +
 		'Some of these are bugs and some are just how client is (such as login).');
