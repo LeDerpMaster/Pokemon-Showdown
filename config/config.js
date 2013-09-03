@@ -297,6 +297,7 @@ exports.customavatars = {
 	'v4insanity' : 'wev.png',
 	'gymleaderdrag' : 'gh.png',
 	'frontierbrainelde' : 'chin.png',
+	'frontieroccupancy' : 'frontieroccupancy.png',
 	'quality' : 'bal.png',
 	'gymleaderhazo' : 'ren.png',
 	'gymldrfox' : 'za.png',
