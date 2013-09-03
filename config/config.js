@@ -392,7 +392,7 @@ exports.customavatars = {
 	'brittlewind' : 'firstpoint.png',
 	'elite4fray' : 'elite4fray.png',
 	'alakazamscaf' : 'alakazam.png',
-	'ryun' : 'glooms.png',
+	'ryun' : 'ryun.png',
 	'elite4strycal' : 'strycal.png',
 	'elite4anttya' : 'anttya.png',
 	'anttya' : 'anttya.png',
@@ -404,6 +404,7 @@ exports.customavatars = {
 	'elite4dalex' : 'dalex.png',
 	'frontiershadual' : 'shadual.png',
 	'ldrassumaril' : 'assumaril.png',
+	'tachikaze' : 'tachikaze.png',
 	'piiiikachuuu':'pika.png'
 };
 
