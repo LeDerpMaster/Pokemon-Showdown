@@ -1148,17 +1148,6 @@ var ChatRoom = (function() {
 		this.bannedUsers = {};
 		this.bannedIps = {};
 
-		this.triviaroom = false;
-		if (this.id === 'trivia') {
-			this.triviaroom = true;
-			this.triviacount = 0;
-			this.triviaqueue = [];
-			this.triviatotal = 10;
-			this.triviahost = '';
-			this.triviaquestion = '';
-			this.triviaanswer = '';
-		}
-
 		// `config.loglobby` is a legacy name
 		if (config.logchat || config.loglobby) {
 			this.rollLogFile(true);
