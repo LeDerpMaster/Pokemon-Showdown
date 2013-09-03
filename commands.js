@@ -2834,7 +2834,7 @@ function getRandMessage(user){
 		break;
 		case 9: message = message + user.name + ' left for his/her lover!';
 		break;
-		case 10: message = message + user.name + ' couldn\'t handel the coldness of Frost!;
+		case 10: message = message + user.name + ' couldn\'t handle the coldness of Frost!';
 		break;
 		case 11: message = message + user.name + ' was hit by Magikarp\'s Revenge!';
 		break;
