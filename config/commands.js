@@ -254,7 +254,7 @@ var commands = exports.commands = {
 		return this.parse('/me slaps ' + target + ' in the face with a slipper');
 	},
 	
-	spnank: function(target, room, user){
+	s: function(target, room, user){
 		if(!target) return this.sendReply('/spnank needs a target.');
 		return this.parse('/me spanks ' + target + '!');
 	},
