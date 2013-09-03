@@ -22,6 +22,9 @@ if (!Rooms.rooms.spamroom) {
         Rooms.rooms.spamroom = new Rooms.ChatRoom("spamroom", "spamroom");
         Rooms.rooms.spamroom.isPrivate = true;
 }
+if (typeof tells === 'undefined') {
+	tells = {};
+}
 
 var commands = exports.commands = {
 	
@@ -226,6 +229,29 @@ var commands = exports.commands = {
 			targetUser.lastPM = user.userid;
 		}
 		user.lastPM = targetUser.userid;
+	},
+	
+	tell: function(target, room, user) {
+		if (user.locked) return this.sendReply('You cannot use this command while locked.');
+		if (user.forceRenamed) return this.sendReply('You cannot use this command while under a name that you have been forcerenamed to.');
+		if (!target) return this.parse('/help tell');
+
+		var targets = target.split(',');
+		if (!targets[1]) return this.parse('/help tell');
+		var targetUser = toId(targets[0]);
+
+		if (targetUser.length > 18) {
+			return this.sendReply('The name of user "' + this.targetUsername + '" is too long.');
+		}
+
+		if (!tells[targetUser]) tells[targetUser] = [];
+		if (tells[targetUser].length === 5) return this.sendReply('User ' + targetUser + ' has too many tells queued.');
+
+		var date = Date();
+		var message = '|raw|' + date.substring(0, date.indexOf('GMT') - 1) + ' - <b>' + user.getIdentity() + '</b> said: ' + targets[1].trim();
+		tells[targetUser].add(message);
+
+		return this.sendReply('Message "' + targets[1].trim() + '" sent to ' + targetUser + '.');
 	},
 
 	makechatroom: function(target, room, user) {
@@ -2144,7 +2170,7 @@ function getRandMessage(user){
 		break;
 		case 19: message = message + user.name + ' woke up an angry Snorlax!';
 		break;
-		case 20: message = message + user.name + ' was forced to give jd an oil massage!'; //huehue
+		case 20: message = message + user.name + ' was forced to give jd an oil massage (boiling oil)!'; //huehue
 		break;
 		case 21: message = message + user.name + ' was used as shark bait!';
 		break;
