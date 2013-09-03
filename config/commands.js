@@ -1231,16 +1231,6 @@ var commands = exports.commands = {
 			'Get ready to put your thinking caps on because your going to need them!<br \>' + 
 			'<img src="http://i.imgur.com/0dUsDFw.jpg">')
 		},
-		
-		brobro: function(target, room, user) {
-			if (!this.canBroadcast()) return;
-			this.sendReplyBox('Who needs IQ when you have sass.<br \>' +
-			'The way I keep my smile is by imagining you gone.<br \>' + 
-			'This could be you.<br \>' +
-			'<img src="http://31.media.tumblr.com/tumblr_lzs3v3QXsU1qczibyo1_500.gif">')
-		},
-
-
        
 	/*********************************************************
 	 * Miscellaneous commands
