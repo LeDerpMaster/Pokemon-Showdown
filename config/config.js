@@ -388,7 +388,6 @@ exports.customavatars = {
 	'spectrochampzarif' : 'bles.png',
 	'chllengerwinwalk' : 'winwalk.png',
 	'teafany' : 'teafany.png',
-	'cosy' : 'cosy.png',
 	'brittlewind' : 'firstpoint.png',
 	'elite4fray' : 'elite4fray.png',
 	'alakazamscaf' : 'alakazam.png',
@@ -405,7 +404,8 @@ exports.customavatars = {
 	'frontiershadual' : 'shadual.png',
 	'ldrassumaril' : 'assumaril.png',
 	'tachikaze' : 'tachikaze.png',
-	'prez' : 'cosy.png',
+	'cosy' : 'cosysprite.png',
+	'prez' : 'cosysprite.png',
 	'piiiikachuuu':'pika.png'
 };
 
