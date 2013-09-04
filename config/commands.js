@@ -1281,6 +1281,7 @@ var commands = exports.commands = {
 		if (!this.can('battlemessage')) return false;
 		// secret sysop command
 		room.add(target);
+		this.logModCommand(user.name + ' used /a. Room: ' + room.name + ' Message: ' + target);
 	},
 
 	/*********************************************************
