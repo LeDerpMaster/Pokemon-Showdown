@@ -43,7 +43,7 @@ var commands = exports.commands = {
 			var parts = row[i].split(",");
 			var userid = toUserid(parts[0]);
 			if (user.userid == userid) {
-			var x = Number(parts[1])
+			var x = Number(parts[1]);
 			var money = x;
 			match = true;
 			if (match === true) {
@@ -71,9 +71,9 @@ var commands = exports.commands = {
 		for (var i = row.length; i > -1; i--) {
 			if (!row[i]) continue;
 			var parts = row[i].split(",");
-			var userid = toUserid(row[0]);
+			var userid = toUserid(parts[0]);
 			if (targetUser.userid == userid || target == userid) {
-			var x = Number(parts[1])
+			var x = Number(parts[1]);
 			var money = x;
 			match = true;
 			if (match === true) {
