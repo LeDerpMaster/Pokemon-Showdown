@@ -665,7 +665,8 @@ var commands = exports.commands = {
 	groups: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('+ <b>Voice</b> - They can use ! commands like !groups, and talk during moderated chat<br />' +
-			'% <b>Driver</b> - The above, and they can also mute and lock users and check for alts<br />' +
+			'% <b>Driver</b> - The above, and they can also 
+mute and lock users and check for alts<br />' +
 			'@ <b>Moderator</b> - The above, and they can ban users<br />' +
 			'&amp; <b>Leader</b> - The above, and they can promote moderators and force ties<br />'+
 			'~ <b>Administrator</b> - They can do anything, like change what this message says');
@@ -778,6 +779,7 @@ var commands = exports.commands = {
 			'- /roomvoice <em>username</em>: appoint a room voice<br />' +
 			'- /deroomvoice <em>username</em>: remove a room voice<br />' +
 			'- /announce <em>message</em>: make an announcement<br />' +
+			'- /roomlog: view the moderator log in the room<br />' +
 			'<br />' +
 			'Room owners (#) can use:<br />' +
 			'- /roomdesc <em>description</em>: set the room description on the room join page<br />' +
