@@ -718,7 +718,7 @@ var commands = exports.commands = {
 		if (!targetUser || !targetUser.connected) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
-		if (room.isPrivate && room.auth) {
+		if (room.auth) {
 			return this.sendReply('You can\'t warn here: This is a privately-owned room not subject to global rules.');
 		}
 		if (!this.can('warn', targetUser, room)) return false;
@@ -796,13 +796,20 @@ var commands = exports.commands = {
 			}
 			return this.addModCommand(''+targetUser.name+' would be muted by '+user.name+problem+'.' + (target ? " (" + target + ")" : ""));
 		}
-
-		targetUser.popup(user.name+' has muted you for 7 minutes. '+target);
-		this.addModCommand(''+targetUser.name+' was muted by '+user.name+' for 7 minutes.' + (target ? " (" + target + ")" : ""));
-		var alts = targetUser.getAlts();
-		if (alts.length) this.addModCommand(""+targetUser.name+"'s alts were also muted: "+alts.join(", "));
-
-		targetUser.mute(room.id, 7*60*1000);
+		if (!room.auth) {
+			targetUser.popup(user.name+' has muted you for 7 minutes. '+target);
+			this.addModCommand(''+targetUser.name+' was muted by '+user.name+' for 7 minutes.' + (target ? " (" + target + ")" : ""));
+			var alts = targetUser.getAlts();
+			if (alts.length) this.addModCommand(""+targetUser.name+"'s alts were also muted: "+alts.join(", "));
+			targetUser.mute(room.id, 7*60*1000);
+		}
+		if (room.auth) {
+			targetUser.popup(user.name+' has muted you for 7 minutes in ' + room.id + '. '+target);
+			this.addRoomCommand(''+targetUser.name+' was muted by '+user.name+' for 7 minutes.' + (target ? " (" + target + ")" : ""), room);
+			var alts = targetUser.getAlts();
+			if (alts.length) this.addRoomCommand(""+targetUser.name+"'s alts were also muted: "+alts.join(", "), room);
+			targetUser.mute(room.id, 7*60*1000);
+		}
 	},
 
 	hm: 'hourmute',
@@ -1237,7 +1244,10 @@ var commands = exports.commands = {
 		else if (cmd === 'declaregreen') {
 			this.add('|raw|<div class="broadcast-green"><b>'+target+'</b></div>');
 		}
-		this.logModCommand(user.name+' declared '+target);
+		if (!room.auth) {
+			this.logModCommand(user.name+' declared '+target);
+		}
+		this.logRoomCommand(user.name+' declared '+target, room);
 	},
 
 	gdeclarered: 'gdeclare',
@@ -1368,6 +1378,43 @@ var commands = exports.commands = {
 					connection.popup('No moderator actions containing "'+target+'" were found.');
 				} else {
 					connection.popup('Displaying the last '+grepLimit+' logged actions containing "'+target+'":\n\n'+stdout);
+				}
+			}
+		});
+	},
+
+	roomlog: function(target, room, user, connection) {
+		if (!this.can('mute', target, room)) return false;
+		var lines = 0;
+		if (!target.match('[^0-9]')) {
+			lines = parseInt(target || 15, 10);
+			if (lines > 100) lines = 100;
+		}
+		var filename = 'logs/chat/'+room.id+'/'+room.id+'.txt';
+		var command = 'tail -'+lines+' '+filename;
+		var grepLimit = 100;
+		if (!lines || lines < 0) { // searching for a word instead
+			if (target.match(/^["'].+["']$/)) target = target.substring(1,target.length-1);
+			command = "awk '{print NR,$0}' "+filename+" | sort -nr | cut -d' ' -f2- | grep -m"+grepLimit+" -i '"+target.replace(/\\/g,'\\\\\\\\').replace(/["'`]/g,'\'\\$&\'').replace(/[\{\}\[\]\(\)\$\^\.\?\+\-\*]/g,'[$&]')+"'";
+		}
+
+		require('child_process').exec(command, function(error, stdout, stderr) {
+			if (error && stderr) {
+				connection.popup('/roomlog erred - roomlog does not support Windows');
+				console.log('/roomlog error: '+error);
+				return false;
+			}
+			if (lines) {
+				if (!stdout) {
+					connection.popup('The roomlog is empty. (Weird.)');
+				} else {
+					connection.popup('Displaying the last '+lines+' lines of the Moderator Log in '+room.id+':\n\n'+stdout);
+				}
+			} else {
+				if (!stdout) {
+					connection.popup('No moderator actions containing "'+target+'" were found in '+roomid+'.');
+				} else {
+					connection.popup('Displaying the last '+grepLimit+' logged actions in '+room.id+'containing "'+target+'":\n\n'+stdout);
 				}
 			}
 		});

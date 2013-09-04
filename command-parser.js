@@ -33,6 +33,8 @@ const MAX_PARSE_RECURSION = 10;
 var crypto = require('crypto');
 
 var modlog = exports.modlog = modlog || fs.createWriteStream('logs/modlog.txt', {flags:'a+'});
+var roomtolog = "blah";
+var roomlog = exports.roomlog = roomlog || fs.createWriteStream('logs/'+roomtolog+'.txt', {flags:'a+'});
 
 /**
  * Command parser
@@ -144,8 +146,18 @@ var parse = exports.parse = function(message, room, user, connection, levelsDeep
 				this.add(result);
 				this.logModCommand(result);
 			},
+			addRoomCommand: function(result, room) {
+				this.add(result);
+				this.logRoomCommand(result, room);
+			},
 			logModCommand: function(result) {
 				modlog.write('['+(new Date().toJSON())+'] ('+room.id+') '+result+'\n');
+			},
+			logRoomCommand: function(result, room) {
+				roomtolog = room.id
+				var roomlog = exports.roomlog = roomlog || fs.createWriteStream('logs/chat/'+roomtolog+'/'+roomtolog+'.txt', {flags:'a+'});
+				roomlog.write('['+(new Date().toJSON())+'] '+result+'\n');
+				roomlog.close();
 			},
 			can: function(permission, target, room) {
 				if (!user.can(permission, target, room)) {
