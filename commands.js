@@ -91,6 +91,69 @@ var commands = exports.commands = {
 	}
 	},
 	
+	buy: function(target, room, user) {
+		if(!target) return this.parse('/help buy');
+		var data = fs.readFileSync('config/money.csv','utf8')
+		var match = false;
+		var money = 0;
+		var line = '';
+		var row = (''+data).split("\n");
+		for (var i = row.length; i > -1; i--) {
+			if (!row[i]) continue;
+			var parts = row[i].split(",");
+			var userid = toUserid(parts[0]);
+			if (user.userid == userid) {
+			var x = Number(parts[1]);
+			var money = x;
+			match = true;
+			if (match === true) {
+				line = line + row[i];
+				break;
+			}
+			}
+		}
+		user.money = money;
+		var price = 0;
+		if (target === 'voice') {
+			if (user.group === '+' || user.group === '$' || user.group === '%' || user.group === '@' || user.group === '&' || user.group === '~') {
+				if (user.group === '+') {
+					return this.sendReply('You already have voice!');
+				} else {
+					return this.sendReply('You have already had voice!');
+				}
+			}
+			price = 50000;
+			if (price <= user.money) {
+				user.money = user.money - 50000;
+				this.sendReply('You bought voice. PM an Admin (~) or a Leader (&) for a promotion.')
+			} else {
+				return this.sendReply('You do not have enough money for this. You need ' + (price - user.money) + ' more Pokedollars to buy voice.');
+			}
+		}
+		if (match === true) {
+			var re = new RegExp(line,"g");
+			fs.readFile('config/money.csv', 'utf8', function (err,data) {
+			if (err) {
+				return console.log(err);
+			}
+			var result = data.replace(re, user.userid+','+user.money);
+			fs.writeFile('config/money.csv', result, 'utf8', function (err) {
+				if (err) return console.log(err);
+			});
+			});
+		}
+	},
+	
+	shop: function(target, room, user) {
+		if(!this.canBroadcast()) return;
+		this.sendReplyBox('<h4><b>Shop:</b></h4><table border="1" cellspacing ="0" cellpadding="10"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>50000</td></tr></table><br />To use this command, use /buy [command].');
+	},
+
+	/*********************************************************
+	 * Other Stuff                                    
+	 *********************************************************/
+		
+	
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Server version: <b>'+CommandParser.package.version+'</b> <small>(<a href="http://pokemonshowdown.com/versions#' + CommandParser.serverVersion + '">' + CommandParser.serverVersion.substr(0,10) + '</a>)</small>');

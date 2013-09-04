@@ -1424,6 +1424,10 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/vote [option] - votes for the specified option in the poll');
 		}
+		if (target === 'buy') {
+			matched = true;
+			this.sendReply('/buy [item] - buys the specified item, assuming you have enough money');
+		}
 		if (target === '%' || target === 'roomban') {
 			matched = true;
 			this.sendReply('/roomban [username] - Bans the user from the room you are in. Requires: % @ & ~');
