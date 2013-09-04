@@ -320,7 +320,7 @@ exports.tour = function(t) {
 					var parts = row[i].split(",");
 					var userid = toUserid(parts[0]);
 					if (Users.users[w[0]].userid == userid) {
-						var x = Number(parts[1])
+						var x = Number(parts[1]);
 						var money = x;
 						match = true;
 						if (match === true) {
