@@ -33,8 +33,6 @@ const MAX_PARSE_RECURSION = 10;
 var crypto = require('crypto');
 
 var modlog = exports.modlog = modlog || fs.createWriteStream('logs/modlog.txt', {flags:'a+'});
-var roomtolog = "blah";
-var roomlog = exports.roomlog = roomlog || fs.createWriteStream('logs/'+roomtolog+'.txt', {flags:'a+'});
 
 /**
  * Command parser
