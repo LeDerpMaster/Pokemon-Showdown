@@ -365,7 +365,7 @@ exports.customavatars = {
 	'gljoshua' : 'male.png',
 	'e4shiro' : 'aaa.png',
 	'gymldraero' : '212.png',
-	'suddendeath5' : '212.png',
+	'suddendeath5' : 'suddendeath.png',
 	'princessaby' : 'fuck.png',
 	'e4killswitch' : 'wes.png',
 	'gymleaderdooom' : 'ruby.png',
