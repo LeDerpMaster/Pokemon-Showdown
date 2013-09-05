@@ -1235,6 +1235,15 @@ var commands = exports.commands = {
 			'Get ready to put your thinking caps on because your going to need them!<br \>' + 
 			'<img src="http://i.imgur.com/0dUsDFw.jpg">')
 		},
+		
+		coolasian: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Trainer: Cool Asian<br \>' +
+		'Ace: Politoed<br \>' + 
+		'Catchphrase: There be a storm comin laddie<br \>' +
+		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/186.gif">')
+	},
+	
        
 	/*********************************************************
 	 * Miscellaneous commands
