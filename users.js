@@ -178,6 +178,7 @@ var User = (function () {
 		//points system user variables
 		this.money = 0;
 		this.canVoice = false;
+		this.canCustomSymbol = false;
 
 		var trainersprites = [1, 2, 101, 102, 169, 170, 265, 266];
 		this.avatar = trainersprites[Math.floor(Math.random()*trainersprites.length)];
