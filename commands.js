@@ -264,14 +264,26 @@ var commands = exports.commands = {
 					return this.sendReply('Your rank is higher than Voice!');
 				}
 			}
-			price = 50;
+			price = 40;
 			if (price <= user.money) {
-				user.money = user.money - 50;
+				user.money = user.money - price;
 				this.sendReply('You bought voice. PM an Admin (~) or a Leader (&) for a promotion. Make sure you either ask now or take a screenshot of /whois [username] for proof.');
 				user.canVoice = true;
 				Rooms.rooms.staff.add(user.name + ' has bought voice from the shop.');
 			} else {
-				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy voice.');
+				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+			}
+		}
+			if (target === 'symbol') {
+			price = 8;
+			if (price <= user.money) {
+				user.money = user.money - 8;
+				this.sendReply('You have purchased a custom symbol. You will have this until you log off for more than an hour.');
+				this.sendReply('Use /customsymbol [symbol] to change your symbol now!');
+				user.canCustomSymbol = true;
+				this.add(user.name + ' has purchased a custom symbol!');
+			} else {
+				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
 			}
 		}
 		if (match === true) {
@@ -288,9 +300,25 @@ var commands = exports.commands = {
 		}
 	},
 	
+	customsymbol: function(target, room, user) {
+		if(!user.canCustomSymbol) return this.sendReply('You cannot do this.');
+		if(!target || target.length > 1) return this.sendReply('/customsymbol [symbol] - changes your symbol (usergroup) to the specified symbol. The symbol can only be one character');
+		var a = target;
+		if (a === "+" || a === "$" || a === "%" || a === "@" || a === "&" || a === "~" || a === "#" || a === "a" || a === "b" || a === "c" || a === "d" || a === "e" || a === "f" || a === "g" || a === "h" || a === "i" || a === "j" || a === "k" || a === "l" || a === "m" || a === "n" || a === "o" || a === "p" || a === "q" || a === "r" || a === "s" || a === "t" || a === "u" || a === "v" || a === "w" || a === "x" || a === "y" || a === "z") {
+			return this.sendReply('Sorry, but you cannot change your symbol to this for safety/stability reasons.');
+		}
+		user.getIdentity = function(){
+			if(this.muted)	return '!' + this.name;
+			if(this.locked) return '‽' + this.name;
+			return target + this.name;
+		};
+		user.updateIdentity();
+		user.canCustomSymbol = false;
+	},
+	
 	shop: function(target, room, user) {
 		if(!this.canBroadcast()) return;
-		this.sendReplyBox('<h4><b>Shop:</b></h4><table border="1" cellspacing ="0" cellpadding="10"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>50</td></tr></table><br />To use this command, use /buy [command].');
+		this.sendReplyBox('<h4><b>Shop:</b></h4><table border="1" cellspacing ="0" cellpadding="10"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>40</td></tr><tr><td>Symbol</td><td>Buys a custom symbol</td><td>8</td></tr></table><br />To use this command, use /buy [command].');
 	},
 
 	shoplift: 'awarditem',
