@@ -1557,7 +1557,7 @@ var commands = exports.commands = {
 		}
 		if (target === '&' || target === 'givepoints') {
 			matched = true;
-			this.sendReply('/givepoints [user], [number of points] - awards the user a specified numbe of points. Requires: & ~');
+			this.sendReply('/givepoints [user], [number of points] - awards the user a specified number of points. Requires: & ~');
 		}
 		if (target === '~' || target === 'hotpatch') {
 			matched = true;
