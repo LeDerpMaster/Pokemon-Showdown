@@ -28,6 +28,21 @@ if (typeof tells === 'undefined') {
 
 var commands = exports.commands = {
 
+	createpoints: function(target, room, user, connection) {
+		if(!user.can('hotpatch')) return this.sendReply('You do not have enough authority to do this.');
+		fs.exists('config/money.csv', function (exists) {
+			if(exists){
+				return connection.sendTo(room, 'Since this file already exists, you cannot do this.');
+			} else {
+				fs.writeFile('config/money.csv', 'brittlewind,10000', function (err) {
+					if (err) throw err;
+					console.log('config/money.csv created.');
+					connection.sendTo(room, 'config/money.csv created.');
+				});
+			}
+		});
+	},
+
 	/*********************************************************
 	 * Money                                     
 	 *********************************************************/
