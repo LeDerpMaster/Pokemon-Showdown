@@ -1247,7 +1247,7 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Trainer: Cool Asian<br \>' +
 		'Ace: Politoed<br \>' + 
-		'Catchphrase: There be a storm comin laddie<br \>' +
+		'Catchphrase: I\'m feeling the flow. Prepare for battle!<br \>' +
 		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/186.gif">')
 	},
 	
