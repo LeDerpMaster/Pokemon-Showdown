@@ -1230,7 +1230,8 @@ var commands = exports.commands = {
 			this.sendReplyBox('You can currently get points by:<br />' +
 			'<b>Signing up</b>: Sign up for the forums by clicking <a href="http://frostserver.forumotion.com/">here.</a> Once you have signed up, PM an admin to get 2 points.<br />' +
 			'<b>Subscribing</b>: Subscribe to the Frost youtube channel by clicking <a href="http://www.youtube.com/channel/UCoIYnKO7buF_N_FRDiSGFJA">here.</a> Once you have subscribed, PM an admin to get 2 points.<br />' +
-			'<b>Making a video</b>: Make a video on YouTube about anything Frost Server related! It can even be something as simple as a battle. Make sure to have the word Frost incorporated in the Title of description of your video. Once you have made the video, PM an admin to get 10 points. If the video is exceptionally good, you will recieve an extra 5 points.')
+			'<b>Making a video</b>: Make a video on YouTube about anything Frost Server related! It can even be something as simple as a battle. Make sure to have the word Frost incorporated in the Title of description of your video. Once you have made the video, PM an admin to get 10 points. If the video is exceptionally good, you will recieve an extra 5 points.<br />' +
+			'For more ways to get points, check the website by clicking <a href="http://frostserver.weebly.com/prizes-and-points.html">here.</a>.');
 			},
 			
 		moviemusic: function(target, room, user) {
@@ -1471,7 +1472,7 @@ var commands = exports.commands = {
 		}
 		if (target === '%' || target === 'invite') {
 			matched = true;
-			this.sendReply('/invite [username], [roomname] - Invites the player [username] to join the room [roomname].');
+			this.sendReply('/ivite [username], [roomname] - Invites the player [username] to join the room [roomname].');
 		}
 		if (target === '%' || target === 'roomban') {
 			matched = true;
