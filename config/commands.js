@@ -213,8 +213,15 @@ var commands = exports.commands = {
 		if (!targetUser.connected) {
 			this.sendReply('|raw|This user is <font color = "red">offline</font>.');
 		}
-		if (targetUser.canVoice) {
-			this.sendReply('This user is eligible to be promoted to voice.');
+		if (targetUser.canVoice || targetUser.canCustomSymbol || targetUser.canCustomAvatar || targetUser.canAnimatedAvatar || targetUser.canChatRoom || targetUser.canTrainerCard) {
+			var i = '';
+			if (targetUser.canVoice) i += 'Voice';
+			if (targetUser.canCustomSymbol) i += ' Custom Symbol';
+			if (targetUser.canCustomAvatar) i += ' Custom Avatar';
+			if (targetUser.canAnimatedAvatar) i += ' Animated Avatar';
+			if (targetUser.canChatRoom) i += ' Chat Room';
+			if (targetUser.canTrainerCard) i += ' Trainer Card.';
+			this.sendReply('Eligible for: ' + i);
 		}
 	},
 
@@ -1221,9 +1228,9 @@ var commands = exports.commands = {
 		getpoints: function(target, room, user) {
 			if (!this.canBroadcast()) return;
 			this.sendReplyBox('You can currently get points by:<br />' +
-			'<b>Signing up</b>: Sign up for the forums by clicking <a href="http://frostserver.forumotion.com/">here.</a>Once you have signed up, PM an admin to get 2 points.<br />' +
-			'<b>Subscribing</b>: Subscribe to the Frost youtube channel by clicking <a href="http://www.youtube.com/channel/UCoIYnKO7buF_N_FRDiSGFJA">here.</a>Once you have subscribed , PM an admin to get 2 points.<br />' +
-			'<b>Making a video</b>: Make a video on YouTube about anything Frost Server related! It can even be something as simple as a battle. Make sure to have the word Frost incorporated in the Title of description of your video. Once you have made the video, PM an admin to get 15 points. If the video is exceptionally good, you will recieve an extra 10 points.')
+			'<b>Signing up</b>: Sign up for the forums by clicking <a href="http://frostserver.forumotion.com/">here.</a> Once you have signed up, PM an admin to get 2 points.<br />' +
+			'<b>Subscribing</b>: Subscribe to the Frost youtube channel by clicking <a href="http://www.youtube.com/channel/UCoIYnKO7buF_N_FRDiSGFJA">here.</a> Once you have subscribed, PM an admin to get 2 points.<br />' +
+			'<b>Making a video</b>: Make a video on YouTube about anything Frost Server related! It can even be something as simple as a battle. Make sure to have the word Frost incorporated in the Title of description of your video. Once you have made the video, PM an admin to get 10 points. If the video is exceptionally good, you will recieve an extra 5 points.')
 			},
 			
 		moviemusic: function(target, room, user) {

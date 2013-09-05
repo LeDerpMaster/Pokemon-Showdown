@@ -15,7 +15,7 @@ var crypto = require('crypto');
 var poofeh = true;
 var ipbans = fs.createWriteStream('config/ipbans.txt', {'flags': 'a'});
 var logeval = fs.createWriteStream('logs/eval.txt', {'flags': 'a'});
-var inShop = ['voice','symbol'];
+var inShop = ['voice','symbol', 'custom', 'animated', 'room', 'trainer'];
 //spamroom
 if (typeof spamroom == "undefined") {
         spamroom = new Object();
@@ -256,6 +256,7 @@ var commands = exports.commands = {
 			}
 			}
 		}
+		this.add(target + ' - ' + user.name);
 		user.money = money;
 		var price = 0;
 		if (target === 'voice') {
@@ -284,6 +285,50 @@ var commands = exports.commands = {
 				this.sendReply('Use /customsymbol [symbol] to change your symbol now!');
 				user.canCustomSymbol = true;
 				this.add(user.name + ' has purchased a custom symbol!');
+			} else {
+				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+			}
+		}
+		if (target === 'custom') {
+			price = 20;
+			if (price <= user.money) {
+				user.money = user.money - price;
+				this.sendReply('You have purchased a custom avatar. You need to message an Admin capable of adding (Frost Developer or BrittleWind).');
+				user.canCustomAvatar = true;
+				this.add(user.name + ' has purchased a custom avatar!');
+			} else {
+				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+			}
+		}
+		if (target === 'animated') {
+			price = 35;
+			if (price <= user.money) {
+				user.money = user.money - price;
+				this.sendReply('You have purchased a custom animated avatar. You need to message an Admin capable of adding (Frost Developer or BrittleWind).');
+				user.canAnimatedAvatar = true;
+				this.add(user.name + ' has purchased a custom animated avatar!');
+			} else {
+				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+			}
+		}
+		if (target === 'room') {
+			price = 50;
+			if (price <= user.money) {
+				user.money = user.money - price;
+				this.sendReply('You have purchased a chat room. You need to message an Admin so that the room can be made.');
+				user.canChatRoom = true;
+				this.add(user.name + ' has purchased a chat room!');
+			} else {
+				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+			}
+		}
+		if (target === 'trainer') {
+			price = 30;
+			if (price <= user.money) {
+				user.money = user.money - price;
+				this.sendReply('You have purchased a trainer card. You need to message an Admin capable of adding this (Frost Deverloper or BrittleWind).');
+				user.canTrainerCard = true;
+				this.add(user.name + ' has purchased a trainer card!');
 			} else {
 				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
 			}
@@ -320,7 +365,13 @@ var commands = exports.commands = {
 	
 	shop: function(target, room, user) {
 		if(!this.canBroadcast()) return;
-		this.sendReplyBox('<h4><b>Shop:</b></h4><table border="1" cellspacing ="0" cellpadding="10"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>40</td></tr><tr><td>Symbol</td><td>Buys a custom symbol</td><td>8</td></tr></table><br />To use this command, use /buy [command].');
+		this.sendReplyBox('<center><h4><b><u>Points Shop</u></b></h4><table border="1" cellspacing ="0" cellpadding="4"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>40</td></tr>' +
+			'<tr><td>Symbol</td><td>Buys a custom symbol</td><td>8</td></tr>' +
+			'<tr><td>Custom</td><td>Buys a custom avatar</td><td>20</td></tr>' +
+			'<tr><td>Animated</td><td>Buys an animated avatar</td><td>35</td></tr>' +
+			'<tr><td>Room</td><td>Buys a chatroom</td><td>50</td></tr>' +
+			'<tr><td>Trainer</td><td>Buys a trainer card</td><td>30</td></tr>' +
+			'</table><br />To buy an item from the shop, use /buy [command].</center>');
 	},
 
 	shoplift: 'awarditem',
@@ -368,10 +419,50 @@ var commands = exports.commands = {
 				if (targetUser.canCustomSymbol === true) {
 					return this.sendReply('This user has already bought that item from the shop... no need for another.');
 				}
-				if (targetUser.canVoice === false) {
+				if (targetUser.canCustomSymbol === false) {
 					this.sendReply(targetUser.name + ' can now use /customsymbol to get a custom symbol.');
 					targetUser.canCustomSymbol = true;
 					Rooms.rooms.lobby.add(user.name + ' has stolen custom symbol from the shop!');
+					targetUser.send(user.name + ' has given you ' + theItem + '! Use /customsymbol [symbol] to add the symbol!');
+				}
+			}
+			if (theItem === 'custom') {
+				if (targetUser.canCustomAvatar === true) {
+					return this.sendReply('This user has already bought that item from the shop... no need for another.');
+				}
+				if (targetUser.canCustomAvatar === false) {
+					targetUser.canCustomSymbol = true;
+					Rooms.rooms.lobby.add(user.name + ' has stolen a custom avatar from the shop!');
+					targetUser.send(user.name + ' has given you ' + theItem + '!');
+				}
+			}
+			if (theItem === 'animated') {
+				if (targetUser.canAnimated === true) {
+					return this.sendReply('This user has already bought that item from the shop... no need for another.');
+				}
+				if (targetUser.canCustomAvatar === false) {
+					targetUser.canCustomAvatar = true;
+					Rooms.rooms.lobby.add(user.name + ' has stolen a custom avatar from the shop!');
+					targetUser.send(user.name + ' has given you ' + theItem + '!');
+				}
+			}
+			if (theItem === 'room') {
+				if (targetUser.canChatRoom === true) {
+					return this.sendReply('This user has already bought that item from the shop... no need for another.');
+				}
+				if (targetUser.canChatRoom === false) {
+					targetUser.canChatRoom = true;
+					Rooms.rooms.lobby.add(user.name + ' has stolen a chat room from the shop!');
+					targetUser.send(user.name + ' has given you ' + theItem + '!');
+				}
+			}
+			if (theItem === 'trainer') {
+				if (targetUser.canTrainerCard === true) {
+					return this.sendReply('This user has already bought that item from the shop... no need for another.');
+				}
+				if (targetUser.canTrainerCard === false) {
+					targetUser.canTrainerCard = true;
+					Rooms.rooms.lobby.add(user.name + ' has stolen a trainer card from the shop!');
 					targetUser.send(user.name + ' has given you ' + theItem + '!');
 				}
 			}
@@ -380,6 +471,17 @@ var commands = exports.commands = {
 		}
 		else 
 			return this.sendReply('Shop item could not be found, please check /shop for all items - ' + theItem);
+	},
+
+	pointscmd: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+
+		return this.sendReplyBox('The command for the Point system:<br />' + 
+			'/shop - Show the shop with the items you can buy.<br />' + 
+			'/buy [command] - Buy an item from the shop using the item command name.<br />' +
+			'/getpoints - A basic introduction into the points system.<br />' + 
+			'/points [username] - Show your points (if just /points) or show someone elses points.<br />' + 
+			'/prizes - A link to the prize page and ways to earn points.');
 	},
 
 	/*********************************************************

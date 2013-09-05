@@ -179,6 +179,11 @@ var User = (function () {
 		this.money = 0;
 		this.canVoice = false;
 		this.canCustomSymbol = false;
+		this.canCustomAvatar = false;
+		this.canAnimatedAvatar = false;
+		this.canChatRoom = false;
+		this.canTrainerCard = false;
+
 
 		var trainersprites = [1, 2, 101, 102, 169, 170, 265, 266];
 		this.avatar = trainersprites[Math.floor(Math.random()*trainersprites.length)];

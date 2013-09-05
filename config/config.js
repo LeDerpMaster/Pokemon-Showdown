@@ -462,13 +462,13 @@ exports.appealurl = 'http://frostserver.forumotion.com/f7-discipline-appeals';
 //     - potd: Set PotD.
 //     - forcewin: /forcewin command.
 //     - battlemessage: /a command.
-exports.groupsranking = [' ', '+', '$', '%', '@', '#', '&', '~'];
+exports.groupsranking = [' ', '+', '%', '@', '#', '&', '~'];
 exports.groups = {
 	'~': {
 		id: "admin",
 		name: "Administrator",
 		root: true,
-		rank: 7
+		rank: 6
 	},
 	'&': {
 		id: "leader",
@@ -484,7 +484,7 @@ exports.groups = {
 		disableladder: true,
 		forcejoin: true,
 		permaban: true,
-		rank: 6
+		rank: 5
 	},
 	'#': {
 		id: "owner",
@@ -495,7 +495,7 @@ exports.groups = {
 		roomonly: true,
 		declare: true,
 		modchatall: true,
-		rank: 5
+		rank: 4
 	},
 	'@': {
 		id: "mod",
@@ -507,7 +507,7 @@ exports.groups = {
 		forcerename: true,
 		ip: true,
 		alts: '@u',
-		rank: 4
+		rank: 3
 	},
 	'%': {
 		id: "driver",
@@ -526,20 +526,9 @@ exports.groups = {
 		bypassblocks: 'u%@&~',
 		receiveauthmessages: true,
 		roomvoice: true,
-		rank: 3
+		rank: 2
 
 	},
-	'$': {
-		id: "commander",
-		name: "Commander",
-		inherit: '+',
-		warn: true,
-		kick: true,
-		mute: true,
-		lock: true,
-		broadcast: true,
-		rank: 2
-	},	
 	'+': {
 		id: "voice",
 		name: "Voice",
