@@ -70,7 +70,9 @@ var commands = exports.commands = {
 			}
 		}
 		if (match === true) {
-			this.sendReplyBox(user.name + ' has ' + money + ' point(s).');
+			var p = 'points';
+			if (money < 2) p = 'point';
+			this.sendReplyBox(user.name + ' has ' + money + ' ' + p + '.');
 		}
 		if (match === false) {
 			connection.sendTo(room, 'You have no points.');
@@ -101,7 +103,7 @@ var commands = exports.commands = {
 		}
 		if (match === true) {
 			var p = 'points';
-			if (takeMoney < 2) p = 'point';
+			if (money < 2) p = 'point';
 			this.sendReplyBox(targetUser.name + ' has ' + money + ' ' + p + '.');
 		}
 		if (match === false) {
