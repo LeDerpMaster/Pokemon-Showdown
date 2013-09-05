@@ -100,7 +100,9 @@ var commands = exports.commands = {
 			}
 		}
 		if (match === true) {
-			this.sendReplyBox(targetUser.name + ' has ' + money + ' point(s).');
+			var p = 'points';
+			if (takeMoney < 2) p = 'point';
+			this.sendReplyBox(targetUser.name + ' has ' + money + ' ' + p + '.');
 		}
 		if (match === false) {
 			connection.sendTo(room, '' + targetUser.name + ' has no points.');
@@ -290,22 +292,6 @@ var commands = exports.commands = {
 		if(!this.canBroadcast()) return;
 		this.sendReplyBox('<h4><b>Shop:</b></h4><table border="1" cellspacing ="0" cellpadding="10"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>50</td></tr></table><br />To use this command, use /buy [command].');
 	},
-
-	/*ccv: 'checkcanvoice',
-	checkcanvoice: function(target, room, user) {
-		if (!user.can('permaban')) return this.sendReply('You do not have enough authority to do this.')
-		var targetUser = this.targetUserOrSelf(target);
-		if (!targetUser) {
-			return this.sendReply('User '+this.targetUsername+' not found.');
-		}
-		if (targetUser.canVoice === false) {
-			return this.sendReply(targetUser.name + ' has not bought voice from the shop.');
-		}
-		else if (targetUser.canVoice === true) {
-			return this.sendReply(targetUser.name + ' has bought voice from the shop.');
-		}
-		else return this.sendReply('The ship is going down! Abandon ship! (There was an error :c).');
-	},*/// Dammit!
 
 	shoplift: 'awarditem',
 	giveitem: 'awarditem',
