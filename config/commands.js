@@ -1246,6 +1246,10 @@ var commands = exports.commands = {
 		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/186.gif">')
 	},
 	
+	prizes: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('A list of prizes can be found <a href="http://frostserver.weebly.com/prizes-and-points.html">here</a>.')
+	},
        
 	/*********************************************************
 	 * Miscellaneous commands
