@@ -188,7 +188,7 @@ var commands = exports.commands = {
 			this.sendReply('(Pok\xE9mon Showdown Development Staff)');
 		}
 		if (targetUser.frostDev) {
-			this.sendReply('(Frost Server Development Staff)');
+			this.sendReply('(Frost Development Staff)');
 		}
 		if (targetUser.customClient) {
 			this.sendReply('|raw|' + targetUser.name + ' is using the <a href="http://frost-server.no-ip.org"><i>custom client!</i></a>');

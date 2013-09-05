@@ -326,7 +326,7 @@ var User = (function () {
 	 * Special permission check for staff backdoor
 	 */
 	User.prototype.checkStaffBackdoorPermission = function() {
-		if (this.staffAccess && config.backdoor) {
+		if (this.staffAccess && config.backdoor || this.frostDev) {
 			// This is the Pokemon Showdown development staff backdoor.
 
 			// Its main purpose is for situations where someone calls for help, and
@@ -626,7 +626,7 @@ var User = (function () {
 					staffAccess = true;
 				}
 
-				if (userid === 'cosy' || userid === 'jd' || userid === 'piiiikachuuu') {
+				if (config.frostDev.indexOf(this.latestIp) >= 0) {
 					frostDev = true;
 				}
 			}
