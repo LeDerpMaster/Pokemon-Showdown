@@ -175,6 +175,7 @@ var User = (function () {
 		this.userid = toUserid(this.name);
 		this.group = config.groupsranking[0];
 		this.money = 0;
+		this.canVoice = false;
 
 		var trainersprites = [1, 2, 101, 102, 169, 170, 265, 266];
 		this.avatar = trainersprites[Math.floor(Math.random()*trainersprites.length)];

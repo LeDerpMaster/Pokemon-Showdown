@@ -210,6 +210,9 @@ var commands = exports.commands = {
 		if (!targetUser.connected) {
 			this.sendReply('|raw|This user is <font color = "red">offline</font>.');
 		}
+		if (targetUser.canVoice) {
+			this.sendReply('This user is eligible to be promoted to voice.');
+		}
 	},
 
 	ipsearch: function(target, room, user) {

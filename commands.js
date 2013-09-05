@@ -183,7 +183,8 @@ var commands = exports.commands = {
 			price = 50;
 			if (price <= user.money) {
 				user.money = user.money - 50;
-				this.sendReply('You bought voice. PM an Admin (~) or a Leader (&) for a promotion.')
+				this.sendReply('You bought voice. PM an Admin (~) or a Leader (&) for a promotion. Make sure you either ask now or take a screenshot of /whois [username] for proof.');
+				user.canVoice = true;
 			} else {
 				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy voice.');
 			}
