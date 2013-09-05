@@ -181,6 +181,7 @@ exports.customavatars = {
 	'runy12222' : 'Honchkrow_is_a_Pimp_by_ZeldaGameGod.png',
 	'rivaljetpack' : 'rivaljetpack.png',
 	'e4sagax06' : 'e4sagax06.png',
+	'bowlzackk' : 'bowlzackk.png',
  	'jd' : 'jd.png',
 	'sinatraswing' : 'P0jePu4.png',
 	'darke4blue' : '373.png',
