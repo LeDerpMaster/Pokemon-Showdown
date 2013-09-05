@@ -180,9 +180,9 @@ var commands = exports.commands = {
 					return this.sendReply('You have already had voice!');
 				}
 			}
-			price = 50000;
+			price = 50;
 			if (price <= user.money) {
-				user.money = user.money - 50000;
+				user.money = user.money - 50;
 				this.sendReply('You bought voice. PM an Admin (~) or a Leader (&) for a promotion.')
 			} else {
 				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy voice.');
@@ -204,7 +204,7 @@ var commands = exports.commands = {
 	
 	shop: function(target, room, user) {
 		if(!this.canBroadcast()) return;
-		this.sendReplyBox('<h4><b>Shop:</b></h4><table border="1" cellspacing ="0" cellpadding="10"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>50000</td></tr></table><br />To use this command, use /buy [command].');
+		this.sendReplyBox('<h4><b>Shop:</b></h4><table border="1" cellspacing ="0" cellpadding="10"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>50</td></tr></table><br />To use this command, use /buy [command].');
 	},
 
 	/*********************************************************
