@@ -1541,6 +1541,10 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/modchat [off/registered/+/%/@/&/~] - Set the level of moderated chat. Requires: @ & ~');
 		}
+		if (target === '&' || target === 'givepoints') {
+			matched = true;
+			this.sendReply('/givepoints [user], [number of points] - awards the user a specified numbe of points. Requires: & ~');
+		}
 		if (target === '~' || target === 'hotpatch') {
 			matched = true;
 			this.sendReply('Hot-patching the game engine allows you to update parts of Showdown without interrupting currently-running battles. Requires: ~');

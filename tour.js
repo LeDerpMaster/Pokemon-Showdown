@@ -299,13 +299,13 @@ exports.tour = function(t) {
 			if (w.length == 1) {
 				var tourMoney = 0;
 				if (tour[rid].size >= 32) {
-					tourMoney = 500;
+					tourMoney = 3;
 				}
 				if (tour[rid].size >= 16 && tour[rid].size < 32) {
-					tourMoney = 350;
+					tourMoney = 2;
 				}
 				if (tour[rid].size < 16) {
-					tourMoney = 200;
+					tourMoney = 1;
 				}
 				//end tour
 				Rooms.rooms[rid].addRaw('<h2><font color="green">Congratulations <font color="black">' + Users.users[w[0]].name + '</font>!  You have won the ' + Tools.data.Formats[tour[rid].tier].name + ' Tournament!<br>You have won ' + tourMoney + ' Pokedollars!</font></h2>' + '<br><font color="blue"><b>SECOND PLACE:</b></font> ' + Users.users[l[0]].name + '<hr />');
