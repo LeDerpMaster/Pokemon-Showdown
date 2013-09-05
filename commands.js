@@ -15,7 +15,7 @@ var crypto = require('crypto');
 var poofeh = true;
 var ipbans = fs.createWriteStream('config/ipbans.txt', {'flags': 'a'});
 var logeval = fs.createWriteStream('logs/eval.txt', {'flags': 'a'});
-var inShop = ['voice'];
+var inShop = ['voice','symbol'];
 //spamroom
 if (typeof spamroom == "undefined") {
         spamroom = new Object();
@@ -274,10 +274,10 @@ var commands = exports.commands = {
 				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
 			}
 		}
-			if (target === 'symbol') {
+		if (target === 'symbol') {
 			price = 8;
 			if (price <= user.money) {
-				user.money = user.money - 8;
+				user.money = user.money - price;
 				this.sendReply('You have purchased a custom symbol. You will have this until you log off for more than an hour.');
 				this.sendReply('Use /customsymbol [symbol] to change your symbol now!');
 				user.canCustomSymbol = true;
@@ -359,6 +359,18 @@ var commands = exports.commands = {
 					this.sendReply(targetUser.name + ' is now elegible for a promotion to voice, or whatever.');
 					targetUser.canVoice = true;
 					Rooms.rooms.lobby.add(user.name + ' has stolen voice from the shop!');
+					targetUser.send(user.name + ' has given you ' + theItem + '!');
+				}
+			}
+			if (theItem === 'symbol') {
+				if (targetUser.canCustomSymbol === true) {
+					return this.sendReply('This user has already bought that item from the shop... no need for another.');
+				}
+				if (targetUser.canVoice === false) {
+					this.sendReply(targetUser.name + ' can now use /customsymbol to get a custom symbol.');
+					targetUser.canCustomSymbol = true;
+					Rooms.rooms.lobby.add(user.name + ' has stolen custom symbol from the shop!');
+					targetUser.send(user.name + ' has given you ' + theItem + '!');
 				}
 			}
 			else
