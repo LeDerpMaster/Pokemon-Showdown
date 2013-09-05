@@ -1320,7 +1320,6 @@ var commands = exports.commands = {
 	unmute: function(target, room, user) {
 		if (!target) return this.parse('/help unmute');
 		if (!this.canTalk() && user.group !== '~') return false;
-		var targetid = toUserid(target);
 		var targetUser = Users.get(target);
 		if (!targetUser) {
 			return this.sendReply('User '+target+' not found.');
