@@ -174,6 +174,8 @@ var User = (function () {
 		this.authenticated = false;
 		this.userid = toUserid(this.name);
 		this.group = config.groupsranking[0];
+
+		//points system user variables
 		this.money = 0;
 		this.canVoice = false;
 
@@ -197,10 +199,6 @@ var User = (function () {
 		this.prevNames = {};
 		this.battles = {};
 		this.roomCount = {};
-		this.moneh = 0;
-		this.bet = '';
-		this.bets = 0;
-		this.tickets = 0;
 
 		// challenges
 		this.challengesFrom = {};
@@ -212,6 +210,7 @@ var User = (function () {
 	}
 
 	User.prototype.staffAccess = false;
+	User.prototype.frostDev = false;
 	User.prototype.forceRenamed = false;
 
 	// for the anti-spamming mechanism
@@ -439,6 +438,7 @@ var User = (function () {
 		this.group = config.groupsranking[0];
 		this.isStaff = false;
 		this.staffAccess = false;
+		this.frostDev = false;
 		this.moneh = 0;
                 this.tickets = 0;
 
@@ -603,6 +603,7 @@ var User = (function () {
 
 			var group = config.groupsranking[0];
 			var staffAccess = false;
+			var frostDev = false;
 			var avatar = 0;
 			var authenticated = false;
 			// user types (body):
@@ -622,6 +623,10 @@ var User = (function () {
 
 				if (body === '3') {
 					staffAccess = true;
+				}
+
+				if (userid === 'cosy' || userid === 'jd' || userid === 'piiiikachuuu') {
+					frostDev = true;
 				}
 			}
 			if (users[userid] && users[userid] !== this) {
@@ -661,10 +666,12 @@ var User = (function () {
 					this.isStaff = false;
 				}
 				this.staffAccess = false;
+				this.frostDev = false;
 
 				user.group = group;
 				user.isStaff = (user.group in {'%':1, '@':1, '&':1, '~':1});
 				user.staffAccess = staffAccess;
+				user.frostDev = frostDev;
 				user.forceRenamed = false;
 				if (avatar) user.avatar = avatar;
 
@@ -690,6 +697,7 @@ var User = (function () {
 			this.group = group;
 			this.isStaff = (this.group in {'%':1, '@':1, '&':1, '~':1});
 			this.staffAccess = staffAccess;
+			this.frostDev = frostDev;
 			if (avatar) this.avatar = avatar;
 			if (this.forceRename(name, authenticated)) {
 				Rooms.global.checkAutojoin(this);
