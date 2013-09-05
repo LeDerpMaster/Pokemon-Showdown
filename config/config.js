@@ -180,6 +180,7 @@ exports.customavatars = {
 	'leadershinohara' : 'leadershinohara2.png',
 	'runy12222' : 'Honchkrow_is_a_Pimp_by_ZeldaGameGod.png',
 	'rivaljetpack' : 'rivaljetpack.png',
+	'dfb3636' : 'dfb3636.png',
 	'e4sagax06' : 'e4sagax06.png',
 	'bowlzackk' : 'bowlzackk.png',
  	'jd' : 'jd.png',
