@@ -298,22 +298,17 @@ exports.tour = function(t) {
 			var firstMatch = false;
 			if (w.length == 1) {
 				var tourMoney = 0;
-				var tooSmall = '';
 				if (tour[rid].size >= 32) {
 					tourMoney = 3;
 				}
 				if (tour[rid].size >= 16 && tour[rid].size < 32) {
 					tourMoney = 2;
 				}
-				if (tour[rid].size >= 8 && tour[rid.size < 16) {
+				if (tour[rid].size < 16) {
 					tourMoney = 1;
 				}
-				if (tour[rid].size < 8){
-					tourMoney = 0;
-					tooSmall = tooSmall + '(the tour was too small)'
-				}
 				//end tour
-				Rooms.rooms[rid].addRaw('<h2><font color="green">Congratulations <font color="black">' + Users.users[w[0]].name + '</font>!  You have won the ' + Tools.data.Formats[tour[rid].tier].name + ' Tournament!<br>You have also won ' + tourMoney + ' point(s)! ' + tooSmall + '</font></h2>' + '<br><font color="blue"><b>SECOND PLACE:</b></font> ' + Users.users[l[0]].name + '<hr />');
+				Rooms.rooms[rid].addRaw('<h2><font color="green">Congratulations <font color="black">' + Users.users[w[0]].name + '</font>!  You have won the ' + Tools.data.Formats[tour[rid].tier].name + ' Tournament!<br>You have also won ' + tourMoney + 'point!</font></h2>' + '<br><font color="blue"><b>SECOND PLACE:</b></font> ' + Users.users[l[0]].name + '<hr />');
 				//for now, this is the only way to get points/money
 				var data = fs.readFileSync('config/money.csv','utf8')
 				var match = false;
