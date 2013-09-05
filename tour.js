@@ -308,9 +308,9 @@ exports.tour = function(t) {
 					tourMoney = 1;
 				}
 				//end tour
-				Rooms.rooms[rid].addRaw('<h2><font color="green">Congratulations <font color="black">' + Users.users[w[0]].name + '</font>!  You have won the ' + Tools.data.Formats[tour[rid].tier].name + ' Tournament!</font></h2>' + '<br><font color="blue"><b>SECOND PLACE:</b></font> ' + Users.users[l[0]].name + '<hr />');
+				Rooms.rooms[rid].addRaw('<h2><font color="green">Congratulations <font color="black">' + Users.users[w[0]].name + '</font>!  You have won the ' + Tools.data.Formats[tour[rid].tier].name + ' Tournament!<br>You have also won ' + tourMoney + 'point!</font></h2>' + '<br><font color="blue"><b>SECOND PLACE:</b></font> ' + Users.users[l[0]].name + '<hr />');
 				//for now, this is the only way to get points/money
-				/*var data = fs.readFileSync('config/money.csv','utf8')
+				var data = fs.readFileSync('config/money.csv','utf8')
 				var match = false;
 				var money = 0;
 				var row = (''+data).split("\n");
@@ -345,7 +345,7 @@ exports.tour = function(t) {
 				} else {
 					var log = fs.createWriteStream('config/money.csv', {'flags': 'a'});
 					log.write("\n"+Users.users[w[0]].userid+','+Users.users[w[0]].money);
-				}*/
+				}
 				tour[rid].status = 0;
 			} else {
 				var html = '<hr /><h3><font color="green">Round '+ tour[rid].roundNum +'!</font></h3><font color="blue"><b>TIER:</b></font> ' + Tools.data.Formats[tour[rid].tier].name + "<hr /><center>";
