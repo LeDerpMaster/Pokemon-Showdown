@@ -1216,7 +1216,9 @@ var commands = exports.commands = {
 		getpoints: function(target, room, user) {
 			if (!this.canBroadcast()) return;
 			this.sendReplyBox('You can currently get points by:<br />' +
-			'Signing up for the official Frost forums by clicking <a href="http://frostserver.weebly.com/forums.html#/offtopic/">here.</a>Once you have signed up, PM BrittleWind to get 2 points.')
+			'<b>Signing up</b>: Sign up for the forums by clicking <a href="http://frostserver.forumotion.com/">here.</a>Once you have signed up, PM an admin to get 2 points.<br />' +
+			'<b>Subscribing</b>: Subscribe to the Frost youtube channel by clicking <a href="http://www.youtube.com/channel/UCoIYnKO7buF_N_FRDiSGFJA">here.</a>Once you have subscribed , PM and admin to get 2 points.<br />' +
+			'<b>Making a video</b>: Make a video on YouTube about anything Frost Server related! It can even be something as simple as a battle. Make sure to have the word Frost incorporated in the Title of description of your video. Once you have made the video, PM an admin to get 15 points. If the video is exceptionally good, you will recieve an extra 10 points.')
 			},
 			
 		moviemusic: function(target, room, user) {
