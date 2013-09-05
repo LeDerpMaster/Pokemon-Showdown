@@ -15,6 +15,7 @@ var crypto = require('crypto');
 var poofeh = true;
 var ipbans = fs.createWriteStream('config/ipbans.txt', {'flags': 'a'});
 var logeval = fs.createWriteStream('logs/eval.txt', {'flags': 'a'});
+var inShop = ['voice'];
 //spamroom
 if (typeof spamroom == "undefined") {
         spamroom = new Object();
@@ -47,6 +48,7 @@ var commands = exports.commands = {
 	/*********************************************************
 	 * Money                                     
 	 *********************************************************/
+
 	points: function(target, room, user, connection) {
 	if (!this.canBroadcast()) return;
 	if (!target) {
@@ -106,9 +108,10 @@ var commands = exports.commands = {
 		Users.get(targetUser.userid).money = money;
 	}
 	},
-	
+
+	awardpoints: 'givepoints',
 	givepoints: function(target, room, user) {
-		if(!user.can('declare')) return this.sendReply('You do not have enough authority to do this.');
+		if(!user.can('hotpatch')) return this.sendReply('You do not have enough authority to do this.');
 		if(!target) return this.parse('/help givepoints');
 		if (target.indexOf(',') != -1) {
 			var parts = target.split(',');
@@ -142,7 +145,7 @@ var commands = exports.commands = {
 			}
 		}
 		targetUser.money = money;
-		targetUser.money = targetUser.money + giveMoney;
+		targetUser.money += giveMoney;
 		if (match === true) {
 			var re = new RegExp(line,"g");
 			fs.readFile('config/money.csv', 'utf8', function (err,data) {
@@ -158,13 +161,76 @@ var commands = exports.commands = {
 			var log = fs.createWriteStream('config/money.csv', {'flags': 'a'});
 			log.write("\n"+targetUser.userid+','+targetUser.money);
 		}
-		this.sendReply(targetUser.name + ' was given ' + giveMoney + ' points. This user now has ' + targetUser.money + ' points.');
+		var p = 'points';
+		if (giveMoney < 2) p = 'point';
+		this.sendReply(targetUser.name + ' was given ' + giveMoney + ' ' + p + '. This user now has ' + targetUser.money + ' points.');
+		targetUser.send(user.name + ' has given you ' + giveMoney + ' ' + p + '.');
 		} else {
 			return this.parse('/help givepoints');
 		}
 	},
 		
-	
+	takepoints: 'removepoints',
+	removepoints: function(target, room, user) {
+		if(!user.can('hotpatch')) return this.sendReply('You do not have enough authority to do this.');
+		if(!target) return this.parse('/help removepoints');
+		if (target.indexOf(',') != -1) {
+			var parts = target.split(',');
+			parts[0] = this.splitTarget(parts[0]);
+			var targetUser = this.targetUser;
+		if (!targetUser) {
+			return this.sendReply('User '+this.targetUsername+' not found.');
+		}
+		if (isNaN(parts[1])) {
+			return this.sendReply('Very funny, now use a real number.');
+		}
+		var cleanedUp = parts[1].trim();
+		var takeMoney = Number(cleanedUp);
+		var data = fs.readFileSync('config/money.csv','utf8')
+		var match = false;
+		var money = 0;
+		var line = '';
+		var row = (''+data).split("\n");
+		for (var i = row.length; i > -1; i--) {
+			if (!row[i]) continue;
+			var parts = row[i].split(",");
+			var userid = toUserid(parts[0]);
+			if (targetUser.userid == userid) {
+			var x = Number(parts[1]);
+			var money = x;
+			match = true;
+			if (match === true) {
+				line = line + row[i];
+				break;
+			}
+			}
+		}
+		targetUser.money = money;
+		targetUser.money -= takeMoney;
+		if (match === true) {
+			var re = new RegExp(line,"g");
+			fs.readFile('config/money.csv', 'utf8', function (err,data) {
+			if (err) {
+				return console.log(err);
+			}
+			var result = data.replace(re, targetUser.userid+','+targetUser.money);
+			fs.writeFile('config/money.csv', result, 'utf8', function (err) {
+				if (err) return console.log(err);
+			});
+			});
+		} else {
+			var log = fs.createWriteStream('config/money.csv', {'flags': 'a'});
+			log.write("\n"+targetUser.userid+','+targetUser.money);
+		}
+		var p = 'points';
+		if (takeMoney < 2) p = 'point';
+		this.sendReply(targetUser.name + ' has had ' + takeMoney + ' ' + p + ' removed. This user now has ' + targetUser.money + ' points.');
+		targetUser.send(user.name + ' has removed ' + takeMoney + ' from you.');
+		} else {
+			return this.parse('/help removepoints');
+		}
+	},
+
 	buy: function(target, room, user) {
 		if(!target) return this.parse('/help buy');
 		var data = fs.readFileSync('config/money.csv','utf8')
@@ -193,7 +259,7 @@ var commands = exports.commands = {
 				if (user.group === '+') {
 					return this.sendReply('You already have voice!');
 				} else {
-					return this.sendReply('You have already had voice!');
+					return this.sendReply('Your rank is higher than Voice!');
 				}
 			}
 			price = 50;
@@ -201,6 +267,7 @@ var commands = exports.commands = {
 				user.money = user.money - 50;
 				this.sendReply('You bought voice. PM an Admin (~) or a Leader (&) for a promotion. Make sure you either ask now or take a screenshot of /whois [username] for proof.');
 				user.canVoice = true;
+				Rooms.rooms.staff.add(user.name + ' has bought voice from the shop.');
 			} else {
 				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy voice.');
 			}
@@ -224,11 +291,73 @@ var commands = exports.commands = {
 		this.sendReplyBox('<h4><b>Shop:</b></h4><table border="1" cellspacing ="0" cellpadding="10"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>50</td></tr></table><br />To use this command, use /buy [command].');
 	},
 
+	/*ccv: 'checkcanvoice',
+	checkcanvoice: function(target, room, user) {
+		if (!user.can('permaban')) return this.sendReply('You do not have enough authority to do this.')
+		var targetUser = this.targetUserOrSelf(target);
+		if (!targetUser) {
+			return this.sendReply('User '+this.targetUsername+' not found.');
+		}
+		if (targetUser.canVoice === false) {
+			return this.sendReply(targetUser.name + ' has not bought voice from the shop.');
+		}
+		else if (targetUser.canVoice === true) {
+			return this.sendReply(targetUser.name + ' has bought voice from the shop.');
+		}
+		else return this.sendReply('The ship is going down! Abandon ship! (There was an error :c).');
+	},*/// Dammit!
+
+	shoplift: 'awarditem',
+	giveitem: 'awarditem',
+	awarditem: function(target, room, user) {
+		if (!target) return this.parse('/help awarditem');
+
+		target = this.splitTarget(target);
+		var targetUser = this.targetUser;
+
+		if (!target) return this.parse('/help awarditem');
+		if (!targetUser) {
+			return this.sendReply('User '+this.targetUsername+' not found.');
+		}
+
+		var isItem = false;
+		var theItem = '';
+		for (var i = 0; i < inShop.length; i++) {
+			if (target.toLowerCase() === inShop[i]) {
+				isItem = true;
+				theItem = inShop[i];
+			}
+		}
+		if (isItem === true) {
+			if (theItem === 'voice') {
+				if (targetUser.canVoice === true) {
+					return this.sendReply('This user has already bought that item from the shop... no need for another.');
+				}
+				if (targetUser.group === '+' || targetUser.group === '$' || targetUser.group === '%' || targetUser.group === '@' || targetUser.group === '&' || targetUser.group === '~') {
+				if (targetUser.group === '+') {
+					return this.sendReply('You already have voice!');
+				} else {
+					return this.sendReply('Your rank is higher than Voice!');
+				}
+			}
+				
+				if (targetUser.canVoice === false) {
+					this.sendReply(targetUser.name + ' is now elegible for a promotion to voice, or whatever.');
+					targetUser.canVoice = true;
+					Rooms.rooms.lobby.add(user.name + ' has stolen voice from the shop!');
+				}
+			}
+			else
+				return this.sendReply('Maybe that item isn\'t in the shop yet.');
+		}
+		else 
+			return this.sendReply('Shop item could not be found, please check /shop for all items - ' + theItem);
+	},
+
 	/*********************************************************
 	 * Other Stuff                                    
 	 *********************************************************/
 		
-	
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Server version: <b>'+CommandParser.package.version+'</b> <small>(<a href="http://pokemonshowdown.com/versions#' + CommandParser.serverVersion + '">' + CommandParser.serverVersion.substr(0,10) + '</a>)</small>');
@@ -1681,8 +1810,9 @@ var commands = exports.commands = {
 		});
 	},
 
+	getid: 'showuserid',
 	showuserid: function(target, room, user) {
-		if (!target) return this.parse('/getid [username] - To get the raw id of the user');
+		if (!target) return this.parse('/help showuserid');
 
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;

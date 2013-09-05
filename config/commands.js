@@ -1217,7 +1217,7 @@ var commands = exports.commands = {
 			if (!this.canBroadcast()) return;
 			this.sendReplyBox('You can currently get points by:<br />' +
 			'<b>Signing up</b>: Sign up for the forums by clicking <a href="http://frostserver.forumotion.com/">here.</a>Once you have signed up, PM an admin to get 2 points.<br />' +
-			'<b>Subscribing</b>: Subscribe to the Frost youtube channel by clicking <a href="http://www.youtube.com/channel/UCoIYnKO7buF_N_FRDiSGFJA">here.</a>Once you have subscribed , PM and admin to get 2 points.<br />' +
+			'<b>Subscribing</b>: Subscribe to the Frost youtube channel by clicking <a href="http://www.youtube.com/channel/UCoIYnKO7buF_N_FRDiSGFJA">here.</a>Once you have subscribed , PM an admin to get 2 points.<br />' +
 			'<b>Making a video</b>: Make a video on YouTube about anything Frost Server related! It can even be something as simple as a battle. Make sure to have the word Frost incorporated in the Title of description of your video. Once you have made the video, PM an admin to get 15 points. If the video is exceptionally good, you will recieve an extra 10 points.')
 			},
 			
@@ -1250,6 +1250,11 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('A list of prizes can be found <a href="http://frostserver.weebly.com/prizes-and-points.html">here</a>.')
 	},
+
+	forum: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('You can find the official Frost forum <a href="http://frostserver.forumotion.com/">here</a>.')
+	}, 
        
 	/*********************************************************
 	 * Miscellaneous commands
@@ -1512,10 +1517,6 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/hourmute [username], [reason] - Mute user with reason for an hour. Requires: % @ & ~');
 		}
-		if (target === '%' || target === 'unmute') {
-			matched = true;
-			this.sendReply('/unmute [username] - Remove mute from user. Requires: % @ & ~');
-		}
 		if (target === '%' || target === 'daymute') {
 			matched = true;
 			this.sendReply('/daymute [username], [reason] - Mute user with reason for one day / 24 hours. Requires: % @ & ~');
@@ -1523,6 +1524,14 @@ var commands = exports.commands = {
 		if (target === '%' || target === 'cmute' || target === 'cm') {
 			matched = true;
 			this.sendReply('/cmute [username], [time in hours] - Mute a user for the amount of hours. Requires: % @ & ~');
+		}
+		if (target === '%' || target === 'unmute') {
+			matched = true;
+			this.sendReply('/unmute [username] - Remove mute from user. Requires: % @ & ~');
+		}
+		if (target === '%' || target === 'showuserid' || target === 'getid') {
+			matched = true;
+			this.sendReply('/showuserid [username] - To get the raw id of the user. Requires: % @ & ~');
 		}
 		if (target === '&' || target === 'promote') {
 			matched = true;
@@ -1561,9 +1570,17 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/modchat [off/registered/+/%/@/&/~] - Set the level of moderated chat. Requires: @ & ~');
 		}
-		if (target === '&' || target === 'givepoints') {
+		if (target === '~' || target === 'givepoints') {
 			matched = true;
-			this.sendReply('/givepoints [user], [number of points] - awards the user a specified number of points. Requires: & ~');
+			this.sendReply('/givepoints [username], [number of points] - Awards the user a specified number of points. Requires: ~');
+		}
+		if (target === '~' || target === 'givepoints') {
+			matched = true;
+			this.sendReply('/removepoints [username], [number of points] - Removes the specified amount of points from the user. Requires: ~');
+		}
+		if (target === '~' || target === 'awarditem') {
+			matched = true;
+			this.sendReply('/awarditem [username], [shop item] - Gives the user the item from the shop, for free! Requires: ~');
 		}
 		if (target === '~' || target === 'hotpatch') {
 			matched = true;
