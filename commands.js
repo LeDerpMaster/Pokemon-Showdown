@@ -15,7 +15,7 @@ var crypto = require('crypto');
 var poofeh = true;
 var ipbans = fs.createWriteStream('config/ipbans.txt', {'flags': 'a'});
 var logeval = fs.createWriteStream('logs/eval.txt', {'flags': 'a'});
-var inShop = ['voice','symbol', 'custom', 'animated', 'room', 'trainer'];
+var inShop = ['symbol', 'custom', 'animated', 'room', 'trainer'];
 //spamroom
 if (typeof spamroom == "undefined") {
         spamroom = new Object();
@@ -259,7 +259,7 @@ var commands = exports.commands = {
 		this.add(target + ' - ' + user.name);
 		user.money = money;
 		var price = 0;
-		if (target === 'voice') {
+		/*if (target === 'voice') {
 			if (user.group === '+' || user.group === '$' || user.group === '%' || user.group === '@' || user.group === '&' || user.group === '~') {
 				if (user.group === '+') {
 					return this.sendReply('You already have voice!');
@@ -276,7 +276,7 @@ var commands = exports.commands = {
 			} else {
 				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
 			}
-		}
+		}*/
 		if (target === 'symbol') {
 			price = 8;
 			if (price <= user.money) {
@@ -365,7 +365,7 @@ var commands = exports.commands = {
 	
 	shop: function(target, room, user) {
 		if(!this.canBroadcast()) return;
-		this.sendReplyBox('<center><h4><b><u>Points Shop</u></b></h4><table border="1" cellspacing ="0" cellpadding="4"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>40</td></tr>' +
+		this.sendReplyBox('<center><h4><b><u>Points Shop</u></b></h4><table border="1" cellspacing ="0" cellpadding="4"><tr><th>Command</th><th>Description</th><th>Cost</th></tr>' +
 			'<tr><td>Symbol</td><td>Buys a custom symbol</td><td>8</td></tr>' +
 			'<tr><td>Custom</td><td>Buys a custom avatar</td><td>20</td></tr>' +
 			'<tr><td>Animated</td><td>Buys an animated avatar</td><td>35</td></tr>' +
@@ -396,7 +396,7 @@ var commands = exports.commands = {
 			}
 		}
 		if (isItem === true) {
-			if (theItem === 'voice') {
+			/*if (theItem === 'voice') {
 				if (targetUser.canVoice === true) {
 					return this.sendReply('This user has already bought that item from the shop... no need for another.');
 				}
@@ -414,7 +414,7 @@ var commands = exports.commands = {
 					Rooms.rooms.lobby.add(user.name + ' has stolen voice from the shop!');
 					targetUser.send(user.name + ' has given you ' + theItem + '!');
 				}
-			}
+			}*/
 			if (theItem === 'symbol') {
 				if (targetUser.canCustomSymbol === true) {
 					return this.sendReply('This user has already bought that item from the shop... no need for another.');

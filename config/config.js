@@ -513,7 +513,7 @@ exports.groups = {
 	'%': {
 		id: "driver",
 		name: "Driver",
-		inherit: '$',
+		inherit: '+',
 		jurisdiction: 'u',
 		announce: true,
 		warn: true,
