@@ -1426,6 +1426,10 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/vote [option] - votes for the specified option in the poll');
 		}
+		if (target === 'buy') {
+			matched = true;
+			this.sendReply('/buy [item] - buys the specified item, assuming you have enough money');
+		}
 		if (target === '%' || target === 'roomban') {
 			matched = true;
 			this.sendReply('/roomban [username] - Bans the user from the room you are in. Requires: % @ & ~');
@@ -1538,6 +1542,10 @@ var commands = exports.commands = {
 		if (target === '@' || target === 'modchat') {
 			matched = true;
 			this.sendReply('/modchat [off/registered/+/%/@/&/~] - Set the level of moderated chat. Requires: @ & ~');
+		}
+		if (target === '&' || target === 'givepoints') {
+			matched = true;
+			this.sendReply('/givepoints [user], [number of points] - awards the user a specified numbe of points. Requires: & ~');
 		}
 		if (target === '~' || target === 'hotpatch') {
 			matched = true;

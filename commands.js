@@ -32,7 +32,7 @@ var commands = exports.commands = {
 	/*********************************************************
 	 * Money                                     
 	 *********************************************************/
-	money: function(target, room, user, connection) {
+	points: function(target, room, user, connection) {
 	if (!this.canBroadcast()) return;
 	if (!target) {
 	var data = fs.readFileSync('config/money.csv','utf8')
@@ -53,10 +53,10 @@ var commands = exports.commands = {
 			}
 		}
 		if (match === true) {
-			this.sendReplyBox(user.name + ' has ' + money + ' Pokedollar(s).');
+			this.sendReplyBox(user.name + ' has ' + money + ' point(s).');
 		}
 		if (match === false) {
-			connection.sendTo(room, 'You have no money.');
+			connection.sendTo(room, 'You have no points.');
 		}
 		user.money = money;
 	} else {
@@ -83,14 +83,135 @@ var commands = exports.commands = {
 			}
 		}
 		if (match === true) {
-			this.sendReplyBox(targetUser.name + ' has ' + money + ' Pokedollar(s).');
+			this.sendReplyBox(targetUser.name + ' has ' + money + ' point(s).');
 		}
 		if (match === false) {
-			connection.sendTo(room, '' + targetUser.name + ' has no money.');
+			connection.sendTo(room, '' + targetUser.name + ' has no points.');
 		}
 		Users.get(targetUser.userid).money = money;
 	}
 	},
+	
+	givepoints: function(target, room, user) {
+		if(!user.can('declare')) return this.sendReply('You do not have enough authority to do this.');
+		if(!target) return this.parse('/help givepoints');
+		if (target.indexOf(',') != -1) {
+			var parts = target.split(',');
+			parts[0] = this.splitTarget(parts[0]);
+			var targetUser = this.targetUser;
+		if (!targetUser) {
+			return this.sendReply('User '+this.targetUsername+' not found.');
+		}
+		if (isNaN(parts[1])) {
+			return this.sendReply('Very funny, now use a real number.');
+		}
+		var cleanedUp = parts[1].trim();
+		var giveMoney = Number(cleanedUp);
+		var data = fs.readFileSync('config/money.csv','utf8')
+		var match = false;
+		var money = 0;
+		var line = '';
+		var row = (''+data).split("\n");
+		for (var i = row.length; i > -1; i--) {
+			if (!row[i]) continue;
+			var parts = row[i].split(",");
+			var userid = toUserid(parts[0]);
+			if (targetUser.userid == userid) {
+			var x = Number(parts[1]);
+			var money = x;
+			match = true;
+			if (match === true) {
+				line = line + row[i];
+				break;
+			}
+			}
+		}
+		targetUser.money = money;
+		targetUser.money = targetUser.money + giveMoney;
+		if (match === true) {
+			var re = new RegExp(line,"g");
+			fs.readFile('config/money.csv', 'utf8', function (err,data) {
+			if (err) {
+				return console.log(err);
+			}
+			var result = data.replace(re, targetUser.userid+','+targetUser.money);
+			fs.writeFile('config/money.csv', result, 'utf8', function (err) {
+				if (err) return console.log(err);
+			});
+			});
+		} else {
+			var log = fs.createWriteStream('config/money.csv', {'flags': 'a'});
+			log.write("\n"+targetUser.userid+','+targetUser.money);
+		}
+		this.sendReply(targetUser.name + ' was given ' + giveMoney + ' points. This user now has ' + targetUser.money + ' points.');
+		} else {
+			return this.parse('/help givepoints');
+		}
+	},
+		
+	
+	buy: function(target, room, user) {
+		if(!target) return this.parse('/help buy');
+		var data = fs.readFileSync('config/money.csv','utf8')
+		var match = false;
+		var money = 0;
+		var line = '';
+		var row = (''+data).split("\n");
+		for (var i = row.length; i > -1; i--) {
+			if (!row[i]) continue;
+			var parts = row[i].split(",");
+			var userid = toUserid(parts[0]);
+			if (user.userid == userid) {
+			var x = Number(parts[1]);
+			var money = x;
+			match = true;
+			if (match === true) {
+				line = line + row[i];
+				break;
+			}
+			}
+		}
+		user.money = money;
+		var price = 0;
+		if (target === 'voice') {
+			if (user.group === '+' || user.group === '$' || user.group === '%' || user.group === '@' || user.group === '&' || user.group === '~') {
+				if (user.group === '+') {
+					return this.sendReply('You already have voice!');
+				} else {
+					return this.sendReply('You have already had voice!');
+				}
+			}
+			price = 50;
+			if (price <= user.money) {
+				user.money = user.money - 50;
+				this.sendReply('You bought voice. PM an Admin (~) or a Leader (&) for a promotion.')
+			} else {
+				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy voice.');
+			}
+		}
+		if (match === true) {
+			var re = new RegExp(line,"g");
+			fs.readFile('config/money.csv', 'utf8', function (err,data) {
+			if (err) {
+				return console.log(err);
+			}
+			var result = data.replace(re, user.userid+','+user.money);
+			fs.writeFile('config/money.csv', result, 'utf8', function (err) {
+				if (err) return console.log(err);
+			});
+			});
+		}
+	},
+	
+	shop: function(target, room, user) {
+		if(!this.canBroadcast()) return;
+		this.sendReplyBox('<h4><b>Shop:</b></h4><table border="1" cellspacing ="0" cellpadding="10"><tr><th>Command</th><th>Description</th><th>Cost</th></tr><tr><td>Voice</td><td>Buys voice.</td><td>50</td></tr></table><br />To use this command, use /buy [command].');
+	},
+
+	/*********************************************************
+	 * Other Stuff                                    
+	 *********************************************************/
+		
 	
 	version: function(target, room, user) {
 		if (!this.canBroadcast()) return;
