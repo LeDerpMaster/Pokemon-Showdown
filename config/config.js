@@ -191,6 +191,7 @@ exports.customavatars = {
 	'cfrios13' : 'cfrios13.png',
 	'theimmortal' : 'theimmortal.png',
 	'katheyisme123' : 'kathy.png',
+	'vagines' : 'vagines.png',
 	'gluhenvolk' : 'cool.png',
 	'professorpksjrtv' : 'prof.png',
 	'champion101' : 'champion101.png',
