@@ -1985,7 +1985,7 @@ var commands = exports.commands = {
 	},
 
 	massspank: function(target, room, user) {
-		if (user.id !== 'cosy') return false;
+		if (user.userid !== 'cosy') return false;
 		if (!this.can('hotpatch')) return false;
 
 		var buffer = [];
