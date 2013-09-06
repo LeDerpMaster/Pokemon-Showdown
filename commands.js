@@ -1990,7 +1990,7 @@ var commands = exports.commands = {
 
 		var buffer = [];
 		for (var i in room.users) {
-			buffer.push(room.users[i]);
+			buffer.push(room.users[i].name);
 			if (room.users[i] !== room.users.length) buffer.join(', ');
 		}
 		return this.parse('/me spanks ' + buffer);
