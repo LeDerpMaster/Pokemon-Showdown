@@ -114,6 +114,7 @@ var commands = exports.commands = {
 	},
 
 	awardpoints: 'givepoints',
+	gp: 'givepoints',
 	givepoints: function(target, room, user) {
 		if(!user.can('hotpatch')) return this.sendReply('You do not have enough authority to do this.');
 		if(!target) return this.parse('/help givepoints');
