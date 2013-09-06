@@ -1268,6 +1268,16 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('You can find the official Frost forum <a href="http://frostserver.forumotion.com/">here</a>.')
 	}, 
+	
+	mastersofthecolor: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('These are our current Masters of the Color!<br \>' +
+		'<font color="blue"><b>Blue</b></font color>: Trainer name here<br \>' + 
+		'<font color="red"><b>Red</b></font color>: Trainer name here<br \>' +
+		'<font color="green"><b>Green</b></font color>: Green<br \>' +
+		'<font color="yellow"><b>Yellow</b></font color>/<font color="brown"><b>Brown</b></font color>: Trainer name here<br \>' +
+		'<font color="purple"><b>Purple</b></font color>/<font color="pink"><b>Pink</b></font color>: Trainer name here')
+	},
        
 	/*********************************************************
 	 * Miscellaneous commands
