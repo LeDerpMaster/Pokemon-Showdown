@@ -257,27 +257,8 @@ var commands = exports.commands = {
 			}
 			}
 		}
-		this.add(target + ' - ' + user.name);
 		user.money = money;
 		var price = 0;
-		/*if (target === 'voice') {
-			if (user.group === '+' || user.group === '$' || user.group === '%' || user.group === '@' || user.group === '&' || user.group === '~') {
-				if (user.group === '+') {
-					return this.sendReply('You already have voice!');
-				} else {
-					return this.sendReply('Your rank is higher than Voice!');
-				}
-			}
-			price = 40;
-			if (price <= user.money) {
-				user.money = user.money - price;
-				this.sendReply('You bought voice. PM an Admin (~) or a Leader (&) for a promotion. Make sure you either ask now or take a screenshot of /whois [username] for proof.');
-				user.canVoice = true;
-				Rooms.rooms.staff.add(user.name + ' has bought voice from the shop.');
-			} else {
-				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
-			}
-		}*/
 		if (target === 'symbol') {
 			price = 8;
 			if (price <= user.money) {
@@ -397,25 +378,6 @@ var commands = exports.commands = {
 			}
 		}
 		if (isItem === true) {
-			/*if (theItem === 'voice') {
-				if (targetUser.canVoice === true) {
-					return this.sendReply('This user has already bought that item from the shop... no need for another.');
-				}
-				if (targetUser.group === '+' || targetUser.group === '$' || targetUser.group === '%' || targetUser.group === '@' || targetUser.group === '&' || targetUser.group === '~') {
-				if (targetUser.group === '+') {
-					return this.sendReply('You already have voice!');
-				} else {
-					return this.sendReply('Your rank is higher than Voice!');
-				}
-			}
-				
-				if (targetUser.canVoice === false) {
-					this.sendReply(targetUser.name + ' is now elegible for a promotion to voice, or whatever.');
-					targetUser.canVoice = true;
-					Rooms.rooms.lobby.add(user.name + ' has stolen voice from the shop!');
-					targetUser.send(user.name + ' has given you ' + theItem + '!');
-				}
-			}*/
 			if (theItem === 'symbol') {
 				if (targetUser.canCustomSymbol === true) {
 					return this.sendReply('This user has already bought that item from the shop... no need for another.');
