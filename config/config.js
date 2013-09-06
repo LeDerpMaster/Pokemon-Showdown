@@ -247,7 +247,7 @@ exports.customavatars = {
 	'championcorper' : '571.png',
 	'gymldrace' : 'volca.png',
 	'e4photon' : 'jigg.png',
-	'ejdrago' : 'ditto.png',
+	'ejdrago' : 'drago2.png',
 	'championheynow' : 'santa_kirby_pixel_by_supernintendogirl-d34bovb.png',
 	'electricapples' : '135.png',
 	'elitefourfrnk' : '615.png',
