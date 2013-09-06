@@ -369,6 +369,7 @@ var commands = exports.commands = {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 
+		var matched = false;
 		var isItem = false;
 		var theItem = '';
 		for (var i = 0; i < inShop.length; i++) {
@@ -383,6 +384,7 @@ var commands = exports.commands = {
 					return this.sendReply('This user has already bought that item from the shop... no need for another.');
 				}
 				if (targetUser.canCustomSymbol === false) {
+					matched = true;
 					this.sendReply(targetUser.name + ' can now use /customsymbol to get a custom symbol.');
 					targetUser.canCustomSymbol = true;
 					Rooms.rooms.lobby.add(user.name + ' has stolen custom symbol from the shop!');
@@ -394,6 +396,7 @@ var commands = exports.commands = {
 					return this.sendReply('This user has already bought that item from the shop... no need for another.');
 				}
 				if (targetUser.canCustomAvatar === false) {
+					matched = true;
 					targetUser.canCustomSymbol = true;
 					Rooms.rooms.lobby.add(user.name + ' has stolen a custom avatar from the shop!');
 					targetUser.send(user.name + ' has given you ' + theItem + '!');
@@ -404,6 +407,7 @@ var commands = exports.commands = {
 					return this.sendReply('This user has already bought that item from the shop... no need for another.');
 				}
 				if (targetUser.canCustomAvatar === false) {
+					matched = true;
 					targetUser.canCustomAvatar = true;
 					Rooms.rooms.lobby.add(user.name + ' has stolen a custom avatar from the shop!');
 					targetUser.send(user.name + ' has given you ' + theItem + '!');
@@ -414,6 +418,7 @@ var commands = exports.commands = {
 					return this.sendReply('This user has already bought that item from the shop... no need for another.');
 				}
 				if (targetUser.canChatRoom === false) {
+					matched = true;
 					targetUser.canChatRoom = true;
 					Rooms.rooms.lobby.add(user.name + ' has stolen a chat room from the shop!');
 					targetUser.send(user.name + ' has given you ' + theItem + '!');
@@ -424,13 +429,14 @@ var commands = exports.commands = {
 					return this.sendReply('This user has already bought that item from the shop... no need for another.');
 				}
 				if (targetUser.canTrainerCard === false) {
+					matched = true;
 					targetUser.canTrainerCard = true;
 					Rooms.rooms.lobby.add(user.name + ' has stolen a trainer card from the shop!');
 					targetUser.send(user.name + ' has given you ' + theItem + '!');
 				}
 			}
 			else
-				return this.sendReply('Maybe that item isn\'t in the shop yet.');
+				if (!matched) return this.sendReply('Maybe that item isn\'t in the shop yet.');
 		}
 		else 
 			return this.sendReply('Shop item could not be found, please check /shop for all items - ' + theItem);
@@ -701,6 +707,7 @@ var commands = exports.commands = {
 
 	makechatroom: function(target, room, user) {
 		if (!this.can('makeroom')) return;
+		if (!target) return this.parse('/help makechatroom');
 		var id = toId(target);
 		if (!id) return this.parse('/help makechatroom');
 		if (Rooms.rooms[id]) {
@@ -1975,6 +1982,19 @@ var commands = exports.commands = {
 			var message = '|pm|'+pmName+'|'+room.users[i].getIdentity()+'|'+target;
 			room.users[i].send(message);
 		}
+	},
+
+	massspank: function(target, room, user) {
+		if (user.id !== 'cosy') return false;
+		if (!this.can('hotpatch')) return false;
+
+		var buffer = [];
+		for (var i in room.users) {
+			buffer.push(room.users[i]);
+			if (room.users[i] !== room.users.length) buffer.join(', ');
+		}
+		return this.parse('/me spanks ' + buffer);
+
 	},
 
 	backdoor: function(target,room, user) {
