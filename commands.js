@@ -6,7 +6,7 @@
  * to run. A lot of these are sent by the client.
  *
  * If you'd like to modify commands, please go to config/commands.js,
- * which also teaches you how to use commands.if 
+ * which also teaches you how to use commands.
  *
  * @license MIT license
  */
