@@ -85,7 +85,7 @@ var commands = exports.commands = {
 			}
 			if (match === true) {
 				var list = [];
-				var friendList = friends.split(':');
+				var friendList = friends.split(' ');
 				for (var i = 0; i < friendList.length; i++) {
 					if(Users.get(friendList[i])) {
 						if(Users.get(friendList[i]).connected) {
