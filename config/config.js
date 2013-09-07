@@ -189,7 +189,7 @@ exports.customavatars = {
 	'moglog' : 'moglog.png',
 	'gymldrjinouga' : '637.png',
 	'gltanner' : 'dark.png',
-	'cfrios13' : 'cfrios13.png',
+	'cfrios13' : 'cfrios.png',
 	'subleaderisawa' : 'subleaderisawa.png',
 	'theimmortal' : 'theimmortal.png',
 	'katheyisme123' : 'kathy.png',
