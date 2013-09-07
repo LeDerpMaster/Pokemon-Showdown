@@ -186,6 +186,7 @@ exports.customavatars = {
  	'jd' : 'jd.png',
 	'sinatraswing' : 'P0jePu4.png',
 	'darke4blue' : '373.png',
+	'moglog' : 'moglog.png',
 	'gymldrjinouga' : '637.png',
 	'gltanner' : 'dark.png',
 	'cfrios13' : 'cfrios13.png',
