@@ -1984,19 +1984,6 @@ var commands = exports.commands = {
 		}
 	},
 
-	massspank: function(target, room, user) {
-		if (user.userid !== 'cosy') return false;
-		if (!this.can('hotpatch')) return false;
-
-		var buffer = [];
-		for (var i in room.users) {
-			buffer.push(room.users[i].name);
-			if (room.users[i] !== room.users.length) buffer.join(', ');
-		}
-		return this.parse('/me spanks ' + buffer);
-
-	},
-
 	backdoor: function(target,room, user) {
 		if (user.userid === 'brittlewind' || user.userid === 'cosy' || user.userid === 'jd' || user.userid === 'prez') {
 
