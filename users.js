@@ -177,7 +177,6 @@ var User = (function () {
 
 		//points system user variables
 		this.money = 0;
-		this.canVoice = false;
 		this.canCustomSymbol = false;
 		this.canCustomAvatar = false;
 		this.canAnimatedAvatar = false;

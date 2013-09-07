@@ -294,7 +294,7 @@ var commands = exports.commands = {
 			}
 		}
 		if (target === 'room') {
-			price = 50;
+			price = 80;
 			if (price <= user.money) {
 				user.money = user.money - price;
 				this.sendReply('You have purchased a chat room. You need to message an Admin so that the room can be made.');
@@ -351,7 +351,7 @@ var commands = exports.commands = {
 			'<tr><td>Symbol</td><td>Buys a custom symbol</td><td>8</td></tr>' +
 			'<tr><td>Custom</td><td>Buys a custom avatar</td><td>20</td></tr>' +
 			'<tr><td>Animated</td><td>Buys an animated avatar</td><td>35</td></tr>' +
-			'<tr><td>Room</td><td>Buys a chatroom</td><td>50</td></tr>' +
+			'<tr><td>Room</td><td>Buys a chatroom</td><td>80</td></tr>' +
 			'<tr><td>Trainer</td><td>Buys a trainer card</td><td>30</td></tr>' +
 			'</table><br />To buy an item from the shop, use /buy [command].</center>');
 	},
@@ -987,10 +987,9 @@ var commands = exports.commands = {
 	join: function(target, room, user, connection) {
 		if (!target) return false;
 		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
-		if (target.toLowerCase() === 'admnrm' && user.group !== '~') return false;
 		if (target.toLowerCase() === 'logroom' && user.group !== '~' || target === 'Log Room' && user.group !== '~') return false;
 		if (target.toLowerCase() === 'adminroom' && user.group !== '~' || target === 'Admin Room' && user.group !== '~' || target === 'admin room' && user.group !== '~') return false;
-		if (target.toLowerCase() === 'thecosyroom' && user.group !== '~') return false;
+		
 		if (!targetRoom) {
 			if (target === 'lobby') return connection.sendTo(target, "|noinit|nonexistent|");
 			return connection.sendTo(target, "|noinit|nonexistent|The room '"+target+"' does not exist.");
@@ -1169,7 +1168,8 @@ var commands = exports.commands = {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
 		if (room.auth) {
-			return this.sendReply('You can\'t warn here: This is a privately-owned room not subject to global rules.');
+			this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
+			targetUser.popup('You have been warned by ' + user.name +'.' + (target ? " (" + target + ")" : ""));
 		}
 		if (!this.can('warn', targetUser, room)) return false;
 		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('You cannot warn this user.');
