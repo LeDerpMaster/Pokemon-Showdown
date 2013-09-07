@@ -1196,7 +1196,7 @@ var commands = exports.commands = {
 		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/212.gif">')
 	},
 
-    e4bigtinkler: function(target, room, user) {
+    championtinkler: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Trainer: E4 BigTinkler<br \>' +
 		'Ace: Kyurem-Black<br \>' + 
@@ -1494,6 +1494,14 @@ var commands = exports.commands = {
 		if (target === 'buy') {
 			matched = true;
 			this.sendReply('/buy [item] - buys the specified item, assuming you have enough money');
+		}
+		if (target === 'addfriend') {
+			matched = true;
+			this.sendReply('/addfriend [user] - adds the specified user to your friends list');
+		}
+		if (target === 'removefriend') {
+			matched = true;
+			this.sendReply('/removefriend [user] - removes the specified user from your friends list');
 		}
 		if (target === 'all' || target === 'join') {
 			matched = true;
