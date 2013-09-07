@@ -114,7 +114,7 @@ var commands = exports.commands = {
 				}
 				var buttons = '';
 				for (var i = 0; i < list.length; i++) {
-					buttons = buttons + '<button name = "openUser" value = "' + Users.get(list[i]).userid + '">' + Users.get(list[i]).name + '</button><br />';
+					buttons = buttons + '<button name = "openUser" value = "' + Users.get(list[i]).userid + '">' + Users.get(list[i]).name + '</button>';
 				}
 				this.sendReplyBox('Your list of online friends:<br />' + buttons);
 			}
@@ -224,8 +224,11 @@ var commands = exports.commands = {
 	/*********************************************************
 	 * Money                                     
 	 *********************************************************/
-
-	points: function(target, room, user, connection) {
+	
+	wallet: 'atm',
+	purse: 'atm',
+	bag: 'atm',
+	atm: function(target, room, user, connection) {
 	if (!this.canBroadcast()) return;
 	if (!target) {
 	var data = fs.readFileSync('config/money.csv','utf8')
@@ -246,12 +249,12 @@ var commands = exports.commands = {
 			}
 		}
 		if (match === true) {
-			var p = 'points';
-			if (money < 2) p = 'point';
+			var p = 'bucks';
+			if (money < 2) p = 'buck';
 			this.sendReplyBox(user.name + ' has ' + money + ' ' + p + '.');
 		}
 		if (match === false) {
-			connection.sendTo(room, 'You have no points.');
+			connection.sendTo(room, 'You have no bucks.');
 		}
 		user.money = money;
 	} else {
@@ -278,22 +281,22 @@ var commands = exports.commands = {
 			}
 		}
 		if (match === true) {
-			var p = 'points';
-			if (money < 2) p = 'point';
+			var p = 'bucks';
+			if (money < 2) p = 'buck';
 			this.sendReplyBox(targetUser.name + ' has ' + money + ' ' + p + '.');
 		}
 		if (match === false) {
-			connection.sendTo(room, '' + targetUser.name + ' has no points.');
+			connection.sendTo(room, '' + targetUser.name + ' has no bucks.');
 		}
 		Users.get(targetUser.userid).money = money;
 	}
 	},
 
-	awardpoints: 'givepoints',
-	gp: 'givepoints',
-	givepoints: function(target, room, user) {
+	awardbucks: 'givebucks',
+	gb: 'givebucks',
+	givebucks: function(target, room, user) {
 		if(!user.can('hotpatch')) return this.sendReply('You do not have enough authority to do this.');
-		if(!target) return this.parse('/help givepoints');
+		if(!target) return this.parse('/help givebucks');
 		if (target.indexOf(',') != -1) {
 			var parts = target.split(',');
 			parts[0] = this.splitTarget(parts[0]);
@@ -342,19 +345,19 @@ var commands = exports.commands = {
 			var log = fs.createWriteStream('config/money.csv', {'flags': 'a'});
 			log.write("\n"+targetUser.userid+','+targetUser.money);
 		}
-		var p = 'points';
-		if (giveMoney < 2) p = 'point';
-		this.sendReply(targetUser.name + ' was given ' + giveMoney + ' ' + p + '. This user now has ' + targetUser.money + ' points.');
+		var p = 'bucks';
+		if (giveMoney < 2) p = 'buck';
+		this.sendReply(targetUser.name + ' was given ' + giveMoney + ' ' + p + '. This user now has ' + targetUser.money + ' bucks.');
 		targetUser.send(user.name + ' has given you ' + giveMoney + ' ' + p + '.');
 		} else {
-			return this.parse('/help givepoints');
+			return this.parse('/help givebucks');
 		}
 	},
 		
-	takepoints: 'removepoints',
-	removepoints: function(target, room, user) {
+	takebucks: 'removebucks',
+	removebucks: function(target, room, user) {
 		if(!user.can('hotpatch')) return this.sendReply('You do not have enough authority to do this.');
-		if(!target) return this.parse('/help removepoints');
+		if(!target) return this.parse('/help removebucks');
 		if (target.indexOf(',') != -1) {
 			var parts = target.split(',');
 			parts[0] = this.splitTarget(parts[0]);
@@ -403,12 +406,12 @@ var commands = exports.commands = {
 			var log = fs.createWriteStream('config/money.csv', {'flags': 'a'});
 			log.write("\n"+targetUser.userid+','+targetUser.money);
 		}
-		var p = 'points';
-		if (takeMoney < 2) p = 'point';
-		this.sendReply(targetUser.name + ' has had ' + takeMoney + ' ' + p + ' removed. This user now has ' + targetUser.money + ' points.');
-		targetUser.send(user.name + ' has removed ' + takeMoney + ' from you.');
+		var p = 'bucks';
+		if (takeMoney < 2) p = 'buck';
+		this.sendReply(targetUser.name + ' has had ' + takeMoney + ' ' + p + ' removed. This user now has ' + targetUser.money + ' bucks.');
+		targetUser.send(user.name + ' has removed ' + takeMoney + ' bucks from you.');
 		} else {
-			return this.parse('/help removepoints');
+			return this.parse('/help removebucks');
 		}
 	},
 
@@ -444,7 +447,7 @@ var commands = exports.commands = {
 				user.canCustomSymbol = true;
 				this.add(user.name + ' has purchased a custom symbol!');
 			} else {
-				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+				return this.sendReply('You do not have enough bucks for this. You need ' + (price - user.money) + ' more bucks to buy ' + target + '.');
 			}
 		}
 		if (target === 'custom') {
@@ -455,7 +458,7 @@ var commands = exports.commands = {
 				user.canCustomAvatar = true;
 				this.add(user.name + ' has purchased a custom avatar!');
 			} else {
-				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+				return this.sendReply('You do not have enough bucks for this. You need ' + (price - user.money) + ' more bucks to buy ' + target + '.');
 			}
 		}
 		if (target === 'animated') {
@@ -466,7 +469,7 @@ var commands = exports.commands = {
 				user.canAnimatedAvatar = true;
 				this.add(user.name + ' has purchased a custom animated avatar!');
 			} else {
-				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+				return this.sendReply('You do not have enough bucks for this. You need ' + (price - user.money) + ' more bucks to buy ' + target + '.');
 			}
 		}
 		if (target === 'room') {
@@ -477,7 +480,7 @@ var commands = exports.commands = {
 				user.canChatRoom = true;
 				this.add(user.name + ' has purchased a chat room!');
 			} else {
-				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+				return this.sendReply('You do not have enough bucks for this. You need ' + (price - user.money) + ' more bucks to buy ' + target + '.');
 			}
 		}
 		if (target === 'trainer') {
@@ -488,7 +491,7 @@ var commands = exports.commands = {
 				user.canTrainerCard = true;
 				this.add(user.name + ' has purchased a trainer card!');
 			} else {
-				return this.sendReply('You do not have enough points for this. You need ' + (price - user.money) + ' more points to buy ' + target + '.');
+				return this.sendReply('You do not have enough bucks for this. You need ' + (price - user.money) + ' more bucks to buy ' + target + '.');
 			}
 		}
 		if (match === true) {
@@ -523,7 +526,7 @@ var commands = exports.commands = {
 	
 	shop: function(target, room, user) {
 		if(!this.canBroadcast()) return;
-		this.sendReplyBox('<center><h4><b><u>Points Shop</u></b></h4><table border="1" cellspacing ="0" cellpadding="4"><tr><th>Command</th><th>Description</th><th>Cost</th></tr>' +
+		this.sendReplyBox('<center><h4><b><u>Frost Bucks Shop</u></b></h4><table border="1" cellspacing ="0" cellpadding="4"><tr><th>Command</th><th>Description</th><th>Cost</th></tr>' +
 			'<tr><td>Symbol</td><td>Buys a custom symbol</td><td>8</td></tr>' +
 			'<tr><td>Custom</td><td>Buys a custom avatar</td><td>20</td></tr>' +
 			'<tr><td>Animated</td><td>Buys an animated avatar</td><td>35</td></tr>' +
@@ -686,9 +689,9 @@ var commands = exports.commands = {
 		return this.sendReplyBox('The command for the Point system:<br />' + 
 			'/shop - Show the shop with the items you can buy.<br />' + 
 			'/buy [command] - Buy an item from the shop using the item command name.<br />' +
-			'/getpoints - A basic introduction into the points system.<br />' + 
-			'/points [username] - Show your points (if just /points) or show someone elses points.<br />' + 
-			'/prizes - A link to the prize page and ways to earn points.');
+			'/getpoints - A basic introduction into the currency system.<br />' + 
+			'/atm [username] - Show your bucks (if just /atm) or show someone else\'s bucks.<br />' + 
+			'/prizes - A link to the prize page and ways to earn bucks.');
 	},
 
 	/*********************************************************
