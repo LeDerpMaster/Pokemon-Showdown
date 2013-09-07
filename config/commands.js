@@ -1287,8 +1287,10 @@ var commands = exports.commands = {
 		'<font color="yellow"><b>Yellow</b></font color>/<font color="brown"><b>Brown</b></font color>: Sub Leader Isawa<br \>' +
 		'<font color="purple"><b>Purple</b></font color>/<font color="pink"><b>Pink</b></font color>: Cfrios13')
 	},
+
        biblialeague: function(target, room, user) {
 		if (!this.canBroadcast()) return;
+		if (room.id === 'lobby' && this.broadcasting) return this.sendReply('This command is too spammy for lobby.');
 		this.sendReplyBox('<font color="green"><b>The Biblia League</b></font color><br \>' +
 		'Champions of the Biblia League: †Champion Lights† and †Champion Maxerus†<br \>' + 
 		'Quote: Get \'Tinid<br \>' +
