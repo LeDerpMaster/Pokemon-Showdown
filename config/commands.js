@@ -1295,7 +1295,7 @@ var commands = exports.commands = {
 		'Champions of the Biblia League: †Champion Lights† and †Champion Maxerus†<br \>' + 
 		'Quote: Get \'Tinid<br \>' +
 		'Make sure to check out our website by clicking <a href="http://biblialeague.webs.com/">here</a>!<br \>' +
-		'<img src="http://i.imgur.com/7Nh6wHP.png?1">')
+		'<img src="http://i.imgur.com/94mtyFk.png">')
 	},
        
 	/*********************************************************
