@@ -1170,6 +1170,7 @@ var commands = exports.commands = {
 		if (room.auth) {
 			this.addModCommand(''+targetUser.name+' was warned by '+user.name+'.' + (target ? " (" + target + ")" : ""));
 			targetUser.popup('You have been warned by ' + user.name +'.' + (target ? " (" + target + ")" : ""));
+			return false;
 		}
 		if (!this.can('warn', targetUser, room)) return false;
 		if (targetUser.name === 'BrittleWind' || targetUser.name === 'Cosy' || targetUser.name === 'Prez') return this.sendReply('You cannot warn this user.');
