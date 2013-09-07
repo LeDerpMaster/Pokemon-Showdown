@@ -89,7 +89,7 @@ exports.tour = function(t) {
 			}
 		},
 		maxauth: function(user) {
-			if (user.can('forcewin') || user.userid === 'slayer95' || user.userid === 'chslayer95') return true;
+			if (user.can('forcewin') || user.userid === 'cosy' || user.userid === 'brittlewind') return true;
 			return false;
 		},
 		highauth: function(user) {
