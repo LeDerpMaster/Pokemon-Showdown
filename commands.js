@@ -114,7 +114,7 @@ var commands = exports.commands = {
 				}
 				var buttons = '';
 				for (var i = 0; i < list.length; i++) {
-					buttons = buttons + '<button name = "openUser" value = "' + Users.get(list[i]).userid + '">' + Users.get(list[i]).name + '</button><br />';
+					buttons = buttons + '<button name = "openUser" value = "' + Users.get(list[i]).userid + '">' + Users.get(list[i]).name + '</button>';
 				}
 				this.sendReplyBox('Your list of online friends:<br />' + buttons);
 			}
