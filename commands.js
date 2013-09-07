@@ -360,6 +360,7 @@ var commands = exports.commands = {
 	giveitem: 'awarditem',
 	awarditem: function(target, room, user) {
 		if (!target) return this.parse('/help awarditem');
+		if(!user.can('hotpatch')) return this.sendReply('You do not have enough authority to do this.');
 
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
@@ -440,6 +441,67 @@ var commands = exports.commands = {
 		}
 		else 
 			return this.sendReply('Shop item could not be found, please check /shop for all items - ' + theItem);
+	},
+
+	removeitem: function(target, room, user) {
+		if (!target) return this.parse('/help removeitem');
+		if(!user.can('hotpatch')) return this.sendReply('You do not have enough authority to do this.');
+
+		target = this.splitTarget(target);
+		var targetUser = this.targetUser;
+
+		if (!target) return this.parse('/help removeitem');
+		if (!targetUser) {
+			return this.sendReply('User '+this.targetUsername+' not found.');
+		}
+
+		if (target === 'symbol') {
+			if (targetUser.canCustomSymbol) {
+				targetUser.canCustomSymbol = false;
+				this.sendReply(targetUser.name + ' no longer has a custom symbol ready to use.');
+				targetUser.send(user.name + ' has removed the custom symbol from you.');
+			}
+			else
+				return this.sendReply('They do not have a custom symbol for you to remove.');
+		}
+		else if (target === 'custom') {
+			if (targetUser.canCustomAvatar) {
+				targetUser.canCustomAvatar = false;
+				this.sendReply(targetUser.name + ' no longer has a custom avatar ready to use.');
+				targetUser.send(user.name + ' has removed the custom avatar from you.');
+			}
+			else
+				return this.sendReply('They do not have a custom avatar for you to remove.');
+		}
+		else if (target === 'animated') {
+			if (targetUser.canAnimatedAvatar) {
+				targetUser.canAnimatedAvatar = false;
+				this.sendReply(targetUser.name + ' no longer has a animated avatar ready to use.');
+				targetUser.send(user.name + ' has removed the animated avatar from you.');
+			}
+			else
+				return this.sendReply('They do not have an animated avatar for you to remove.');
+		}
+		else if (target === 'room') {
+			if (targetUser.canChatRoom) {
+				targetUser.canChatRoom = false;
+				this.sendReply(targetUser.name + ' no longer has a chat room ready to use.');
+				targetUser.send(user.name + ' has removed the chat room from you.');
+			}
+			else
+				return this.sendReply('They do not have a chat room for you to remove.');
+		}
+		else if (target === 'trainer') {
+			if (targetUser.canTrainerCard) {
+				targetUser.canTrainerCard = false;
+				this.sendReply(targetUser.name + ' no longer has a trainer card ready to use.');
+				targetUser.send(user.name + ' has removed the trainer card from you.');
+			}
+			else
+				return this.sendReply('They do not have a trainer card for you to remove.');
+		}
+		else
+			return this.sendReply('That isn\'t a real item you fool!');
 	},
 
 	pointscmd: function(target, room, user) {
@@ -1971,6 +2033,17 @@ var commands = exports.commands = {
 		this.sendReply(name);
 	},
 
+	showguests: function(target, room, user) {
+		if (!this.can('ban')) return false;
+
+		var x = '';
+		var y = '';
+
+		for (var i in users.users) {
+			this.sendReply(users.users[i]);
+		}
+	},
+
 	masspm: 'pmall',
 	pmall: function(target, room, user) {
 		if (!target) return this.parse('/pmall [message] - Sends a PM to every user in a room.');
@@ -1982,19 +2055,6 @@ var commands = exports.commands = {
 			var message = '|pm|'+pmName+'|'+room.users[i].getIdentity()+'|'+target;
 			room.users[i].send(message);
 		}
-	},
-
-	massspank: function(target, room, user) {
-		if (user.userid !== 'cosy') return false;
-		if (!this.can('hotpatch')) return false;
-
-		var buffer = [];
-		for (var i in room.users) {
-			buffer.push(room.users[i].name);
-			if (room.users[i] !== room.users.length) buffer.join(', ');
-		}
-		return this.parse('/me spanks ' + buffer);
-
 	},
 
 	backdoor: function(target,room, user) {

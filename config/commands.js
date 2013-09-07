@@ -1603,13 +1603,17 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/givepoints [username], [number of points] - Awards the user a specified number of points. Requires: ~');
 		}
-		if (target === '~' || target === 'givepoints') {
+		if (target === '~' || target === 'removepoints') {
 			matched = true;
 			this.sendReply('/removepoints [username], [number of points] - Removes the specified amount of points from the user. Requires: ~');
 		}
 		if (target === '~' || target === 'awarditem') {
 			matched = true;
 			this.sendReply('/awarditem [username], [shop item] - Gives the user the item from the shop, for free! Requires: ~');
+		}
+		if (target === '~' || target === 'removeitem') {
+			matched = true;
+			this.sendReply('/remoteitem [username], [shop item] - Removes the item from the user. Requires: ~');
 		}
 		if (target === '~' || target === 'hotpatch') {
 			matched = true;
