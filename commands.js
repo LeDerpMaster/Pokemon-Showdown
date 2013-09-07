@@ -43,7 +43,7 @@ var commands = exports.commands = {
 			}
 		}
 		this.sendReply('Number of users using the custom client: ' + client.length);
-		this.sendReply('Percentage of users using the custom client: ' + (client.length / total.length);
+		this.sendReply('Percentage of users using the custom client: ' + (client.length / total.length));
 	},
 	
 	createpoints: function(target, room, user, connection) {
