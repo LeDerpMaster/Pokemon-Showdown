@@ -189,6 +189,7 @@ exports.customavatars = {
 	'gymldrjinouga' : '637.png',
 	'gltanner' : 'dark.png',
 	'cfrios13' : 'cfrios13.png',
+	'subleaderisawa' : 'subleaderisawa.png',
 	'theimmortal' : 'theimmortal.png',
 	'katheyisme123' : 'kathy.png',
 	'vagines' : 'vagines.png',

@@ -1259,6 +1259,15 @@ var commands = exports.commands = {
 		'<img src="http://pldh.net/media/pokemon/gen5/blackwhite_animated_front/186.gif">')
 	},
 	
+	akeino: 'teafany',
+	teafany: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('Trainer: Teafany / Akeino<br \>' +
+		'Ace: Cottonee<br \>' +
+		'Catchphrase: Give me a Popsicle and I\'ll sleep<br \>' +
+		'<img src="http://i.imgur.com/KoLuhhw.gif">')
+	},
+	
 	prizes: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('A list of prizes can be found <a href="http://frostserver.weebly.com/prizes-and-points.html">here</a>.')
@@ -1268,6 +1277,23 @@ var commands = exports.commands = {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('You can find the official Frost forum <a href="http://frostserver.forumotion.com/">here</a>.')
 	}, 
+	
+	mastersofthecolor: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('These are our current Masters of the Color!<br \>' +
+		'<font color="blue"><b>Blue</b></font color>: SkywardSword596<br \>' + 
+		'<font color="red"><b>Red</b></font color>: †Champion Lights†<br \>' +
+		'<font color="green"><b>Green</b></font color>: ✦E6✦ killerjays<br \>' +
+		'<font color="yellow"><b>Yellow</b></font color>/<font color="brown"><b>Brown</b></font color>: Sub Leader Isawa<br \>' +
+		'<font color="purple"><b>Purple</b></font color>/<font color="pink"><b>Pink</b></font color>: Cfrios13')
+	},
+       biblialeague: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('<font color="green"><b>The Biblia League</b></font color><br \>' +
+		'Champions of the Biblia League: †Champion Lights† and †Champion Maxerus†<br \>' + 
+		'Quote: Get \'Tinid<br \>' +
+		'<img src="http://dogasu.bulbagarden.net/movies/victini_zekrom_reshiram/pokemon/victini.png">')
+	},
        
 	/*********************************************************
 	 * Miscellaneous commands
