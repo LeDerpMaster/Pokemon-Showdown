@@ -117,6 +117,9 @@ var commands = exports.commands = {
 		if (!targetUser) {
 			return this.sendReply('User '+this.targetUsername+' not found.');
 		}
+		if (targetUser.userid === user.userid) {
+			return this.sendReply('Are you really trying to friend yourself?');
+		}
 		var data = fs.readFileSync('config/friends.csv','utf8')
 		var match = false;
 		var line = '';
