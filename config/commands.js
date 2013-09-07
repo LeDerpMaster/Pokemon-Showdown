@@ -1294,7 +1294,8 @@ var commands = exports.commands = {
 		this.sendReplyBox('<font color="green"><b>The Biblia League</b></font color><br \>' +
 		'Champions of the Biblia League: †Champion Lights† and †Champion Maxerus†<br \>' + 
 		'Quote: Get \'Tinid<br \>' +
-		'<img src="http://dogasu.bulbagarden.net/movies/victini_zekrom_reshiram/pokemon/victini.png">')
+		'Make sure to check out our website by clicking <a href="http://biblialeague.webs.com/">here</a>!<br \>' +
+		'<img src="http://i.imgur.com/7Nh6wHP.png?1">')
 	},
        
 	/*********************************************************
