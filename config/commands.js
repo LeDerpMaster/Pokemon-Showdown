@@ -1495,6 +1495,14 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/buy [item] - buys the specified item, assuming you have enough money');
 		}
+		if (target === 'addfriend') {
+			matched = true;
+			this.sendReply('/addfriend [user] - adds the specified user to your friends list');
+		}
+		if (target === 'removefriend') {
+			matched = true;
+			this.sendReply('/removefriend [user] - removes the specified user from your friends list');
+		}
 		if (target === 'all' || target === 'join') {
 			matched = true;
 			this.sendReply('/join [roomname] - Attempts to join the room [roomname].');
