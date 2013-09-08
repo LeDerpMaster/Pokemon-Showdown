@@ -46,6 +46,7 @@ exports.tour = function(t) {
 				tier: undefined,
 				size: 0,
 				roundNum: 0,
+				usergroup: '',
 				players: new Array(),
 				winners: new Array(),
 				losers: new Array(),
@@ -538,7 +539,7 @@ var cmds = {
 		tour[rid].tier = tempTourTier;
 		tour[rid].size = targets[1];
 		tour[rid].status = 1;
-		tour[rid].players = new Array();	
+		tour[rid].players = new Array();
 
 		Rooms.rooms[rid].addRaw('<hr /><h2><font color="green">' + sanitize(user.name) + ' has started a ' + Tools.data.Formats[tempTourTier].name + ' Tournament.</font> <font color="red">/j</font> <font color="green">to join!</font></h2><b><font color="blueviolet">PLAYERS:</font></b> ' + targets[1] + '<br /><font color="blue"><b>TIER:</b></font> ' + Tools.data.Formats[tempTourTier].name + '<hr />');
 		if (tour.timers[rid]) Rooms.rooms[rid].addRaw('<i>The tournament will begin in ' + tour.timers[rid].time + ' minute' + (tour.timers[rid].time == 1 ? '' : 's') + '.<i>');
@@ -1051,6 +1052,7 @@ var cmds = {
 		var answers = answers.join(',').toLowerCase().split(',');
 		tour[room.id].question = question;
 		tour[room.id].answerList = answers;
+		tour[room.id].usergroup = user.group;
 		room.addRaw('<div class="infobox"><h2>' + tour[room.id].question + separacion + '<font size=2 color = "#939393"><small>/vote OPTION<br /><i><font size=1>Poll started by '+user.name+'</font size></i></small></font></h2><hr />' + separacion + separacion + " &bull; " + tour[room.id].answerList.join(' &bull; ') + '</div>');
 	},
 	
@@ -1073,6 +1075,7 @@ var cmds = {
 	endpoll: function(target, room, user) {
 		if (!tour.lowauth(user,room)) return this.sendReply('You do not have enough authority to use this command.');
 		if (!tour[room.id].question) return this.sendReply('There is no poll to end in this room.');
+		if (tour[room.id].usergroup > user.group) return this.sendReply('You cannot end this poll as it was started by a user of higher auth than you.');
 		var votes = Object.keys(tour[room.id].answers).length;
 		if (votes == 0) return room.addRaw("<h3>The poll was canceled because of lack of voters.</h3>");
 		var options = new Object();
