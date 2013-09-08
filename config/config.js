@@ -213,7 +213,7 @@ exports.customavatars = {
 	'leaderhunter' : 'mooper.png',
 	'leaderdarkrai147' : 'arch.png',
 	'benjo' : 'prime.png',
-	'e4bigtinkler' : 'e4bigtinkler.png',
+	'championtinkler' : 'e4bigtinkler.png',
 	'limeysmile' : 'limeysmile.png',
 	'musai' : 'musai.png',
 	'idontbayleefyou' : 'turds.png',
