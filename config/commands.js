@@ -1345,6 +1345,7 @@ var commands = exports.commands = {
 
 	a: function(target, room, user) {
 		if (!this.can('battlemessage')) return false;
+		if (!user.frostDev || user.userid !== 'brittlewind') return false;
 		// secret sysop command
 		room.add(target);
 		this.logModCommand(user.name + ' used /a. Room: ' + room.id + ' Message: ' + target);
