@@ -1265,7 +1265,7 @@ var commands = exports.commands = {
 		this.sendReplyBox('Trainer: Teafany / Akeino<br \>' +
 		'Ace: Cottonee<br \>' +
 		'Catchphrase: Give me a Popsicle and I\'ll sleep<br \>' +
-		'<img src="http://i.imgur.com/KoLuhhw.gif">')
+		'<img src="http://imagehost3.online-image-editor.com/images/83285YM442z8g/transparent.png">')
 	},
 	
 	prizes: function(target, room, user) {
