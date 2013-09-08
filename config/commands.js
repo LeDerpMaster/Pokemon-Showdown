@@ -268,9 +268,15 @@ var commands = exports.commands = {
 	},
 	
 	s: function(target, room, user){
-		if(!target) return this.sendReply('/spnank needs a target.');
+		if(!target) return this.sendReply('/spank needs a target.');
 		return this.parse('/me spanks ' + target + '!');
 	},
+	
+	gurl: function(target, room, user){
+		if(!target) return this.sendReply('/sass needs a target.');
+		return this.parse('/me sasses ' + target + '!');
+	},
+
 
 
 	/*********************************************************
