@@ -1155,6 +1155,28 @@ var commands = exports.commands = {
 			Rooms.global.writeChatRoomData();
 		}
 	},
+	
+	lockroom: function(target, room, user) {
+		if (!room.auth) {
+			return this.sendReply("Only unofficial chatrooms can be locked.");
+		}
+		if (!room.auth[user.userid] === '#' && user.group != '~') {
+			return this.sendReply('/lockroom - Access denied.');
+		}
+		room.lockedRoom = true;
+		this.add(user.name + ' has locked the room.');
+	},
+	
+	unlockroom: function(target, room, user) {
+		if (!room.auth) {
+			return this.sendReply("Only unofficial chatrooms can be unlocked.");
+		}
+		if (!room.auth[user.userid] === '#' && user.group != '~') {
+			return this.sendReply('/unlockroom - Access denied.');
+		}
+		room.lockedRoom = false;
+		this.add(user.name + ' has unlocked the room.');
+	},
 
 	autojoin: function(target, room, user, connection) {
 		Rooms.global.autojoinRooms(user, connection)
@@ -1178,6 +1200,11 @@ var commands = exports.commands = {
 		}
 		if (!user.joinRoom(targetRoom || room, connection)) {
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
+		}
+		if (targetRoom.lockedRoom === true) {
+			if ((!targetRoom.auth[user.userid]) && (!user.isStaff)) {
+				return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' is currently locked.");
+			}
 		}
 		if (target.toLowerCase() == "lobby") {
 			return connection.sendTo('lobby','|html|<div class="infobox" style="border-color:blue"><center><b><u>Welcome to the Frost Server!</u></b></center><br /> ' +
